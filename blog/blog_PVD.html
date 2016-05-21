@@ -6,13 +6,14 @@
 -->
 <html lang="zh-cn">
 	<head>
-		<title>Blog</title>
+		<title>STM32L051 PVD的调试</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="../assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+
 	</head>
 	<body>
 		<div id="page-wrapper">
@@ -40,25 +41,37 @@
 				<div id="main" class="wrapper style1">
 					<div class="container">
 						<header class="major">
-							<h2>我的blog</h2>
-							<p>和大家分享平时调试时的心得和经验，也欢迎大家参与谈论
-							<br>邮箱：454626653@qq.com
-							</p>
+							<h2>STM32L051 PVD的调试</h2>
 						</header>
 
 						<!-- Content -->
 							<section id="content">
-								<h3>blog list</h3>
-								<p>我的所有例程中，带硬件平台的程序使用的是KEIL开发环境，不带硬件的程序使用的是code blocks</p>
-								<ul>
-									<li><a href="./blog_PVD.html">STM32L051 PVD调试心得</a></li>
-									<li><a href="#">STM32 GPIO 模拟 I2C </a></li>
-									<li><a href="#">mpu9250 九轴姿态传感器</a></li>
-									<li><a href="#">对STM32 Cube库 串口的重新封装</a></li>
-									<li><a href="#">建立循环栈结构（后进先出，从头覆盖）</a></li>
-									<li><a href="#">简易的内存管理机制（将堆分块管理）</a></li>
-									<!-- <li>Lacinia mattis arcu nascetur lobortis.</li> -->
-								</ul>
+								<p>我的PVD的驱动以及例程位于<a href="https://github.com/AnswerInTheWind/STM32L0xx_Drivers">STM32L0xx_Drivers</a>这个库当中，在使用前最好先阅读readme.md文件</p>
+
+								<p>PVD 是一种检测MCU供电情况的技术。当供电电压高于或者低于一定阈值的时候，可以在寄存器上体现出来，或者直接产生硬件中断。
+									<br>
+									<br>在实际使用MCU时，特别是电池供电的方案中，往往会遇到供电不够导致MCU或者外设工作不正常的情况。PVD在这个时候就可以派上用场了。
+									<br>
+									<br>PVD的使用按照数据手册上的说明，就是首先设置PVD阈值（PVD thresholds），当MCU的VDD引脚的电压高于阈值时，则PVD output=1，当VDD电压低于阈值时，PVD output=0，如下图所示：
+									<br><div class="12u$"><span class="image fit"><img src="pvd_image/pvd_1.png" alt="" /></span></div>
+									<br>其中PVD output的结果可以再在存器中查看到 
+									<div><div class="12u$"><span class="image fit"><img src="pvd_image/pvd_4.png" alt="" /></span></div><!-- <img src="pvd_image/pvd_4.png" alt="" "></div> -->
+									<div><div class="12u$"><span class="image fit"><img src="pvd_image/pvd_3.png" alt="" /></span></div><!-- <img src="pvd_image/pvd_3.png" alt="" "></div> -->
+									<br>关于PVD的阈值的设定共有两种方式：
+									<br>
+										<ul>
+											<li>固定阈值(1.9V 2.1V 2.3V 2.5V 2.7V 2.9V 3.1V)</li>
+											<li>与引脚比较（PB7）</li>
+										</ul>
+									<br>在实际使用的过程中,PVD可以用查询挥着中断的方式来工作。
+								</p>
+
+								<P>
+									在测试的例程中，我配置PVD工作方式为中断上升下降沿触发，当VDD高于预设PVD阈值或者低于阈值而产生边沿触发时，都会形成一次PVD中断，然后读取PWR_CSR的PVDO标志位检查是低电压提醒还是高电压提醒，以此来达到监控MCU供电情况的目的。
+									<br><br>注意：当使用PVD功能检测低电压时，VDD电压刚刚小于阈值时并不会直接产生PVD中断，只有当VDD电压小于（阈值-50MV）时，才会产生中断。
+								</P>
+
+								<p>如果有什么疑问或者错误欢迎大家指正，email:<a href="mailto:454626653@qq.com">454626653@qq.com</a></p>
 							</section>
 
 					</div>
