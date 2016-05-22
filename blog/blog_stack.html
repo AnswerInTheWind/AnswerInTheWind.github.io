@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<!--
+	Landed by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="zh-cn">
+	<head>
+		<title>stack frame</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<h1 id="logo"><a href="https://github.com/AnswerInTheWind">AnswerInTheWind</a></h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="../index.html">Home</a></li>
+							<li><a href="./blogindex.html">blog</a></li>
+							<li>
+								<a href="../Repositories.html">Repositories</a>
+								<ul>
+									<li><a href="https://github.com/AnswerInTheWind/STM32L0xx_Drivers">STM32L0xx_Drivers</a></li>
+									<li><a href="https://github.com/AnswerInTheWind/STM32F1xx_Drivers">STM32F1xx_Drivers</a></li>
+									<li><a href="https://github.com/AnswerInTheWind/Data_Structure">Data_Structure</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Main -->
+				<div id="main" class="wrapper style1">
+					<div class="container">
+						<header class="major">
+							<h2>以帧为存储单位的循环stack存储结构的设计</h2>
+						</header>
+
+						<!-- Content -->
+							<section id="content">
+									<p>我的stack frame的src以及例程位于<a href="https://github.com/AnswerInTheWind/Data_Structure">Data_Structure</a>这个库当中，在使用前最好先阅读readme.md文件</p>
+
+									<p>为了配合项目的需要，我构造了一个循环的stack，stack是一种后进先出的存储结构，在实际中使用这种存储结构，可以使保证最新的数据拥有最高优先级。
+									<br>在物联网的系统中，往往需要获取传感器的最新的状态，所以传输传感器的最新状态往往比传送之前的状态更有意义。
+									<br>其中我对stack以及frame的构造的代码如下：					
+<pre><code>typedef struct Frame
+{
+	uint8_t frame_len;//帧的字节数
+	uint8_t frame_data[MAX_TRANSMISSION_UINT];//帧的存储空间
+}Frame;
+
+typedef struct STACK
+{
+	int8_t frame_lastNum;//最近的帧的序号
+	uint8_t frame_count;//stack中的帧的个数
+	Frame frame_info[MAX_STACK_FRAME_NUM];//最多允许存储MAX_STACK_FRAME_NUM帧，MAX_STACK_FRAME_NUM当前为10
+}STACK;</code></pre>
+
+									<h4>首先构造了一个stack，stack包含两个内容:</h4>
+									<ol>
+										<li>stack的统计信息：stack中frame的个数，最新的帧的ID；</li>
+										<li>数据存储区,所有帧的数据存放区域；</li>
+									</ol>
+									<h4>然后，frame的构造也包含了两个部分：</h4>
+									<ol>
+										<li>此frame中的数据存储区中的有效数据的字节数；</li>
+										<li>数据存储区，此帧的数据存放区域；</li>
+									</ol>
+								</p>
+
+								<p>循环意味着此stack并非标准的stack，没有栈顶限制，当栈满了，仍然有数据进入时，数据从帧底开始存储，相当于栈底的原来的数据会被覆盖掉，也就没了栈越界的危险。</p>
+
+								<p>
+									<h4>此数据结构的优点就是：</h4>
+									<ol>
+										<li>永远是最新的数据被最优先处理；</li>
+										<li>没有栈越界的危险，在嵌入式或者其他队稳定性要求较高的环境中，可靠，不会因为数据过多出现指针异常导致崩溃的情况出现；</li>
+										<li>在海量数据涌来但无法全部进行处理的时候，选择最新的数据保存，进行处理，保证了数据的实时性；</li>
+									</ol>
+
+									<h4>同样的，此数据结构也有明显的缺点：</h4>
+									<ol>
+										<li>如果处理速度慢，较早的未处理的数据被覆盖就再也无法找回了；</li>
+										<li>由于stack中frame的存储空间是静态分配的，而不是在运行时动态分配的，若frame的负载情况远远小于MTU，则会出现大量空间被浪费的情况；</li>
+									</ol>
+								</p>
+								<p><br>在最后，此例程中还写了一个拼包的机制，代码如下
+<pre><code>//将stack中的数据进行拼包,在不造成断包的情况下最大限度地拼包
+uint8_t SpliceFrame(uint8_t* dest)
+{
+    uint8_t Splice_len = 0;
+
+    Splice_len = 0;
+
+    while(1)
+    {
+        if((Splice_len +Stack_GetFrameLastNum()) <= MAX_TRANSMISSION_UINT)//确保当前数据加下一帧数据不会超过最大单帧负载量
+        {
+            Splice_len +=Stack_PopData(dest+Splice_len);//
+            if(Stack_GetFrameCount() == 0)//当前融合的帧的数量小于stack中保存的帧的数量
+               break;
+        }
+        else
+        {
+            break;
+        }
+    }
+    return Splice_len;
+}</code></pre>
+								<br>从程序中可见，此拼包的机制就是在MTU的限制内，在不造成断包的情况下，最大限度的地将stack中已经已有的数据包进行拼包，打包成一个较长的数据包进行处理。此拼包机制在无线网络中可以大大提高无线信道的传输效率。具体的测试情况可以查看源代码。
+								</p>
+								<p>如果有什么疑问或者错误欢迎大家指正，email:<a href="mailto:454626653@qq.com">454626653@qq.com</a></p>
+
+							</section>
+
+					</div>
+				</div>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
+						<li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/jquery.dropotron.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/skel.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
