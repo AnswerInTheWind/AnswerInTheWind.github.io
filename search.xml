@@ -19,7 +19,7 @@ typedef struct STACK
 {
     int8_t frame_lastNum;//最近的帧的序号
     uint8_t frame_count;//stack中的帧的个数
-    Frame frame_info[MAX_STACK_FRAME_NUM];//最多允许存储MAX_STACK_FRAME_NUM帧，MAX_STACK_FRAME_NUM当前为10
+    Frame frame_info[MAX_STACK_FRAME_NUM];//最多允许存储MAX_STACK_FRAME_NUM帧
 }STACK;
 </code></pre><p>首先构造了一个stack，stack包含两个内容:</p>
 <ol>
@@ -52,7 +52,8 @@ uint8_t SpliceFrame(uint8_t* dest)
 
     while(1)
     {
-        if((Splice_len +Stack_GetFrameLastNum()) &lt;= MAX_TRANSMISSION_UINT)//确保当前数据加下一帧数据不会超过最大单帧负载量(MTU)
+        //确保当前数据加下一帧数据不会超过最大单帧负载量(MTU)
+        if((Splice_len +Stack_GetFrameLastNum()) &lt;= MAX_TRANSMISSION_UINT)
         {
             Splice_len +=Stack_PopData(dest+Splice_len);//
             if(Stack_GetFrameCount() == 0)//当前融合的帧的数量小于stack中保存的帧的数量

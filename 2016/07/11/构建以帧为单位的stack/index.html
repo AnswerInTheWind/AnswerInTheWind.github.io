@@ -94,7 +94,7 @@ stack构造及">
 <meta property="og:description" content="我的stack frame的src以及例程位于stack_FrameTest这个库当中，在使用前最好先阅读readme.md文件
 为了配合项目的需要，我构造了一个循环的stack，stack是一种后进先出的存储结构，在实际中使用这种存储结构，可以使保证最新的数据拥有最高优先级。在物联网的系统中，往往需要获取传感器的最新的状态，所以传输传感器的最新状态往往比传送之前的状态更有意义。
 stack构造及">
-<meta property="og:updated_time" content="2016-07-11T14:10:10.335Z">
+<meta property="og:updated_time" content="2016-07-11T15:59:58.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="以帧为存储单位的循环stack存储结构的设计">
 <meta name="twitter:description" content="我的stack frame的src以及例程位于stack_FrameTest这个库当中，在使用前最好先阅读readme.md文件
@@ -373,7 +373,7 @@ typedef struct STACK
 {
     int8_t frame_lastNum;//最近的帧的序号
     uint8_t frame_count;//stack中的帧的个数
-    Frame frame_info[MAX_STACK_FRAME_NUM];//最多允许存储MAX_STACK_FRAME_NUM帧，MAX_STACK_FRAME_NUM当前为10
+    Frame frame_info[MAX_STACK_FRAME_NUM];//最多允许存储MAX_STACK_FRAME_NUM帧
 }STACK;
 </code></pre><p>首先构造了一个stack，stack包含两个内容:</p>
 <ol>
@@ -406,7 +406,8 @@ uint8_t SpliceFrame(uint8_t* dest)
 
     while(1)
     {
-        if((Splice_len +Stack_GetFrameLastNum()) &lt;= MAX_TRANSMISSION_UINT)//确保当前数据加下一帧数据不会超过最大单帧负载量(MTU)
+        //确保当前数据加下一帧数据不会超过最大单帧负载量(MTU)
+        if((Splice_len +Stack_GetFrameLastNum()) &lt;= MAX_TRANSMISSION_UINT)
         {
             Splice_len +=Stack_PopData(dest+Splice_len);//
             if(Stack_GetFrameCount() == 0)//当前融合的帧的数量小于stack中保存的帧的数量
