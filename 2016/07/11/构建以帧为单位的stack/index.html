@@ -94,7 +94,7 @@ stack构造及">
 <meta property="og:description" content="我的stack frame的src以及例程位于stack_FrameTest这个库当中，在使用前最好先阅读readme.md文件
 为了配合项目的需要，我构造了一个循环的stack，stack是一种后进先出的存储结构，在实际中使用这种存储结构，可以使保证最新的数据拥有最高优先级。在物联网的系统中，往往需要获取传感器的最新的状态，所以传输传感器的最新状态往往比传送之前的状态更有意义。
 stack构造及">
-<meta property="og:updated_time" content="2016-07-11T15:59:58.202Z">
+<meta property="og:updated_time" content="2016-07-11T16:24:04.543Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="以帧为存储单位的循环stack存储结构的设计">
 <meta name="twitter:description" content="我的stack frame的src以及例程位于stack_FrameTest这个库当中，在使用前最好先阅读readme.md文件
@@ -362,20 +362,8 @@ stack构造及">
       
         <p>我的stack frame的src以及例程位于<a href="https://github.com/AnswerInTheWind/Data_Structure/tree/master/stack_FrameTest" target="_blank" rel="external">stack_FrameTest</a>这个库当中，在使用前最好先阅读readme.md文件</p>
 <p>为了配合项目的需要，我构造了一个循环的stack，stack是一种后进先出的存储结构，在实际中使用这种存储结构，可以使保证最新的数据拥有最高优先级。<br>在物联网的系统中，往往需要获取传感器的最新的状态，所以传输传感器的最新状态往往比传送之前的状态更有意义。</p>
-<h2 id="stack构造及代码实现"><a href="#stack构造及代码实现" class="headerlink" title="stack构造及代码实现"></a>stack构造及代码实现</h2><p>其中我对stack以及frame的构造的代码如下：                    </p>
-<pre><code>typedef struct Frame
-{
-    uint8_t frame_len;//帧的字节数
-    uint8_t frame_data[MAX_TRANSMISSION_UINT];//帧的存储空间
-}Frame;
-
-typedef struct STACK
-{
-    int8_t frame_lastNum;//最近的帧的序号
-    uint8_t frame_count;//stack中的帧的个数
-    Frame frame_info[MAX_STACK_FRAME_NUM];//最多允许存储MAX_STACK_FRAME_NUM帧
-}STACK;
-</code></pre><p>首先构造了一个stack，stack包含两个内容:</p>
+<h2 id="stack构造及代码实现"><a href="#stack构造及代码实现" class="headerlink" title="stack构造及代码实现"></a>stack构造及代码实现</h2><p>其中我对stack以及frame的构造的代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Frame</div><div class="line">&#123;</div><div class="line">	<span class="keyword">uint8_t</span> frame_len;<span class="comment">//帧的字节数</span></div><div class="line">	<span class="keyword">uint8_t</span> frame_data[MAX_TRANSMISSION_UINT];<span class="comment">//帧的存储空间</span></div><div class="line">&#125;Frame;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> STACK</div><div class="line">&#123;</div><div class="line">	<span class="keyword">int8_t</span> frame_lastNum;<span class="comment">//最近的帧的序号</span></div><div class="line">	<span class="keyword">uint8_t</span> frame_count;<span class="comment">//stack中的帧的个数</span></div><div class="line">	Frame frame_info[MAX_STACK_FRAME_NUM];<span class="comment">//最多允许存储MAX_STACK_FRAME_NUM帧</span></div><div class="line">&#125;STACK;</div></pre></td></tr></table></figure></p>
+<p>首先构造了一个stack，stack包含两个内容:</p>
 <ol>
 <li>stack的统计信息：stack中帧的个数，最新的帧的ID；</li>
 <li>数据存储区,所有帧的数据存放区域；</li>
@@ -396,31 +384,8 @@ typedef struct STACK
 <li>由于stack中frame的存储空间是静态分配的，而不是在运行时动态分配的，若frame的负载情况远远小于MTU，则会出现大量空间被浪费的情况；</li>
 </ol>
 <h2 id="拼包机制"><a href="#拼包机制" class="headerlink" title="拼包机制"></a>拼包机制</h2><p>在最后，此例程中还写了一个拼包的机制，代码如下</p>
-<pre><code>//将stack中的数据进行拼包,在不造成断包的情况下最大限度地拼包
-
-uint8_t SpliceFrame(uint8_t* dest)
-{
-    uint8_t Splice_len = 0;
-
-    Splice_len = 0;
-
-    while(1)
-    {
-        //确保当前数据加下一帧数据不会超过最大单帧负载量(MTU)
-        if((Splice_len +Stack_GetFrameLastNum()) &lt;= MAX_TRANSMISSION_UINT)
-        {
-            Splice_len +=Stack_PopData(dest+Splice_len);//
-            if(Stack_GetFrameCount() == 0)//当前融合的帧的数量小于stack中保存的帧的数量
-               break;
-        }
-        else
-        {
-            break;
-        }
-    }
-    return Splice_len;
-}
-</code></pre><p>从程序中可见，此拼包的机制就是在MTU的限制内，在不造成断包的情况下，最大限度的地将stack中已经已有的数据包进行拼包，打包成一个较长的数据包进行处理。此拼包机制在无线网络中可以大大提高无线信道的传输效率。具体的测试情况可以查看源代码。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//将stack中的数据进行拼包,在不造成断包的情况下最大限度地拼包</span></div><div class="line"><span class="keyword">uint8_t</span> SpliceFrame(<span class="keyword">uint8_t</span>* dest)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">uint8_t</span> Splice_len = <span class="number">0</span>;</div><div class="line"></div><div class="line">    Splice_len = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</div><div class="line">    &#123;</div><div class="line">		<span class="comment">//确保当前数据加下一帧数据不会超过最大单帧负载量(MTU)</span></div><div class="line">        <span class="keyword">if</span>((Splice_len +Stack_GetFrameLastNum()) &lt;= MAX_TRANSMISSION_UINT)</div><div class="line">        &#123;</div><div class="line">            Splice_len +=Stack_PopData(dest+Splice_len);<span class="comment">//</span></div><div class="line">            <span class="keyword">if</span>(Stack_GetFrameCount() == <span class="number">0</span>)<span class="comment">//当前融合帧的数量小于stack中已存帧的数量</span></div><div class="line">               <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> Splice_len;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从程序中可见，此拼包的机制就是在MTU的限制内，在不造成断包的情况下，最大限度的地将stack中已经已有的数据包进行拼包，打包成一个较长的数据包进行处理。此拼包机制在无线网络中可以大大提高无线信道的传输效率。具体的测试情况可以查看源代码。</p>
 <p>如果有什么疑问或者错误欢迎大家指正，欢迎大家评论或者提出issues.</p>
 
       
