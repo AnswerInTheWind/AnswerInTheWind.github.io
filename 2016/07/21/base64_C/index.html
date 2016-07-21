@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="首先谢谢这位大神的github,再谢谢这位大声分享的base64的C语言实现代码，库的地址在这里base。
-其中提供的接口非常的简单明了123456#define BASE64_ENCODE_OUT_SIZE(s)	(((s) + 2) / 3 * 4)#define BASE64_DECODE_OUT_SIZE(s)	(((s)) / 4 * 3)int base64_encode(const">
+<meta name="description" content="首先谢谢这位大神的github,再谢谢这位大神分享的base64的C语言实现代码，库的地址在这里base64。
+其中提供的接口非常的简单明了123456#define BASE64_ENCODE_OUT_SIZE(s)	(((s) + 2) / 3 * 4)#define BASE64_DECODE_OUT_SIZE(s)	(((s)) / 4 * 3)int base64_encode(cons">
 <meta property="og:type" content="article">
 <meta property="og:title" content="base64的C语言实现">
 <meta property="og:url" content="http://yoursite.com/2016/07/21/base64_C/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="首先谢谢这位大神的github,再谢谢这位大声分享的base64的C语言实现代码，库的地址在这里base。
-其中提供的接口非常的简单明了123456#define BASE64_ENCODE_OUT_SIZE(s)	(((s) + 2) / 3 * 4)#define BASE64_DECODE_OUT_SIZE(s)	(((s)) / 4 * 3)int base64_encode(const">
-<meta property="og:updated_time" content="2016-07-13T08:05:11.356Z">
+<meta property="og:description" content="首先谢谢这位大神的github,再谢谢这位大神分享的base64的C语言实现代码，库的地址在这里base64。
+其中提供的接口非常的简单明了123456#define BASE64_ENCODE_OUT_SIZE(s)	(((s) + 2) / 3 * 4)#define BASE64_DECODE_OUT_SIZE(s)	(((s)) / 4 * 3)int base64_encode(cons">
+<meta property="og:updated_time" content="2016-07-21T13:16:50.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="base64的C语言实现">
-<meta name="twitter:description" content="首先谢谢这位大神的github,再谢谢这位大声分享的base64的C语言实现代码，库的地址在这里base。
-其中提供的接口非常的简单明了123456#define BASE64_ENCODE_OUT_SIZE(s)	(((s) + 2) / 3 * 4)#define BASE64_DECODE_OUT_SIZE(s)	(((s)) / 4 * 3)int base64_encode(const">
+<meta name="twitter:description" content="首先谢谢这位大神的github,再谢谢这位大神分享的base64的C语言实现代码，库的地址在这里base64。
+其中提供的接口非常的简单明了123456#define BASE64_ENCODE_OUT_SIZE(s)	(((s) + 2) / 3 * 4)#define BASE64_DECODE_OUT_SIZE(s)	(((s)) / 4 * 3)int base64_encode(cons">
 
 
 
@@ -357,7 +357,7 @@
       
 
       
-        <p>首先谢谢这位大神的<a href="https://github.com/zhicheng" target="_blank" rel="external">github</a>,再谢谢这位大声分享的base64的C语言实现代码，库的地址在这里<a href="https://github.com/zhicheng/base64" target="_blank" rel="external">base</a>。</p>
+        <p>首先谢谢这位大神的<a href="https://github.com/zhicheng" target="_blank" rel="external">github</a>,再谢谢这位大神分享的base64的C语言实现代码，库的地址在这里<a href="https://github.com/zhicheng/base64" target="_blank" rel="external">base64</a>。</p>
 <p>其中提供的接口非常的简单明了<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BASE64_ENCODE_OUT_SIZE(s)	(((s) + 2) / 3 * 4)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BASE64_DECODE_OUT_SIZE(s)	(((s)) / 4 * 3)</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">base64_encode</span><span class="params">(<span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *in, <span class="keyword">unsigned</span> <span class="keyword">int</span> inlen, <span class="keyword">char</span> *out)</span></span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">base64_decode</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *in, <span class="keyword">unsigned</span> <span class="keyword">int</span> inlen,<span class="keyword">char</span> *out)</span></span>;</div></pre></td></tr></table></figure></p>
 <p>但是其中有一个问题，base64_decode();函数在返回时并没有返回解码后的字节数，在使用上会存在不方便的情况。</p>
 <p>故，我把这个函数稍加修改之后,在解码之后返回解码数组的长度，在使用上就方便很多了，代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">base64_decode</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *in, <span class="keyword">unsigned</span> <span class="keyword">int</span> inlen, <span class="keyword">char</span> *out)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> i, j;</div><div class="line"></div><div class="line">	<span class="keyword">for</span> (i = j = <span class="number">0</span>; i &lt; inlen; i++) &#123;</div><div class="line">		<span class="keyword">int</span> c;</div><div class="line">		<span class="keyword">int</span> s = i % <span class="number">4</span>; 			<span class="comment">/* from 8/gcd(6, 8) */</span></div><div class="line"></div><div class="line">		<span class="keyword">if</span> (in[i] == <span class="string">'='</span>)</div><div class="line">			<span class="keyword">return</span> len;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (in[i] &lt; BASE64DE_FIRST || in[i] &gt; BASE64DE_LAST ||</div><div class="line">		    (c = base64de[in[i] - BASE64DE_FIRST]) == <span class="number">-1</span>)</div><div class="line">			<span class="keyword">return</span> len;</div><div class="line"></div><div class="line">		<span class="keyword">switch</span> (s) &#123;</div><div class="line">		<span class="keyword">case</span> <span class="number">0</span>:</div><div class="line">			out[j] = ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &lt;&lt; <span class="number">2</span>) &amp; <span class="number">0xFF</span>;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		<span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">			out[j++] += ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x3</span>;</div><div class="line">			<span class="comment">/* if not last char with padding */</span></div><div class="line">			<span class="keyword">if</span> (i &lt; (inlen - <span class="number">3</span>) || in[inlen - <span class="number">2</span>] != <span class="string">'='</span>)</div><div class="line">				out[j] = ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &amp; <span class="number">0xF</span>) &lt;&lt; <span class="number">4</span>;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		<span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">			out[j++] += ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &gt;&gt; <span class="number">2</span>) &amp; <span class="number">0xF</span>;</div><div class="line">			<span class="comment">/* if not last char with padding */</span></div><div class="line">			<span class="keyword">if</span> (i &lt; (inlen - <span class="number">2</span>) || in[inlen - <span class="number">1</span>] != <span class="string">'='</span>)</div><div class="line">				out[j] =  ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &amp; <span class="number">0x3</span>) &lt;&lt; <span class="number">6</span>;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		<span class="keyword">case</span> <span class="number">3</span>:</div><div class="line">			out[j++] += (<span class="keyword">unsigned</span> <span class="keyword">char</span>)c;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> j;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -402,6 +402,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/21/74HC165/" rel="prev" title="74HC165的级联以及MCU硬件SPI的通讯">
+                74HC165的级联以及MCU硬件SPI的通讯 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -492,7 +496,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -500,7 +504,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -509,7 +513,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="chenjunkui" />
+  <meta name="keywords" content="C,74HC165," />
 
 
 
@@ -84,16 +84,19 @@
 
 
 
-<meta name="description" content="Answer in the wind">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="概述74HC165作为常用的IO口扩展芯片，常用于并行IO口状态转串行数据。一块74HC165芯片可以连接8个IO口，将8个IO口状态转换成8位串行的数据传输给MCU。也就是说可以通过两个IO口获取到8个IO口的状态。在电路设计中，也经常将74HC165芯片级联使用。通过芯片的级联，可以达到2个IO口读取16个IO口状态（2片级联）的效果，甚至更多。
+由于74HC165的操作时序刚SPI的时序恰好">
+<meta property="og:type" content="article">
+<meta property="og:title" content="74HC165的级联以及MCU硬件SPI的通讯">
+<meta property="og:url" content="http://yoursite.com/2016/07/21/74HC165/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="Answer in the wind">
-<meta property="og:updated_time" content="2016-07-10T03:39:17.060Z">
+<meta property="og:description" content="概述74HC165作为常用的IO口扩展芯片，常用于并行IO口状态转串行数据。一块74HC165芯片可以连接8个IO口，将8个IO口状态转换成8位串行的数据传输给MCU。也就是说可以通过两个IO口获取到8个IO口的状态。在电路设计中，也经常将74HC165芯片级联使用。通过芯片的级联，可以达到2个IO口读取16个IO口状态（2片级联）的效果，甚至更多。
+由于74HC165的操作时序刚SPI的时序恰好">
+<meta property="og:updated_time" content="2016-07-21T13:13:21.665Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="Answer in the wind">
+<meta name="twitter:title" content="74HC165的级联以及MCU硬件SPI的通讯">
+<meta name="twitter:description" content="概述74HC165作为常用的IO口扩展芯片，常用于并行IO口状态转串行数据。一块74HC165芯片可以连接8个IO口，将8个IO口状态转换成8位串行的数据传输给MCU。也就是说可以通过两个IO口获取到8个IO口的状态。在电路设计中，也经常将74HC165芯片级联使用。通过芯片的级联，可以达到2个IO口读取16个IO口状态（2片级联）的效果，甚至更多。
+由于74HC165的操作时序刚SPI的时序恰好">
 
 
 
@@ -114,15 +117,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/21/74HC165/"/>
 
-  <title>
-  
-
-  
-    标签 | 陈均奎
-  
-</title>
+  <title> 74HC165的级联以及MCU硬件SPI的通讯 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -153,7 +150,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -266,16 +263,193 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-      <div class="tag-cloud">
-        <div class="tag-cloud-title">
-            目前共计 12 个标签
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                74HC165的级联以及MCU硬件SPI的通讯
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-21T21:01:14+08:00" content="2016-07-21">
+              2016-07-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/MCU外设/" itemprop="url" rel="index">
+                    <span itemprop="name">MCU外设</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/21/74HC165/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/74HC165/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/07/21/74HC165/" class="leancloud_visitors" data-flag-title="74HC165的级联以及MCU硬件SPI的通讯">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
         </div>
-        <div class="tag-cloud-tags">
-          <a href="/tags/74HC165/" style="font-size: 12px; color: #ccc">74HC165</a> <a href="/tags/C/" style="font-size: 30px; color: #111">C</a> <a href="/tags/JSON/" style="font-size: 12px; color: #ccc">JSON</a> <a href="/tags/MTU/" style="font-size: 12px; color: #ccc">MTU</a> <a href="/tags/PVD/" style="font-size: 12px; color: #ccc">PVD</a> <a href="/tags/STM32/" style="font-size: 12px; color: #ccc">STM32</a> <a href="/tags/base64/" style="font-size: 12px; color: #ccc">base64</a> <a href="/tags/stack/" style="font-size: 12px; color: #ccc">stack</a> <a href="/tags/单片机/" style="font-size: 12px; color: #ccc">单片机</a> <a href="/tags/拆包/" style="font-size: 12px; color: #ccc">拆包</a> <a href="/tags/拼包/" style="font-size: 12px; color: #ccc">拼包</a> <a href="/tags/数据结构/" style="font-size: 12px; color: #ccc">数据结构</a>
-        </div>
-      </div>
+      </header>
     
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>74HC165作为常用的IO口扩展芯片，常用于并行IO口状态转串行数据。一块74HC165芯片可以连接8个IO口，将8个IO口状态转换成8位串行的数据传输给MCU。也就是说可以通过两个IO口获取到8个IO口的状态。<br>在电路设计中，也经常将74HC165芯片级联使用。通过芯片的级联，可以达到2个IO口读取16个IO口状态（2片级联）的效果，甚至更多。</p>
+<p>由于74HC165的操作时序刚SPI的时序恰好相同，所以可以通过MCU的硬件SPI接口来操作74HC165芯片，这种通过MCU硬件接口来操作芯片的优点如下：</p>
+<ul>
+<li>硬件的SPI时钟速度高，STM32芯片舌诊可以达到20MHZ，这样获取IO口状态的速度快，实时性更强</li>
+<li>扫描周期更短，可以使用在一些判断IO口状态的应用中，如扫描是否有物体高速穿过</li>
+</ul>
+<h2 id="软件的实现思路"><a href="#软件的实现思路" class="headerlink" title="软件的实现思路"></a>软件的实现思路</h2><p>由于使用的是MCU的硬件SPI接口，所以程序和MCU的型号会有较大关系，在这里，我以STM32F103RCT6为例。</p>
+<p>步骤如下:</p>
+<ol>
+<li>将MCU的SPI复用IO口初始化</li>
+<li><p>配置SPI寄存器,示例代码如下：</p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">SPI_I2S_DeInit(SPI1);</div><div class="line">SPI_InitStructure.SPI_Direction=SPI_Direction_2Lines_FullDuplex;<span class="comment">// Receive-only mode</span></div><div class="line">SPI_InitStructure.SPI_Mode=SPI_Mode_Master;<span class="comment">// </span></div><div class="line">SPI_InitStructure.SPI_DataSize=SPI_DataSize_16b;<span class="comment">// Data word = 16 bit wide</span></div><div class="line">SPI_InitStructure.SPI_CPOL=SPI_CPOL_High;<span class="comment">// Clock default level = L</span></div><div class="line">SPI_InitStructure.SPI_CPHA=SPI_CPHA_1Edge;<span class="comment">// Latch on the first edge (rising from L)</span></div><div class="line">SPI_InitStructure.SPI_NSS=SPI_NSS_Soft;<span class="comment">// Software controls select SS signal, SS pin is GPIO</span></div><div class="line">SPI_InitStructure.SPI_BaudRatePrescaler=SPI_BaudRatePrescaler_4; <span class="comment">// SPI_BaudRatePrescaler_4</span></div><div class="line">SPI_InitStructure.SPI_FirstBit=SPI_FirstBit_LSB;<span class="comment">// MSB first</span></div><div class="line">SPI_InitStructure.SPI_CRCPolynomial=<span class="number">7</span>;<span class="comment">// No CRC required</span></div><div class="line">SPI_Init(SPI1, &amp;SPI_InitStructure);</div></pre></td></tr></table></figure>
+<p> 其中需要注意的是分频的值和数据位长度，由于这边是2片级联，所以使用的是16b</p>
+</li>
+<li><p>SPI读取，代码如下： </p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">GPIOC-&gt;BSRR = GPIO_Pin_5;<span class="comment">//片选选中</span></div><div class="line"></div><div class="line"><span class="keyword">while</span>((SPI1-&gt;SR &amp; SPI_I2S_FLAG_TXE) == <span class="number">0</span>);<span class="comment">//判断数据发送完成</span></div><div class="line">SPI1-&gt;DR = <span class="number">0xFFFF</span>;</div><div class="line"></div><div class="line"><span class="keyword">while</span>((SPI1-&gt;SR &amp; SPI_I2S_FLAG_RXNE) == <span class="number">0</span>);<span class="comment">//判断数据接受完成</span></div><div class="line">temp1 = SPI1-&gt;DR;</div><div class="line"></div><div class="line">GPIOC-&gt;BRR = GPIO_Pin_5;<span class="comment">//片选取消选中</span></div></pre></td></tr></table></figure>
+<p> 思路就是利用硬件的SPI时序以及SPI每写一位就会返回一位的特性，向74HC165芯片写入16bit的数据,便会在SPI寄存器中获取到两片级联的74HC165的状态。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag">#C</a>
+          
+            <a href="/tags/74HC165/" rel="tag">#74HC165</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/21/base64_C/" rel="next" title="base64的C语言实现">
+                <i class="fa fa-chevron-left"></i> base64的C语言实现
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/07/21/74HC165/"
+     data-title="74HC165的级联以及MCU硬件SPI的通讯"
+     data-content=""
+     data-url="http://yoursite.com/2016/07/21/74HC165/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
   </div>
 
 
@@ -286,8 +460,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="tags/index.html"
-           data-title="tags" data-url="http://yoursite.com/tags/index.html">
+      <div class="ds-thread" data-thread-key="2016/07/21/74HC165/"
+           data-title="74HC165的级联以及MCU硬件SPI的通讯" data-url="http://yoursite.com/2016/07/21/74HC165/">
       </div>
     
   </div>
@@ -311,8 +485,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -373,6 +556,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件的实现思路"><span class="nav-number">2.</span> <span class="nav-text">软件的实现思路</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -476,6 +670,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
