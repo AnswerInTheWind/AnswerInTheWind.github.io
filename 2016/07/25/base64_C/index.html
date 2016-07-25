@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="C,JSON," />
+  <meta name="keywords" content="C,base64," />
 
 
 
@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="cJSON库描述CJSON是一个用于解析JSON包的C语言库，库文件为cJSON.c和cJSON.h，所有的实现都在这两个文件中。原作者的地址cJSON。
-JSON包的解析例如有一个JSON的数据包如下：12345678910111213141516171819&amp;#123;    &quot;rxpk&quot;: [        &amp;#123;            &quot;tmst&quot;: 1868500100,">
+<meta name="description" content="首先谢谢这位大神的github,再谢谢这位大神分享的base64的C语言实现代码，库的地址在这里base64。
+其中提供的接口非常的简单明了123456#define BASE64_ENCODE_OUT_SIZE(s)	(((s) + 2) / 3 * 4)#define BASE64_DECODE_OUT_SIZE(s)	(((s)) / 4 * 3)int base64_encode(cons">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cJSON_json包的C语言解析库">
-<meta property="og:url" content="http://yoursite.com/2016/07/21/CJSON_JSON包的C语言解析库/index.html">
+<meta property="og:title" content="base64的C语言实现">
+<meta property="og:url" content="http://yoursite.com/2016/07/25/base64_C/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="cJSON库描述CJSON是一个用于解析JSON包的C语言库，库文件为cJSON.c和cJSON.h，所有的实现都在这两个文件中。原作者的地址cJSON。
-JSON包的解析例如有一个JSON的数据包如下：12345678910111213141516171819&amp;#123;    &quot;rxpk&quot;: [        &amp;#123;            &quot;tmst&quot;: 1868500100,">
-<meta property="og:updated_time" content="2016-07-12T05:34:32.512Z">
+<meta property="og:description" content="首先谢谢这位大神的github,再谢谢这位大神分享的base64的C语言实现代码，库的地址在这里base64。
+其中提供的接口非常的简单明了123456#define BASE64_ENCODE_OUT_SIZE(s)	(((s) + 2) / 3 * 4)#define BASE64_DECODE_OUT_SIZE(s)	(((s)) / 4 * 3)int base64_encode(cons">
+<meta property="og:updated_time" content="2016-07-24T05:10:43.692Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cJSON_json包的C语言解析库">
-<meta name="twitter:description" content="cJSON库描述CJSON是一个用于解析JSON包的C语言库，库文件为cJSON.c和cJSON.h，所有的实现都在这两个文件中。原作者的地址cJSON。
-JSON包的解析例如有一个JSON的数据包如下：12345678910111213141516171819&amp;#123;    &quot;rxpk&quot;: [        &amp;#123;            &quot;tmst&quot;: 1868500100,">
+<meta name="twitter:title" content="base64的C语言实现">
+<meta name="twitter:description" content="首先谢谢这位大神的github,再谢谢这位大神分享的base64的C语言实现代码，库的地址在这里base64。
+其中提供的接口非常的简单明了123456#define BASE64_ENCODE_OUT_SIZE(s)	(((s) + 2) / 3 * 4)#define BASE64_DECODE_OUT_SIZE(s)	(((s)) / 4 * 3)int base64_encode(cons">
 
 
 
@@ -117,9 +117,9 @@ JSON包的解析例如有一个JSON的数据包如下：123456789101112131415161
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/21/CJSON_JSON包的C语言解析库/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/25/base64_C/"/>
 
-  <title> cJSON_json包的C语言解析库 | 陈均奎 </title>
+  <title> base64的C语言实现 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -292,7 +292,7 @@ JSON包的解析例如有一个JSON的数据包如下：123456789101112131415161
             
             
               
-                cJSON_json包的C语言解析库
+                base64的C语言实现
               
             
           </h1>
@@ -304,8 +304,8 @@ JSON包的解析例如有一个JSON的数据包如下：123456789101112131415161
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T00:09:38+08:00" content="2016-07-21">
-              2016-07-21
+            <time itemprop="dateCreated" datetime="2016-07-25T16:59:56+08:00" content="2016-07-25">
+              2016-07-25
             </time>
           </span>
 
@@ -334,8 +334,8 @@ JSON包的解析例如有一个JSON的数据包如下：123456789101112131415161
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/21/CJSON_JSON包的C语言解析库/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/CJSON_JSON包的C语言解析库/" itemprop="commentsCount"></span>
+                <a href="/2016/07/25/base64_C/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/base64_C/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -345,7 +345,7 @@ JSON包的解析例如有一个JSON的数据包如下：123456789101112131415161
 
           
           
-             <span id="/2016/07/21/CJSON_JSON包的C语言解析库/" class="leancloud_visitors" data-flag-title="cJSON_json包的C语言解析库">
+             <span id="/2016/07/25/base64_C/" class="leancloud_visitors" data-flag-title="base64的C语言实现">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -367,23 +367,11 @@ JSON包的解析例如有一个JSON的数据包如下：123456789101112131415161
       
 
       
-        <h2 id="cJSON库描述"><a href="#cJSON库描述" class="headerlink" title="cJSON库描述"></a>cJSON库描述</h2><p>CJSON是一个用于解析JSON包的C语言库，库文件为cJSON.c和cJSON.h，<br>所有的实现都在这两个文件中。原作者的地址<a href="https://github.com/DaveGamble/cJSON" target="_blank" rel="external">cJSON</a>。</p>
-<h2 id="JSON包的解析"><a href="#JSON包的解析" class="headerlink" title="JSON包的解析"></a>JSON包的解析</h2><p>例如有一个JSON的数据包如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"rxpk"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"tmst"</span>: <span class="number">1868500100</span>,</div><div class="line">            <span class="string">"time"</span>: <span class="string">"2016-07-07T13:20:40.003906Z"</span>,</div><div class="line">            <span class="string">"chan"</span>: <span class="number">1</span>,</div><div class="line">            <span class="string">"rfch"</span>: <span class="number">0</span>,</div><div class="line">            <span class="string">"freq"</span>: <span class="number">779.7</span>,</div><div class="line">            <span class="string">"stat"</span>: <span class="number">1</span>,</div><div class="line">            <span class="string">"modu"</span>: <span class="string">"LORA"</span>,</div><div class="line">            <span class="string">"datr"</span>: <span class="string">"SF9BW125"</span>,</div><div class="line">            <span class="string">"codr"</span>: <span class="string">"4/5"</span>,</div><div class="line">            <span class="string">"lsnr"</span>: <span class="number">9.8</span>,</div><div class="line">            <span class="string">"rssi"</span>: <span class="number">-37</span>,</div><div class="line">            <span class="string">"size"</span>: <span class="number">83</span>,</div><div class="line">            <span class="string">"data"</span>: <span class="string">"QH/4iimAKgACB0KHP8e0IgQAhI0bBi9bvFfb8jHeSWEAhpnsCGHwt9pUCvrRMazQRBtN+kh3Ge5hFL8jUtHpk3luFtcTLlgGVMPSBLpSp8h6C44="</span></div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们需要获取其中的data字段，需要进行的过程如下：</p>
-<ol>
-<li><p>首先声明变量</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cJSON *json;</div><div class="line">cJSON *rxpk;		</div><div class="line">cJSON *arr0;</div><div class="line">cJSON *data;</div></pre></td></tr></table></figure>
-</li>
-<li><p>将上述的字符串进行解析,并保存在json中;</p>
-</li>
-<li>获取json其中的rxpk字段的内容，并保存在rxpk中;</li>
-<li>获取rxpk中的arr部分，拿出一种的第一个数组，并保存在arr0;</li>
-<li>获取arr0的data部分，并保存在data;</li>
-<li>使用data-&gt;valuestring即可获取其中的data字段的内容<br>具体的代码实现如下所示：<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">uint16_t</span> rxpk_data_get(<span class="keyword">char</span>* text,<span class="keyword">char</span>* dest_str)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">uint16_t</span> len = <span class="number">0</span>;</div><div class="line">    cJSON *json;</div><div class="line">    cJSON *data;</div><div class="line">    cJSON *arr0;</div><div class="line">    cJSON *rxpk;</div><div class="line"></div><div class="line">    json= cJSON_Parse(text);</div><div class="line">    <span class="keyword">if</span>(!json)<span class="comment">//对JSON包进行合法性检查</span></div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    rxpk = cJSON_GetObjectItem(json,<span class="string">"rxpk"</span>);</div><div class="line">    <span class="keyword">if</span>(!rxpk)<span class="comment">//对rxpk进行合法性检查</span></div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    arr0 = cJSON_GetArrayItem(rxpk,<span class="number">0</span>);</div><div class="line">    <span class="keyword">if</span>(!arr0)<span class="comment">//对arr0进行合法性检查</span></div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    data =cJSON_GetObjectItem(arr0,<span class="string">"data"</span>);</div><div class="line">    <span class="keyword">if</span>(!data)<span class="comment">//对data进行合法性检查</span></div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"></div><div class="line">    len = <span class="built_in">strlen</span>(data-&gt;valuestring);</div><div class="line">    <span class="built_in">memcpy</span>(dest_str,data-&gt;valuestring,len);</div><div class="line">    dest_str[len] = <span class="number">0</span>;</div><div class="line">    <span class="keyword">return</span> len;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>在json包中遇到数组时<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Returns the number of items in an array (or object). */</span></div><div class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span>	  <span class="title">cJSON_GetArraySize</span><span class="params">(cJSON *<span class="built_in">array</span>)</span></span>;</div></pre></td></tr></table></figure></p>
-<p>这个函数可以获取数组的长度。</p>
+        <p>首先谢谢这位大神的<a href="https://github.com/zhicheng" target="_blank" rel="external">github</a>,再谢谢这位大神分享的base64的C语言实现代码，库的地址在这里<a href="https://github.com/zhicheng/base64" target="_blank" rel="external">base64</a>。</p>
+<p>其中提供的接口非常的简单明了<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BASE64_ENCODE_OUT_SIZE(s)	(((s) + 2) / 3 * 4)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BASE64_DECODE_OUT_SIZE(s)	(((s)) / 4 * 3)</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">base64_encode</span><span class="params">(<span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *in, <span class="keyword">unsigned</span> <span class="keyword">int</span> inlen, <span class="keyword">char</span> *out)</span></span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">base64_decode</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *in, <span class="keyword">unsigned</span> <span class="keyword">int</span> inlen,<span class="keyword">char</span> *out)</span></span>;</div></pre></td></tr></table></figure></p>
+<p>但是其中有一个问题，base64_decode();函数在返回时并没有返回解码后的字节数，在使用上会存在不方便的情况。</p>
+<p>故，我把这个函数稍加修改之后,在解码之后返回解码数组的长度，在使用上就方便很多了，代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">base64_decode</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *in, <span class="keyword">unsigned</span> <span class="keyword">int</span> inlen, <span class="keyword">char</span> *out)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> i, j;</div><div class="line"></div><div class="line">	<span class="keyword">for</span> (i = j = <span class="number">0</span>; i &lt; inlen; i++) &#123;</div><div class="line">		<span class="keyword">int</span> c;</div><div class="line">		<span class="keyword">int</span> s = i % <span class="number">4</span>; 			<span class="comment">/* from 8/gcd(6, 8) */</span></div><div class="line"></div><div class="line">		<span class="keyword">if</span> (in[i] == <span class="string">'='</span>)</div><div class="line">			<span class="keyword">return</span> j;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (in[i] &lt; BASE64DE_FIRST || in[i] &gt; BASE64DE_LAST ||</div><div class="line">		    (c = base64de[in[i] - BASE64DE_FIRST]) == <span class="number">-1</span>)</div><div class="line">			<span class="keyword">return</span> j;</div><div class="line"></div><div class="line">		<span class="keyword">switch</span> (s) &#123;</div><div class="line">		<span class="keyword">case</span> <span class="number">0</span>:</div><div class="line">			out[j] = ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &lt;&lt; <span class="number">2</span>) &amp; <span class="number">0xFF</span>;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		<span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">			out[j++] += ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x3</span>;</div><div class="line">			<span class="comment">/* if not last char with padding */</span></div><div class="line">			<span class="keyword">if</span> (i &lt; (inlen - <span class="number">3</span>) || in[inlen - <span class="number">2</span>] != <span class="string">'='</span>)</div><div class="line">				out[j] = ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &amp; <span class="number">0xF</span>) &lt;&lt; <span class="number">4</span>;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		<span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">			out[j++] += ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &gt;&gt; <span class="number">2</span>) &amp; <span class="number">0xF</span>;</div><div class="line">			<span class="comment">/* if not last char with padding */</span></div><div class="line">			<span class="keyword">if</span> (i &lt; (inlen - <span class="number">2</span>) || in[inlen - <span class="number">1</span>] != <span class="string">'='</span>)</div><div class="line">				out[j] =  ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &amp; <span class="number">0x3</span>) &lt;&lt; <span class="number">6</span>;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		<span class="keyword">case</span> <span class="number">3</span>:</div><div class="line">			out[j++] += (<span class="keyword">unsigned</span> <span class="keyword">char</span>)c;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> j;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> input[] = <span class="string">"pleasure."</span>;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> decode[<span class="number">13</span>];</div><div class="line">	<span class="keyword">char</span> output[<span class="number">13</span>];</div><div class="line">	<span class="keyword">uint16_t</span> len_decode = <span class="number">0</span>;</div><div class="line">	bzero(output, <span class="keyword">sizeof</span>(output));</div><div class="line">	base64_encode(input, <span class="keyword">sizeof</span>(input) - <span class="number">1</span>, output);</div><div class="line">	len_decode = base64_decode(output, <span class="keyword">sizeof</span>(output) - <span class="number">1</span>, decode);</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -408,7 +396,7 @@ JSON包的解析例如有一个JSON的数据包如下：123456789101112131415161
           
             <a href="/tags/C/" rel="tag">#C</a>
           
-            <a href="/tags/JSON/" rel="tag">#JSON</a>
+            <a href="/tags/base64/" rel="tag">#base64</a>
           
         </div>
       
@@ -417,16 +405,16 @@ JSON包的解析例如有一个JSON的数据包如下：123456789101112131415161
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/11/构建以帧为单位的stack/" rel="next" title="以帧为存储单位的循环stack存储结构的设计">
-                <i class="fa fa-chevron-left"></i> 以帧为存储单位的循环stack存储结构的设计
+              <a href="/2016/07/25/74HC165/" rel="next" title="74HC165的级联以及MCU硬件SPI的通讯">
+                <i class="fa fa-chevron-left"></i> 74HC165的级联以及MCU硬件SPI的通讯
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/21/base64_C/" rel="prev" title="base64的C语言实现">
-                base64的C语言实现 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/07/25/CJSON_JSON包的C语言解析库/" rel="prev" title="cJSON_json包的C语言解析库">
+                cJSON_json包的C语言解析库 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -442,10 +430,10 @@ JSON包的解析例如有一个JSON的数据包如下：123456789101112131415161
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/07/21/CJSON_JSON包的C语言解析库/"
-     data-title="cJSON_json包的C语言解析库"
+        <div class="ds-share flat" data-thread-key="2016/07/25/base64_C/"
+     data-title="base64的C语言实现"
      data-content=""
-     data-url="http://yoursite.com/2016/07/21/CJSON_JSON包的C语言解析库/">
+     data-url="http://yoursite.com/2016/07/25/base64_C/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -472,8 +460,8 @@ JSON包的解析例如有一个JSON的数据包如下：123456789101112131415161
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/21/CJSON_JSON包的C语言解析库/"
-           data-title="cJSON_json包的C语言解析库" data-url="http://yoursite.com/2016/07/21/CJSON_JSON包的C语言解析库/">
+      <div class="ds-thread" data-thread-key="2016/07/25/base64_C/"
+           data-title="base64的C语言实现" data-url="http://yoursite.com/2016/07/25/base64_C/">
       </div>
     
   </div>
@@ -518,7 +506,7 @@ JSON包的解析例如有一个JSON的数据包如下：123456789101112131415161
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -535,7 +523,7 @@ JSON包的解析例如有一个JSON的数据包如下：123456789101112131415161
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -575,7 +563,7 @@ JSON包的解析例如有一个JSON的数据包如下：123456789101112131415161
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cJSON库描述"><span class="nav-number">1.</span> <span class="nav-text">cJSON库描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON包的解析"><span class="nav-number">2.</span> <span class="nav-text">JSON包的解析</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
