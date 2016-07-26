@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="IOT,LoRaWAN," />
+  <meta name="keywords" content="MPU9250,Sensor," />
 
 
 
@@ -84,37 +84,25 @@
 
 
 
-<meta name="description" content="LoRaWAN 分层LoRaWAN从底层到最后用户拿到数据的通讯过程通讯大致可分为三段：
-
-MOTE &amp;lt;—&amp;gt; GW (MAC层)
-GW &amp;lt;—&amp;gt; NS
-NS &amp;lt;—&amp;gt; Customer
-
-LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共同遵守的MAC层协议的前提下，不同硬件厂商的设备才能互相接入。
-而GW &amp;lt;—&amp;gt; NS以及NS &amp;">
+<meta name="description" content="MPU9250 芯片概述MPU9250芯片是一个9轴姿态传感芯片，其中包含了3轴加速度传感器、3轴角速度传感器以及三轴磁力计。其本质上是MPU6050芯片+AK8963。
+可以获取传感芯片的加速度、角速度、以及磁力值。
+角速度可以知芯片的转动速度，加速度可以知道芯片运动的距离、速度情况，而磁力计可以知道物芯片的运动方向。
+另外MPU9250芯片内置DMP姿态融合器，可以在不涉及算法的情况下，直接读">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LoRaWAN架构解析(一)">
-<meta property="og:url" content="http://yoursite.com/2016/07/25/LoRaWan架构解析/index.html">
+<meta property="og:title" content="MPU9250调试">
+<meta property="og:url" content="http://yoursite.com/2016/07/26/MPU9250调试/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="LoRaWAN 分层LoRaWAN从底层到最后用户拿到数据的通讯过程通讯大致可分为三段：
-
-MOTE &amp;lt;—&amp;gt; GW (MAC层)
-GW &amp;lt;—&amp;gt; NS
-NS &amp;lt;—&amp;gt; Customer
-
-LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共同遵守的MAC层协议的前提下，不同硬件厂商的设备才能互相接入。
-而GW &amp;lt;—&amp;gt; NS以及NS &amp;">
-<meta property="og:updated_time" content="2016-07-24T05:13:59.276Z">
+<meta property="og:description" content="MPU9250 芯片概述MPU9250芯片是一个9轴姿态传感芯片，其中包含了3轴加速度传感器、3轴角速度传感器以及三轴磁力计。其本质上是MPU6050芯片+AK8963。
+可以获取传感芯片的加速度、角速度、以及磁力值。
+角速度可以知芯片的转动速度，加速度可以知道芯片运动的距离、速度情况，而磁力计可以知道物芯片的运动方向。
+另外MPU9250芯片内置DMP姿态融合器，可以在不涉及算法的情况下，直接读">
+<meta property="og:updated_time" content="2016-07-26T03:05:35.123Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LoRaWAN架构解析(一)">
-<meta name="twitter:description" content="LoRaWAN 分层LoRaWAN从底层到最后用户拿到数据的通讯过程通讯大致可分为三段：
-
-MOTE &amp;lt;—&amp;gt; GW (MAC层)
-GW &amp;lt;—&amp;gt; NS
-NS &amp;lt;—&amp;gt; Customer
-
-LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共同遵守的MAC层协议的前提下，不同硬件厂商的设备才能互相接入。
-而GW &amp;lt;—&amp;gt; NS以及NS &amp;">
+<meta name="twitter:title" content="MPU9250调试">
+<meta name="twitter:description" content="MPU9250 芯片概述MPU9250芯片是一个9轴姿态传感芯片，其中包含了3轴加速度传感器、3轴角速度传感器以及三轴磁力计。其本质上是MPU6050芯片+AK8963。
+可以获取传感芯片的加速度、角速度、以及磁力值。
+角速度可以知芯片的转动速度，加速度可以知道芯片运动的距离、速度情况，而磁力计可以知道物芯片的运动方向。
+另外MPU9250芯片内置DMP姿态融合器，可以在不涉及算法的情况下，直接读">
 
 
 
@@ -135,9 +123,9 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/25/LoRaWan架构解析/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/26/MPU9250调试/"/>
 
-  <title> LoRaWAN架构解析(一) | 陈均奎 </title>
+  <title> MPU9250调试 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -310,7 +298,7 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
             
             
               
-                LoRaWAN架构解析(一)
+                MPU9250调试
               
             
           </h1>
@@ -322,8 +310,8 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T16:59:56+08:00" content="2016-07-25">
-              2016-07-25
+            <time itemprop="dateCreated" datetime="2016-07-26T00:00:00+08:00" content="2016-07-26">
+              2016-07-26
             </time>
           </span>
 
@@ -336,8 +324,8 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/IOT/" itemprop="url" rel="index">
-                    <span itemprop="name">IOT</span>
+                  <a href="/categories/MCU外设/" itemprop="url" rel="index">
+                    <span itemprop="name">MCU外设</span>
                   </a>
                 </span>
 
@@ -352,8 +340,8 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/25/LoRaWan架构解析/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/LoRaWan架构解析/" itemprop="commentsCount"></span>
+                <a href="/2016/07/26/MPU9250调试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/MPU9250调试/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -363,7 +351,7 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
 
           
           
-             <span id="/2016/07/25/LoRaWan架构解析/" class="leancloud_visitors" data-flag-title="LoRaWAN架构解析(一)">
+             <span id="/2016/07/26/MPU9250调试/" class="leancloud_visitors" data-flag-title="MPU9250调试">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -385,24 +373,24 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
       
 
       
-        <h2 id="LoRaWAN-分层"><a href="#LoRaWAN-分层" class="headerlink" title="LoRaWAN 分层"></a>LoRaWAN 分层</h2><p>LoRaWAN从底层到最后用户拿到数据的通讯过程通讯大致可分为三段：</p>
+        <h2 id="MPU9250-芯片概述"><a href="#MPU9250-芯片概述" class="headerlink" title="MPU9250 芯片概述"></a>MPU9250 芯片概述</h2><p>MPU9250芯片是一个9轴姿态传感芯片，其中包含了3轴加速度传感器、3轴角速度传感器以及三轴磁力计。<br>其本质上是MPU6050芯片+AK8963。</p>
+<p>可以获取传感芯片的加速度、角速度、以及磁力值。</p>
+<p>角速度可以知芯片的转动速度，加速度可以知道芯片运动的距离、速度情况，而磁力计可以知道物芯片的运动方向。</p>
+<p>另外MPU9250芯片内置DMP姿态融合器，可以在不涉及算法的情况下，直接读取出描述物体状态的四元数，从而得出物体的三维角度–航向角、翻滚角、俯仰角。</p>
+<h2 id="驱动程序的设计"><a href="#驱动程序的设计" class="headerlink" title="驱动程序的设计"></a>驱动程序的设计</h2><p>由于MPU9250芯片使用的是I2C接口，所以在这里，我首先需要I2C的驱动。</p>
+<p>在我的驱动中，I2C使用GPIO口模拟的，因为这样在以后移植时更加方便。</p>
+<p>在完成IOI2C的驱动之后，就是对MPU9250的寄存器进行操作，来成功获取传感数据。</p>
+<h2 id="MPU9250的寄存器操作"><a href="#MPU9250的寄存器操作" class="headerlink" title="MPU9250的寄存器操作"></a>MPU9250的寄存器操作</h2><p>操作MPU9250寄存器并且开启DMP模式，获取三维角度，其步骤如下：</p>
 <ol>
-<li>MOTE &lt;—&gt; GW (MAC层)</li>
-<li>GW &lt;—&gt; NS</li>
-<li>NS &lt;—&gt; Customer</li>
+<li>配置PWR_MGMT_1(一般为00，表示使用内部晶振20Mhz)</li>
+<li>设置采样频率</li>
+<li>设置量程（角速度、加速度量程）</li>
+<li>外部中断打开，并且配置成相应的工作方式</li>
+<li>开启DMP，以及FIFO</li>
 </ol>
-<p>LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共同遵守的MAC层协议的前提下，不同硬件厂商的设备才能互相接入。</p>
-<p>而GW &lt;—&gt; NS以及NS &lt;—&gt; Customer这两层的协议虽然LoRa联盟有所规范，但不同厂商之间可能会存在不同。</p>
-<h2 id="应用分析"><a href="#应用分析" class="headerlink" title="应用分析"></a>应用分析</h2><p>在这里我以LoRaWAN 方式实现农场的土壤湿度检测来做说明。<br>实现农场的土壤湿度的检测主要分为几个步骤：</p>
-<ul>
-<li>实现传感器采集土壤湿度（sensor层）</li>
-<li>将采集到的土壤湿度通过MOTE发送给GW(LoRaMac 层)</li>
-<li>GW将收到的数据发送给NS（GW&lt;—&gt;NS）</li>
-<li>NS再将数据发送给用户(NS&lt;—&gt;Customer)</li>
-<li>用户通过APP或者其他方式可以看到土壤的湿度状态。(Display)</li>
-</ul>
-<p>通过以上的几个步骤，就可以实现远程监控农场土壤湿度。</p>
-<p>好了，第一讲非常的简单。只是讲解了LoRaWAN 作为IOT的一种方式，其中的数据流向。</p>
+<p>其中DMP的开启需要密码，而且具体的操作方法及寄存器在数据手册上都无法找到，是本人在网站经过查找融合了多人的驱动调试出来的。</p>
+<p>具体的程序在我的代码库中，欢迎大家能找出其中的不足，并提出来，当然有PR就更好了。</p>
+<p>代码链接如下：<br><a href="https://github.com/AnswerInTheWind/Peripheral/tree/master/MPU9250(MPU6050" target="_blank" rel="external">MPU9250(MPU6050)驱动</a>)</p>
 
       
     </div>
@@ -425,9 +413,9 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
       
         <div class="post-tags">
           
-            <a href="/tags/IOT/" rel="tag">#IOT</a>
+            <a href="/tags/MPU9250/" rel="tag">#MPU9250</a>
           
-            <a href="/tags/LoRaWAN/" rel="tag">#LoRaWAN</a>
+            <a href="/tags/Sensor/" rel="tag">#Sensor</a>
           
         </div>
       
@@ -436,17 +424,13 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/25/CJSON_JSON包的C语言解析库/" rel="next" title="cJSON_json包的C语言解析库">
-                <i class="fa fa-chevron-left"></i> cJSON_json包的C语言解析库
+              <a href="/2016/07/24/LoRaWan架构解析/" rel="next" title="LoRaWAN架构解析(一)">
+                <i class="fa fa-chevron-left"></i> LoRaWAN架构解析(一)
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/25/MPU9250调试/" rel="prev" title="MPU9250调试">
-                MPU9250调试 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -461,10 +445,10 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/07/25/LoRaWan架构解析/"
-     data-title="LoRaWAN架构解析(一)"
+        <div class="ds-share flat" data-thread-key="2016/07/26/MPU9250调试/"
+     data-title="MPU9250调试"
      data-content=""
-     data-url="http://yoursite.com/2016/07/25/LoRaWan架构解析/">
+     data-url="http://yoursite.com/2016/07/26/MPU9250调试/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -491,8 +475,8 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/25/LoRaWan架构解析/"
-           data-title="LoRaWAN架构解析(一)" data-url="http://yoursite.com/2016/07/25/LoRaWan架构解析/">
+      <div class="ds-thread" data-thread-key="2016/07/26/MPU9250调试/"
+           data-title="MPU9250调试" data-url="http://yoursite.com/2016/07/26/MPU9250调试/">
       </div>
     
   </div>
@@ -554,7 +538,7 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -594,7 +578,7 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LoRaWAN-分层"><span class="nav-number">1.</span> <span class="nav-text">LoRaWAN 分层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用分析"><span class="nav-number">2.</span> <span class="nav-text">应用分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MPU9250-芯片概述"><span class="nav-number">1.</span> <span class="nav-text">MPU9250 芯片概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#驱动程序的设计"><span class="nav-number">2.</span> <span class="nav-text">驱动程序的设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MPU9250的寄存器操作"><span class="nav-number">3.</span> <span class="nav-text">MPU9250的寄存器操作</span></a></li></ol></div>
             
           </div>
         </section>
