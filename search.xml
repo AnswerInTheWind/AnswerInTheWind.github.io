@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title><![CDATA[LoRaWAN架构解析(二)--LoRawan MAC解析]]></title>
+      <title><![CDATA[LoRaWAN架构解析(二)--LoRaWAN MAC解析]]></title>
       <url>http://yoursite.com/2016/07/29/LoRaWAN_MAC%E5%B1%82%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/</url>
       <content type="html"><![CDATA[<h2 id="名词解析"><a href="#名词解析" class="headerlink" title="名词解析"></a>名词解析</h2><p>上行：终端的数据发送经过一个或多个网关中转到达网络服务器。<br>下行：由网络服务器发送给终端设备，每条消息对应的终端设备是唯一确定的，而且只通过一个网关中转。</p>
 <h2 id="LoRaWAN-Classes"><a href="#LoRaWAN-Classes" class="headerlink" title="LoRaWAN Classes"></a>LoRaWAN Classes</h2><p>LoRaWAN Classes 一共分为3类：Class A,Class B,Class C</p>
