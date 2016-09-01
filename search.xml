@@ -71,7 +71,7 @@
 </ol>
 <p>其中DMP的开启需要密码，而且具体的操作方法及寄存器在数据手册上都无法找到，是本人在网站经过查找融合了多人的驱动调试出来的。</p>
 <p>具体的程序在我的代码库中，欢迎大家能找出其中的不足，并提出来，当然有PR就更好了。</p>
-<p>代码链接如下：<br><a href="https://github.com/AnswerInTheWind/Peripheral/tree/master/MPU9250-MPU6050" target="_blank" rel="external">MPU9250(MPU6050)驱动</a></p>
+<p>代码链接如下：<br><a href="https://github.com/AnswerInTheWind/Peripheral/tree/master/MPU9250-MPU6050" target="_blank" rel="external">MPU9250-MPU6050驱动</a></p>
 ]]></content>
     </entry>
     
