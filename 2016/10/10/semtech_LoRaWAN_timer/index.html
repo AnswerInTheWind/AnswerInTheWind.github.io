@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="chenjunkui" />
+  <meta name="keywords" content="LoRaWAN,数据结构," />
 
 
 
@@ -84,15 +84,22 @@
 
 
 
-<meta name="description" content="Answer in the wind">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈均奎">
-<meta property="og:url" content="http://yoursite.com/tags/MTU/index.html">
+<meta name="description" content="近日在阅读semtech的Lora-net/LoRaMac-node。此代码是LoRaWAN MAC层的node段的代码。
+此代码中构建了一个定时器链表，此链表构建得非常的巧妙。通过对源码的阅读，明白了其底层的实现原理，现在和大家分享。
+此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整个链表。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LoRaWAN源码阅读笔记————RTC闹钟链表的实现">
+<meta property="og:url" content="http://yoursite.com/2016/10/10/semtech_LoRaWAN_timer/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="Answer in the wind">
+<meta property="og:description" content="近日在阅读semtech的Lora-net/LoRaMac-node。此代码是LoRaWAN MAC层的node段的代码。
+此代码中构建了一个定时器链表，此链表构建得非常的巧妙。通过对源码的阅读，明白了其底层的实现原理，现在和大家分享。
+此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整个链表。">
+<meta property="og:updated_time" content="2016-10-10T14:15:36.749Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈均奎">
-<meta name="twitter:description" content="Answer in the wind">
+<meta name="twitter:title" content="LoRaWAN源码阅读笔记————RTC闹钟链表的实现">
+<meta name="twitter:description" content="近日在阅读semtech的Lora-net/LoRaMac-node。此代码是LoRaWAN MAC层的node段的代码。
+此代码中构建了一个定时器链表，此链表构建得非常的巧妙。通过对源码的阅读，明白了其底层的实现原理，现在和大家分享。
+此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整个链表。">
 
 
 
@@ -113,9 +120,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/MTU/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/10/semtech_LoRaWAN_timer/"/>
 
-  <title> 标签: MTU | 陈均奎 </title>
+  <title> LoRaWAN源码阅读笔记————RTC闹钟链表的实现 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -146,7 +153,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -267,46 +274,347 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        MTU
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                LoRaWAN源码阅读笔记————RTC闹钟链表的实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-10T00:00:00+08:00" content="2016-10-10">
+              2016-10-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/LoRaWAN/" itemprop="url" rel="index">
+                    <span itemprop="name">LoRaWAN</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/10/semtech_LoRaWAN_timer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/10/semtech_LoRaWAN_timer/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/10/10/semtech_LoRaWAN_timer/" class="leancloud_visitors" data-flag-title="LoRaWAN源码阅读笔记————RTC闹钟链表的实现">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>近日在阅读semtech的<a href="https://github.com/Lora-net/LoRaMac-node" target="_blank" rel="external">Lora-net/LoRaMac-node</a>。此代码是LoRaWAN MAC层的node段的代码。</p>
+<p>此代码中构建了一个定时器链表，此链表构建得非常的巧妙。<br>通过对源码的阅读，明白了其底层的实现原理，现在和大家分享。</p>
+<p>此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整个链表。</p>
+<p>此定时器链表有两个特点:</p>
+<ol>
+<li>定时器的存储是有序的</li>
+<li>以RTC闹钟中断作为刷新源</li>
+</ol>
+<p>用rtc的方法相比较嘀嗒定时器定时的方法，工作效率会明显提升，并不会因为链表中定时器数目的增加使得花费在刷新定时器上的时间增加，因为不需要遍历整个链表。但代码的实现难度会较高</p>
+<p>假如程序刚开始执行，而且定时器链表为空，此时有４个定时事件需要放入链表，分别为　A 10ms B 30ms C 20ms D 40ms，</p>
+<p>RTC闹钟链表：<br>其存储的结果会是这样:</p>
+<table>
+<thead>
+<tr>
+<th>事件名称</th>
+<th>定时时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>10</td>
+</tr>
+<tr>
+<td>C</td>
+<td>10</td>
+</tr>
+<tr>
+<td>B</td>
+<td>10</td>
+</tr>
+<tr>
+<td>D</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<p>而嘀嗒定时链表：<br>其存储的结果会是这样:</p>
+<table>
+<thead>
+<tr>
+<th>事件名称</th>
+<th>定时时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>10</td>
+</tr>
+<tr>
+<td>B</td>
+<td>30</td>
+</tr>
+<tr>
+<td>C</td>
+<td>20</td>
+</tr>
+<tr>
+<td>D</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<p>当时间过了5ms，RTC闹钟链表中存储的数据并不会发生任何变化，因为它是以RTC的闹钟来作为刷新依据的，而嘀嗒定时链表中的数据就全发生了变化<br>嘀嗒定时链表 变化得到情况如下：</p>
+<table>
+<thead>
+<tr>
+<th>事件名称</th>
+<th>定时时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>5</td>
+</tr>
+<tr>
+<td>B</td>
+<td>25</td>
+</tr>
+<tr>
+<td>C</td>
+<td>15</td>
+</tr>
+<tr>
+<td>D</td>
+<td>35</td>
+</tr>
+</tbody>
+</table>
+<p>再过5ms，此时A事件的定时时间就到了，需要被执行，在RTC闹钟链表中的表现是RTC Alarm中断触发，在嘀嗒定时链表中的表现是A事件的定时时间逐渐减少至0。当A事件被执行之后两种定时器链表中的存储都发生了变化，都是原先的链表的头指针指向原先的第二个节点，而原先的头节点被释放。</p>
+<p>还是上述的例子，在定时器执行了7ms的时候，这时有个事件需要插入，为E 24ms，此时，两种链表对于此事件器的插入操作也会明显不同。</p>
+<p>RTC闹钟插入之后</p>
+<table>
+<thead>
+<tr>
+<th>事件名称</th>
+<th>定时时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>10</td>
+</tr>
+<tr>
+<td>C</td>
+<td>10</td>
+</tr>
+<tr>
+<td>B</td>
+<td>10</td>
+</tr>
+<tr>
+<td>E</td>
+<td>1</td>
+</tr>
+<tr>
+<td>D</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p>而嘀嗒定时器在插入之后为</p>
+<table>
+<thead>
+<tr>
+<th>事件名称</th>
+<th>定时时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>3</td>
+</tr>
+<tr>
+<td>B</td>
+<td>13</td>
+</tr>
+<tr>
+<td>C</td>
+<td>23</td>
+</tr>
+<tr>
+<td>D</td>
+<td>33</td>
+</tr>
+<tr>
+<td>E</td>
+<td>24</td>
+</tr>
+</tbody>
+</table>
+<p>以下是RTC闹钟的部分插入代码，其中可以看到他的定时器插入的逻辑<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">elapsedTime = TimerGetValue( );//获取距离上一次设置闹钟的时间</div><div class="line">remainingTime = TimerListHead-&gt;Timestamp - elapsedTime;//remainingTime表示剩余的头节点中的事件剩余的定时事件，因为此链表是按顺序存储的，所以头节点中的定时时间一定是最少的</div><div class="line"></div><div class="line"></div><div class="line">static void TimerInsertNewHeadTimer( TimerEvent_t *obj, uint32_t remainingTime )</div><div class="line">&#123;</div><div class="line">    TimerEvent_t* cur = TimerListHead;</div><div class="line"></div><div class="line">    if( cur != NULL )//表头不为空，将新的定时器插入之前，将原先表头的定时器时间减去新定时器的定时时间，确保原先的定时器任务定时正常</div><div class="line">    &#123;</div><div class="line">        cur-&gt;Timestamp = remainingTime - obj-&gt;Timestamp;</div><div class="line">        cur-&gt;IsRunning = false;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    obj-&gt;Next = cur;</div><div class="line">    obj-&gt;IsRunning = true;</div><div class="line">    TimerListHead = obj;</div><div class="line">    TimerSetTimeout( TimerListHead );//设置超时，等时间到的时候，会发生RTC报警</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>另外还有一点，此RTC中的1s并非物理时间的1s，在此具体的时间基准如下:</p>
+<pre><code>/*!
+ * RTC Time base in ms
+ */
+#define RTC_ALARM_TICK_DURATION                     0.48828125      // 1 tick every 488us
+#define RTC_ALARM_TICK_PER_MS                       2.048           // 1/2.048 = tick duration in ms
+</code></pre><p>所以在程序中能够实现ms级的定时任务。</p>
+<p>RTC定时器的用法主要分为三步：</p>
+<pre><code>1. 初始化，注册回调函数
+    void TimerInit( TimerEvent_t *obj, void ( *callback )( void ) )//设置回调函数
+2. 设置定时时间
+    void TimerSetValue( TimerEvent_t *obj, uint32_t value )
+3. 开启定时时间
+    void TimerStart( TimerEvent_t *obj )
+</code></pre>
+      
+    </div>
 
-      <h1 class="post-title">
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/07/11/构建以帧为单位的stack/" itemprop="url">
-              
-                <span itemprop="name">以帧为存储单位的循环stack存储结构的设计</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-11T00:00:00+08:00"
-              content="2016-07-11" >
-          07-11
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LoRaWAN/" rel="tag">#LoRaWAN</a>
+          
+            <a href="/tags/数据结构/" rel="tag">#数据结构</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/29/LoRaWAN_MAC层协议分析/" rel="next" title="LoRaWAN架构解析(二)--LoRaWAN MAC解析">
+                <i class="fa fa-chevron-left"></i> LoRaWAN架构解析(二)--LoRaWAN MAC解析
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/10/10/semtech_LoRaWAN_timer/"
+     data-title="LoRaWAN源码阅读笔记————RTC闹钟链表的实现"
+     data-content=""
+     data-url="http://yoursite.com/2016/10/10/semtech_LoRaWAN_timer/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -314,6 +622,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/10/semtech_LoRaWAN_timer/"
+           data-title="LoRaWAN源码阅读笔记————RTC闹钟链表的实现" data-url="http://yoursite.com/2016/10/10/semtech_LoRaWAN_timer/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -333,8 +649,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -395,6 +720,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -498,6 +834,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
