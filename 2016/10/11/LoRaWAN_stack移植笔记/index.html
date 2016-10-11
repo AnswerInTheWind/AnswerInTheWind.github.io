@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="IOT,LoRaWAN," />
+  <meta name="keywords" content="LoRaWAN,stm32,sx1276," />
 
 
 
@@ -84,26 +84,29 @@
 
 
 
-<meta name="description" content="名词解析上行：终端的数据发送经过一个或多个网关中转到达网络服务器。下行：由网络服务器发送给终端设备，每条消息对应的终端设备是唯一确定的，而且只通过一个网关中转。
-LoRaWAN ClassesLoRaWAN Classes 一共分为3类：Class A,Class B,Class C
-Class A:终端先发送，在发送后开启一段时间的接收窗口，终端只有在发送后才可以接收。也就是说上行没有限制，下行">
+<meta name="description" content="和硬件相关的问题TCXO 的使用根据SX1276数据手册，
+
+如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下
+123456789101112void SX1276SetTcxoConfig(void)//此函数为自定义的&amp;#123;  SX1276Write( REG_TCXO, 0x19 ); //设置TCXO  &amp;#125;//在初始化中调用void SX1276Init">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LoRaWAN架构解析(二)--LoRaWAN MAC解析">
-<meta property="og:url" content="http://yoursite.com/2016/07/29/LoRaWAN_MAC层协议分析/index.html">
+<meta property="og:title" content="LoRaWAN_stack移植笔记(一)">
+<meta property="og:url" content="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="名词解析上行：终端的数据发送经过一个或多个网关中转到达网络服务器。下行：由网络服务器发送给终端设备，每条消息对应的终端设备是唯一确定的，而且只通过一个网关中转。
-LoRaWAN ClassesLoRaWAN Classes 一共分为3类：Class A,Class B,Class C
-Class A:终端先发送，在发送后开启一段时间的接收窗口，终端只有在发送后才可以接收。也就是说上行没有限制，下行">
-<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRa/uplink.png">
-<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRa/downlink.png">
-<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRa/PHY_data_format.png">
-<meta property="og:updated_time" content="2016-07-29T06:55:06.623Z">
+<meta property="og:description" content="和硬件相关的问题TCXO 的使用根据SX1276数据手册，
+
+如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下
+123456789101112void SX1276SetTcxoConfig(void)//此函数为自定义的&amp;#123;  SX1276Write( REG_TCXO, 0x19 ); //设置TCXO  &amp;#125;//在初始化中调用void SX1276Init">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/REGTCXO.png">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/REGPACONFIG.png">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/TXRX.png">
+<meta property="og:updated_time" content="2016-10-11T16:09:24.802Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LoRaWAN架构解析(二)--LoRaWAN MAC解析">
-<meta name="twitter:description" content="名词解析上行：终端的数据发送经过一个或多个网关中转到达网络服务器。下行：由网络服务器发送给终端设备，每条消息对应的终端设备是唯一确定的，而且只通过一个网关中转。
-LoRaWAN ClassesLoRaWAN Classes 一共分为3类：Class A,Class B,Class C
-Class A:终端先发送，在发送后开启一段时间的接收窗口，终端只有在发送后才可以接收。也就是说上行没有限制，下行">
-<meta name="twitter:image" content="http://yoursite.com/../../../../uploads/LoRa/uplink.png">
+<meta name="twitter:title" content="LoRaWAN_stack移植笔记(一)">
+<meta name="twitter:description" content="和硬件相关的问题TCXO 的使用根据SX1276数据手册，
+
+如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下
+123456789101112void SX1276SetTcxoConfig(void)//此函数为自定义的&amp;#123;  SX1276Write( REG_TCXO, 0x19 ); //设置TCXO  &amp;#125;//在初始化中调用void SX1276Init">
+<meta name="twitter:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/REGTCXO.png">
 
 
 
@@ -124,9 +127,9 @@ Class A:终端先发送，在发送后开启一段时间的接收窗口，终端
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/29/LoRaWAN_MAC层协议分析/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记/"/>
 
-  <title> LoRaWAN架构解析(二)--LoRaWAN MAC解析 | 陈均奎 </title>
+  <title> LoRaWAN_stack移植笔记(一) | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -299,7 +302,7 @@ Class A:终端先发送，在发送后开启一段时间的接收窗口，终端
             
             
               
-                LoRaWAN架构解析(二)--LoRaWAN MAC解析
+                LoRaWAN_stack移植笔记(一)
               
             
           </h1>
@@ -311,8 +314,8 @@ Class A:终端先发送，在发送后开启一段时间的接收窗口，终端
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-29T00:00:00+08:00" content="2016-07-29">
-              2016-07-29
+            <time itemprop="dateCreated" datetime="2016-10-11T17:16:43+08:00" content="2016-10-11">
+              2016-10-11
             </time>
           </span>
 
@@ -325,8 +328,8 @@ Class A:终端先发送，在发送后开启一段时间的接收窗口，终端
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/IOT/" itemprop="url" rel="index">
-                    <span itemprop="name">IOT</span>
+                  <a href="/categories/LoRaWAN/" itemprop="url" rel="index">
+                    <span itemprop="name">LoRaWAN</span>
                   </a>
                 </span>
 
@@ -341,8 +344,8 @@ Class A:终端先发送，在发送后开启一段时间的接收窗口，终端
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/29/LoRaWAN_MAC层协议分析/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/29/LoRaWAN_MAC层协议分析/" itemprop="commentsCount"></span>
+                <a href="/2016/10/11/LoRaWAN_stack移植笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -352,7 +355,7 @@ Class A:终端先发送，在发送后开启一段时间的接收窗口，终端
 
           
           
-             <span id="/2016/07/29/LoRaWAN_MAC层协议分析/" class="leancloud_visitors" data-flag-title="LoRaWAN架构解析(二)--LoRaWAN MAC解析">
+             <span id="/2016/10/11/LoRaWAN_stack移植笔记/" class="leancloud_visitors" data-flag-title="LoRaWAN_stack移植笔记(一)">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -374,49 +377,33 @@ Class A:终端先发送，在发送后开启一段时间的接收窗口，终端
       
 
       
-        <h2 id="名词解析"><a href="#名词解析" class="headerlink" title="名词解析"></a>名词解析</h2><p>上行：终端的数据发送经过一个或多个网关中转到达网络服务器。<br>下行：由网络服务器发送给终端设备，每条消息对应的终端设备是唯一确定的，而且只通过一个网关中转。</p>
-<h2 id="LoRaWAN-Classes"><a href="#LoRaWAN-Classes" class="headerlink" title="LoRaWAN Classes"></a>LoRaWAN Classes</h2><p>LoRaWAN Classes 一共分为3类：Class A,Class B,Class C</p>
-<p>Class A:终端先发送，在发送后开启一段时间的接收窗口，终端只有在发送后才可以接收。也就是说上行没有限制，下行的数据只有在上行包发送上来的时候终端才可以接收到。(功耗最低)</p>
-<p>Class B:终端和服务器协商好接收的窗口开启的时间以及何时开启，然后再约定的时间进行接收，可以一次接收多个包。（功耗次低）</p>
-<p>Class C:终端在发送以外的其他时间都开启接收窗口。更耗能，但通讯延时最低。（功耗最高）</p>
-<h2 id="PHY-层数据链路"><a href="#PHY-层数据链路" class="headerlink" title="PHY 层数据链路"></a>PHY 层数据链路</h2><p>上行链路消息：<br><img src="../../../../uploads/LoRa/uplink.png" alt=""></p>
-<p>上行链路消息：<br><img src="../../../../uploads/LoRa/downlink.png" alt=""></p>
-<p>其中上行最后还有CRC校验，而下行没有CRC校验。其中PHDR PHDR_CRC CRC都是射频芯片用于校准数据的完整新和一致性用的，并非用户生成的数据。</p>
-<h2 id="MAC-层数据链路"><a href="#MAC-层数据链路" class="headerlink" title="MAC 层数据链路"></a>MAC 层数据链路</h2><p><img src="../../../../uploads/LoRa/PHY_data_format.png" alt=""></p>
-<p>由上图可以看到，MAC数据是是作为PHYPayload存在的<br>其中MAC 层的包有三个部分组成：</p>
+        <h2 id="和硬件相关的问题"><a href="#和硬件相关的问题" class="headerlink" title="和硬件相关的问题"></a>和硬件相关的问题</h2><h3 id="TCXO-的使用"><a href="#TCXO-的使用" class="headerlink" title="TCXO 的使用"></a>TCXO 的使用</h3><p>根据SX1276数据手册，<br><img src="../../../../uploads/LoRaWAN_STM32/REGTCXO.png" alt=""></p>
 <ul>
-<li>MHDR(MAC层帧头) </li>
-<li>MACPayload(MAC层负载) </li>
-<li>MIC(4字节的校验)</li>
+<li><p>如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SX1276SetTcxoConfig</span><span class="params">(<span class="keyword">void</span>)</span><span class="comment">//此函数为自定义的</span></span></div><div class="line">&#123;</div><div class="line">  SX1276Write( REG_TCXO, <span class="number">0x19</span> ); <span class="comment">//设置TCXO  </span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//在初始化中调用</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SX1276Init</span><span class="params">( RadioEvents_t *events )</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	SX1276SetTcxoConfig();</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>否则配置为0x09,因为芯片上电默认不使用TCXO，即上电寄存器值即为0x09,所以无需配置</p>
+</li>
 </ul>
-<p>而MACPayload又由三个部分组成:</p>
+<h3 id="PA-BOOST-引脚的使用"><a href="#PA-BOOST-引脚的使用" class="headerlink" title="PA_BOOST 引脚的使用"></a>PA_BOOST 引脚的使用</h3><p>根据sx1276 数据手册<br><img src="../../../../uploads/LoRaWAN_STM32/REGPACONFIG.png" alt=""></p>
 <ul>
-<li>FHDR (MAC层负载头)</li>
-<li>FPORT（MAC 层数据的通道号）</li>
-<li>FRMPayload（MAC层负载，加密）</li>
+<li>如果使用PA_BOOST作为RF输出，则需要配置PaSelect脚为1</li>
 </ul>
-<p>而FHDR又由由四个部分组成:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SX1276SetTxConfig</span><span class="params">(......)</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	paConfig = ( paConfig &amp; RF_PACONFIG_PASELECT_MASK ) | SX1276GetPaSelect( SX1276.Settings.Channel );<span class="comment">//选择是否使用PA_BOOST引脚</span></div><div class="line">	...</div><div class="line">	</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//根据具体的电路图不一样，此函数也会币一样，比如低频使用PA_BOOST，高频使用RFO_HF，则函数体如下</span></div><div class="line"><span class="keyword">uint8_t</span> SX1276GetPaSelect( <span class="keyword">uint32_t</span> channel )</div><div class="line">&#123;</div><div class="line">	<span class="comment">//如果是低频的，使用PA_BOOST，高频使用RFO_HF</span></div><div class="line">    <span class="keyword">if</span>( channel &lt; RF_MID_BAND_THRESH )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> RF_PACONFIG_PASELECT_PABOOST;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> RF_PACONFIG_PASELECT_RFO;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//如果高低频都使用PA_BOOST，则函数体如下</span></div><div class="line"><span class="keyword">uint8_t</span> SX1276GetPaSelect( <span class="keyword">uint32_t</span> channel )</div><div class="line">&#123;</div><div class="line">	<span class="keyword">return</span> RF_PACONFIG_PASELECT_PABOOST; </div><div class="line">&#125;</div><div class="line"><span class="comment">//如果高频使用PA_BOOST，低频使用RFO_LF，则函数体如下</span></div><div class="line"><span class="keyword">uint8_t</span> SX1276GetPaSelect( <span class="keyword">uint32_t</span> channel )</div><div class="line">&#123;</div><div class="line">	<span class="comment">//如果是高频的，使用PA_BOOST，低频使用RFO_LF</span></div><div class="line">    <span class="keyword">if</span>( channel &gt; RF_MID_BAND_THRESH )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> RF_PACONFIG_PASELECT_PABOOST;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> RF_PACONFIG_PASELECT_RFO;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*!</span></div><div class="line">* RegPaConfig</div><div class="line">*/</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RF_PACONFIG_PASELECT_MASK                   0x7F</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RF_PACONFIG_PASELECT_PABOOST                0x80</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RF_PACONFIG_PASELECT_RFO                    0x00 <span class="comment">// Default</span></span></div></pre></td></tr></table></figure>
 <ul>
-<li>DevAddr(终端的ID 4字节)</li>
-<li>FCtrl（帧的控制字 1个字节）</li>
-<li>FCnt （帧的序号 2个字节）</li>
-<li>FOpts（帧配置，字节数不定，大部分情况0个字节）</li>
+<li>否则为0</li>
 </ul>
-<p>所以，由协议可知，一个上行包或者下行包中的数据内容有哪些，抛开控制命令不说，主要有终端的ID、包的序号、用户的加密负载。</p>
-<p>例如我抓到的一个数据包：</p>
-<p>\x40 \x7f \xf8 \x8a \x29 \x80 \x2a \x00 \x02 \x07 \x42 \x87 \x3f \xc7 \xb4 \x22 \x04 \x00 \x84 \x8d \x1b \x06 \x2f \x5b \xbc \x57 \xdb \xf2 \x31 \xde \x49 \x61 \x00 \x86 \x99 \xec \x08 \x61 \xf0 \xb7 \xda \x54 \x0a \xfa \xd1 \x31 \xac \xd0 \x44 \x1b \x4d \xfa \x48 \x77 \x19 \xee \x61 \x14 \xbf \x23 \x52 \xd1 \xe9 \x93 \x79 \x6e \x16 \xd7 \x13 \x2e \x58 \x06 \x54 \xc3 \xd2 \x04 \xba \x52 \xa7 \xc8 \x7a \x0b \x8e </p>
-<p>这是一个MAC 层的帧即完整的MACPayload部分</p>
-<p>其中 </p>
-<ul>
-<li>MHDR:<br>  \x40</li>
-<li>MACPayload-FHDR-DevAddr:<br>  \x7f \xf8 \x8a \x29 </li>
-<li>MACPayload-FHDR-FCtrl:<br>  \x80 </li>
-<li>MACPayload-FHDR-FCnt:<br>  \x2a \x00 </li>
-<li>MACPayload-FPORT:<br>  \x02 </li>
-<li>MACPayload-FRMPayload（加密）:<br>  \x07 \x42 \x87 \x3f \xc7 \xb4 \x22 \x04 \x00 \x84 \x8d \x1b \x06 \x2f \x5b \xbc \x57 \xdb \xf2 \x31 \xde \x49 \x61 \x00 \x86 \x99 \xec \x08 \x61 \xf0 \xb7 \xda \x54 \x0a \xfa \xd1 \x31 \xac \xd0 \x44 \x1b \x4d \xfa \x48 \x77 \x19 \xee \x61 \x14 \xbf \x23 \x52 \xd1 \xe9 \x93 \x79 \x6e \x16 \xd7 \x13 \x2e \x58 \x06 \x54 \xc3 \xd2 \x04 \xba \x52 \xa7 </li>
-<li>MIC:<br>  \xc8 \x7a \x0b \x8e </li>
-</ul>
-
+<h3 id="RXTX-switch-接收和发送的天线电路的切换"><a href="#RXTX-switch-接收和发送的天线电路的切换" class="headerlink" title="RXTX switch(接收和发送的天线电路的切换)"></a>RXTX switch(接收和发送的天线电路的切换)</h3><p><img src="../../../../uploads/LoRaWAN_STM32/TXRX.png" alt=""><br>在图中可以看到，射频输入和射频输出是不一样的电路，但是用的是一个天线，所以用到了一个射频电路切换的芯片。<br>在程序中，需要做的就是控制FEM_CPS脚，在RX和TX时进行RF1(RFI)和RF2(RFO)的切换。<br>由于在设计中兼容高低频，并且使用两个引脚分别控制高频和低频部分的射频部分输入输出的切换，所以在实际使用中需要控制两个引脚。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SX1276SetAntSw</span><span class="params">( <span class="keyword">uint8_t</span> rxTx )</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>( rxTx != <span class="number">0</span> ) <span class="comment">// 1: TX, 0: RX</span></div><div class="line">    &#123;</div><div class="line">        GpioWrite( &amp;AntSwitchLf, <span class="number">0</span> );<span class="comment">//切换到低频发射电路</span></div><div class="line">        GpioWrite( &amp;AntSwitchHf, <span class="number">1</span> );<span class="comment">//切换到高频发射电路</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        GpioWrite( &amp;AntSwitchLf, <span class="number">1</span> );<span class="comment">//切换到低频接收电路</span></div><div class="line">        GpioWrite( &amp;AntSwitchHf, <span class="number">0</span> );<span class="comment">//切换到高频接收电路 </span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果只有高频或者低频一个部分，上面的代码只要保留相应的部分即可</p>
+<h3 id="RTC-相关的问题"><a href="#RTC-相关的问题" class="headerlink" title="RTC 相关的问题"></a>RTC 相关的问题</h3><p>由于原厂例程中使用的是32.768KHz的LSE给RTC提供时钟，而在本设计中，RTC使用的是LSI，所以，此处需要注意，<br>LSE的频率为32.768Khz，</p>
+<p>根据Fck_spre = Frtcclk/(PREDIV_S+1)/(PREDIV_A+1)<br>例程中RTC的工作频率为32.778/(3+1)/(3+1) = 2.048Khz,</p>
+<p>而内部晶振的频率约为37Khz，故PRVEDIV_S和PREDIV_A的值需要改变。</p>
+<pre><code>37/2.048 ~= 18；
+数据手册里面有这样一句话：    
+Note: When both prescalers are used, it is recommended to configure the 
+    asynchronous prescaler to a high value to minimize consumption.
+所以：18 = 9*2；故设置PREDIV_A = 8，PREDIV_S = 1;
+</code></pre>
       
     </div>
 
@@ -438,9 +425,11 @@ Class A:终端先发送，在发送后开启一段时间的接收窗口，终端
       
         <div class="post-tags">
           
-            <a href="/tags/IOT/" rel="tag">#IOT</a>
-          
             <a href="/tags/LoRaWAN/" rel="tag">#LoRaWAN</a>
+          
+            <a href="/tags/stm32/" rel="tag">#stm32</a>
+          
+            <a href="/tags/sx1276/" rel="tag">#sx1276</a>
           
         </div>
       
@@ -449,17 +438,13 @@ Class A:终端先发送，在发送后开启一段时间的接收窗口，终端
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/26/MPU9250调试/" rel="next" title="MPU9250调试">
-                <i class="fa fa-chevron-left"></i> MPU9250调试
+              <a href="/2016/10/11/STM32时钟源配置/" rel="next" title="STM32时钟讲解">
+                <i class="fa fa-chevron-left"></i> STM32时钟讲解
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/10/semtech_LoRaWAN_timer/" rel="prev" title="LoRaWAN源码阅读笔记————RTC闹钟链表的实现">
-                LoRaWAN源码阅读笔记————RTC闹钟链表的实现 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -474,10 +459,10 @@ Class A:终端先发送，在发送后开启一段时间的接收窗口，终端
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/07/29/LoRaWAN_MAC层协议分析/"
-     data-title="LoRaWAN架构解析(二)--LoRaWAN MAC解析"
+        <div class="ds-share flat" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记/"
+     data-title="LoRaWAN_stack移植笔记(一)"
      data-content=""
-     data-url="http://yoursite.com/2016/07/29/LoRaWAN_MAC层协议分析/">
+     data-url="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -504,8 +489,8 @@ Class A:终端先发送，在发送后开启一段时间的接收窗口，终端
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/29/LoRaWAN_MAC层协议分析/"
-           data-title="LoRaWAN架构解析(二)--LoRaWAN MAC解析" data-url="http://yoursite.com/2016/07/29/LoRaWAN_MAC层协议分析/">
+      <div class="ds-thread" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记/"
+           data-title="LoRaWAN_stack移植笔记(一)" data-url="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记/">
       </div>
     
   </div>
@@ -607,7 +592,7 @@ Class A:终端先发送，在发送后开启一段时间的接收窗口，终端
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#名词解析"><span class="nav-number">1.</span> <span class="nav-text">名词解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LoRaWAN-Classes"><span class="nav-number">2.</span> <span class="nav-text">LoRaWAN Classes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHY-层数据链路"><span class="nav-number">3.</span> <span class="nav-text">PHY 层数据链路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MAC-层数据链路"><span class="nav-number">4.</span> <span class="nav-text">MAC 层数据链路</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#和硬件相关的问题"><span class="nav-number">1.</span> <span class="nav-text">和硬件相关的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCXO-的使用"><span class="nav-number">1.1.</span> <span class="nav-text">TCXO 的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PA-BOOST-引脚的使用"><span class="nav-number">1.2.</span> <span class="nav-text">PA_BOOST 引脚的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RXTX-switch-接收和发送的天线电路的切换"><span class="nav-number">1.3.</span> <span class="nav-text">RXTX switch(接收和发送的天线电路的切换)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTC-相关的问题"><span class="nav-number">1.4.</span> <span class="nav-text">RTC 相关的问题</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

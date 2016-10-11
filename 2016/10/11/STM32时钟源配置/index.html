@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="chenjunkui" />
+  <meta name="keywords" content="mcu,stm32," />
 
 
 
@@ -84,15 +84,32 @@
 
 
 
-<meta name="description" content="Answer in the wind">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈均奎">
-<meta property="og:url" content="http://yoursite.com/tags/base64/index.html">
+<meta name="description" content="stm32L0x1的时钟分类先给大家推荐一个软件STM32CubeMX，上面的那张关于时钟的图就是从这个软件中截图得来的，这个软件还可以查看配置的时钟情况以及时钟树，挺方便的。
+从图上，可以看出，STM32的始终源一共有HSE、HSI、LSE、LSI、MSI、PLL六种，其中
+
+HSE是外部的高速晶振，可以直接使用或者通过PLL倍频,最终输出不能超过32Mhz
+HSI是内部的高速RC振荡器，频率为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32时钟讲解">
+<meta property="og:url" content="http://yoursite.com/2016/10/11/STM32时钟源配置/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="Answer in the wind">
+<meta property="og:description" content="stm32L0x1的时钟分类先给大家推荐一个软件STM32CubeMX，上面的那张关于时钟的图就是从这个软件中截图得来的，这个软件还可以查看配置的时钟情况以及时钟树，挺方便的。
+从图上，可以看出，STM32的始终源一共有HSE、HSI、LSE、LSI、MSI、PLL六种，其中
+
+HSE是外部的高速晶振，可以直接使用或者通过PLL倍频,最终输出不能超过32Mhz
+HSI是内部的高速RC振荡器，频率为">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/STM32_OSC.png">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/STM32_OSC_SYSTEM.png">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/STM32_OSC_RTC.png">
+<meta property="og:updated_time" content="2016-10-11T16:14:14.906Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈均奎">
-<meta name="twitter:description" content="Answer in the wind">
+<meta name="twitter:title" content="STM32时钟讲解">
+<meta name="twitter:description" content="stm32L0x1的时钟分类先给大家推荐一个软件STM32CubeMX，上面的那张关于时钟的图就是从这个软件中截图得来的，这个软件还可以查看配置的时钟情况以及时钟树，挺方便的。
+从图上，可以看出，STM32的始终源一共有HSE、HSI、LSE、LSI、MSI、PLL六种，其中
+
+HSE是外部的高速晶振，可以直接使用或者通过PLL倍频,最终输出不能超过32Mhz
+HSI是内部的高速RC振荡器，频率为">
+<meta name="twitter:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/STM32_OSC.png">
 
 
 
@@ -113,9 +130,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/base64/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/11/STM32时钟源配置/"/>
 
-  <title> 标签: base64 | 陈均奎 </title>
+  <title> STM32时钟讲解 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -146,7 +163,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -267,46 +284,211 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        base64
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                STM32时钟讲解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-11T16:55:58+08:00" content="2016-10-11">
+              2016-10-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/MCU/" itemprop="url" rel="index">
+                    <span itemprop="name">MCU</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/11/STM32时钟源配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/11/STM32时钟源配置/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/10/11/STM32时钟源配置/" class="leancloud_visitors" data-flag-title="STM32时钟讲解">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h2 id="stm32L0x1的时钟分类"><a href="#stm32L0x1的时钟分类" class="headerlink" title="stm32L0x1的时钟分类"></a>stm32L0x1的时钟分类</h2><p><img src="../../../../uploads/LoRaWAN_STM32/STM32_OSC.png" alt=""><br>先给大家推荐一个软件STM32CubeMX，上面的那张关于时钟的图就是从这个软件中截图得来的，这个软件还可以查看配置的时钟情况以及时钟树，挺方便的。</p>
+<p>从图上，可以看出，STM32的始终源一共有HSE、HSI、LSE、LSI、MSI、PLL六种，<br>其中</p>
+<ul>
+<li>HSE是外部的高速晶振，可以直接使用或者通过PLL倍频,最终输出不能超过32Mhz</li>
+<li>HSI是内部的高速RC振荡器，频率为16Mhz，可以直接使用或者通过PLL倍频,最终输出不能超过32Mhz</li>
+<li>LSE是外部的低速晶振，可以用于RTC或者IWDG，频率为32.768KH在</li>
+<li>LSI是内部的低速RC振荡器，频率约为37KHz</li>
+<li>MSI是内部的RC振荡器，其频率编程可调</li>
+<li>PLL是一个锁相环，可以将HSE或HSI倍频之后再给系统提供时钟。</li>
+</ul>
+<p>其中注意的是，内部时钟的精度都比较差,在对时钟要求比较高的场合,建议使用外部晶振</p>
+<h2 id="系统时钟源"><a href="#系统时钟源" class="headerlink" title="系统时钟源"></a>系统时钟源</h2><p><img src="../../../../uploads/LoRaWAN_STM32/STM32_OSC_SYSTEM.png" alt=""><br>从图中可以看到，系统时钟的选择有</p>
+<ul>
+<li>MSI(65.536 kHz, 131.072 kHz, 262.144 kHz, 524.288 kHz, 1.048 MHz,<br>2.097 MHz (default value) and 4.194 MHz)</li>
+<li>HSI(16,16/4)</li>
+<li>HSE(1-24MHz)</li>
+<li>PLLCLK(HSE/HSI倍频锁相环)</li>
+</ul>
+<p>其中PLLCLK是比较常用的一种，可以将HSE或HSI(HSI/4)倍频，然后再给主系统提供时钟。<br>其计算公式为PLLCLK_OUT = (PLLCLK_SOURCE * PLLMUL / PLLDIV);</p>
+<p>例如要给系统提供32MHz的晶振，可以</p>
+<ul>
+<li>HSI(16) * 4(PLLMUL) / 2(PLLDIV)</li>
+<li>HSE(12) * 8(PLLMUL) / 3(PLLDIV)</li>
+</ul>
+<p>以上两种方法只是举个例子，倍频的方法并不是固定的。</p>
+<p>注意，实际使用中，这四个时钟源只能同时选择一个，不能同时选择多个。</p>
+<h2 id="RTC时钟源-IWDG-时钟源"><a href="#RTC时钟源-IWDG-时钟源" class="headerlink" title="RTC时钟源  IWDG 时钟源"></a>RTC时钟源  IWDG 时钟源</h2><p><img src="../../../../uploads/LoRaWAN_STM32/STM32_OSC_RTC.png" alt=""></p>
+<p>从图中可以看到，IWDG只能使用LSI提供时钟源<br>而RTC可以使用HSE/32(数据手册上查看得来，软件存在明显错误)、LSE、LSI提供时钟源,其中LSE 的频率为32.768KHz，LSI的频率为37KHz。</p>
+<p>具体的RTC和IWDG的工作时钟还要进行分频。<br>RTC的工作时钟的计算方法为：Fck_spre = Frtcclk/(PREDIV_S+1)/(PREDIV_A+1);</p>
+<p>例如Frtcclk(时钟源频率)为32.768Khz的LSE，PREDIV_S = 3， PREDIV_A =3,则Fck_spre(工作频率) = 32.768/(3+1)/(3+1) = 2.048KHz<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">RtcInit</span><span class="params">( <span class="keyword">void</span> )</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	RtcHandle.Init.AsynchPrediv = <span class="number">3</span>;</div><div class="line">    RtcHandle.Init.SynchPrediv = <span class="number">3</span>;	</div><div class="line">	...</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*!</span></div><div class="line"> * RTC Time base in ms</div><div class="line"> */</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RTC_ALARM_TICK_DURATION                     0.48828125      <span class="comment">// 1 tick every 488us</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RTC_ALARM_TICK_PER_MS                       2.048           <span class="comment">// 1/2.048 = tick duration in ms</span></span></div></pre></td></tr></table></figure></p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/07/21/base64_C/" itemprop="url">
-              
-                <span itemprop="name">base64的C语言实现</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-21T00:00:00+08:00"
-              content="2016-07-21" >
-          07-21
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mcu/" rel="tag">#mcu</a>
+          
+            <a href="/tags/stm32/" rel="tag">#stm32</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/10/semtech_LoRaWAN_timer/" rel="next" title="LoRaWAN源码阅读笔记————RTC闹钟链表的实现">
+                <i class="fa fa-chevron-left"></i> LoRaWAN源码阅读笔记————RTC闹钟链表的实现
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/11/LoRaWAN_stack移植笔记/" rel="prev" title="LoRaWAN_stack移植笔记(一)">
+                LoRaWAN_stack移植笔记(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/10/11/STM32时钟源配置/"
+     data-title="STM32时钟讲解"
+     data-content=""
+     data-url="http://yoursite.com/2016/10/11/STM32时钟源配置/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -314,6 +496,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/11/STM32时钟源配置/"
+           data-title="STM32时钟讲解" data-url="http://yoursite.com/2016/10/11/STM32时钟源配置/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -333,8 +523,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -395,6 +594,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#stm32L0x1的时钟分类"><span class="nav-number">1.</span> <span class="nav-text">stm32L0x1的时钟分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统时钟源"><span class="nav-number">2.</span> <span class="nav-text">系统时钟源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RTC时钟源-IWDG-时钟源"><span class="nav-number">3.</span> <span class="nav-text">RTC时钟源  IWDG 时钟源</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -498,6 +708,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

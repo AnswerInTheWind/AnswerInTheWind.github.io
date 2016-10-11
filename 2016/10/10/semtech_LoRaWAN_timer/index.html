@@ -85,21 +85,21 @@
 
 
 <meta name="description" content="近日在阅读semtech的Lora-net/LoRaMac-node。此代码是LoRaWAN MAC层的node段的代码。
-此代码中构建了一个定时器链表，此链表构建得非常的巧妙。通过对源码的阅读，明白了其底层的实现原理，现在和大家分享。
-此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整个链表。">
+此代码中构建了一个定时器链表，此链表构建得非常的巧妙。通过对源码的阅读，明白了其底层的实现原理，现在讲解一下，和大家分享。
+此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LoRaWAN源码阅读笔记————RTC闹钟链表的实现">
 <meta property="og:url" content="http://yoursite.com/2016/10/10/semtech_LoRaWAN_timer/index.html">
 <meta property="og:site_name" content="陈均奎">
 <meta property="og:description" content="近日在阅读semtech的Lora-net/LoRaMac-node。此代码是LoRaWAN MAC层的node段的代码。
-此代码中构建了一个定时器链表，此链表构建得非常的巧妙。通过对源码的阅读，明白了其底层的实现原理，现在和大家分享。
-此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整个链表。">
-<meta property="og:updated_time" content="2016-10-10T14:15:36.749Z">
+此代码中构建了一个定时器链表，此链表构建得非常的巧妙。通过对源码的阅读，明白了其底层的实现原理，现在讲解一下，和大家分享。
+此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整">
+<meta property="og:updated_time" content="2016-10-11T16:02:07.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LoRaWAN源码阅读笔记————RTC闹钟链表的实现">
 <meta name="twitter:description" content="近日在阅读semtech的Lora-net/LoRaMac-node。此代码是LoRaWAN MAC层的node段的代码。
-此代码中构建了一个定时器链表，此链表构建得非常的巧妙。通过对源码的阅读，明白了其底层的实现原理，现在和大家分享。
-此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整个链表。">
+此代码中构建了一个定时器链表，此链表构建得非常的巧妙。通过对源码的阅读，明白了其底层的实现原理，现在讲解一下，和大家分享。
+此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整">
 
 
 
@@ -371,13 +371,8 @@
 
       
         <p>近日在阅读semtech的<a href="https://github.com/Lora-net/LoRaMac-node" target="_blank" rel="external">Lora-net/LoRaMac-node</a>。此代码是LoRaWAN MAC层的node段的代码。</p>
-<p>此代码中构建了一个定时器链表，此链表构建得非常的巧妙。<br>通过对源码的阅读，明白了其底层的实现原理，现在和大家分享。</p>
+<p>此代码中构建了一个定时器链表，此链表构建得非常的巧妙。<br>通过对源码的阅读，明白了其底层的实现原理，现在讲解一下，和大家分享。</p>
 <p>此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整个链表。</p>
-<p>此定时器链表有两个特点:</p>
-<ol>
-<li>定时器的存储是有序的</li>
-<li>以RTC闹钟中断作为刷新源</li>
-</ol>
 <p>用rtc的方法相比较嘀嗒定时器定时的方法，工作效率会明显提升，并不会因为链表中定时器数目的增加使得花费在刷新定时器上的时间增加，因为不需要遍历整个链表。但代码的实现难度会较高</p>
 <p>假如程序刚开始执行，而且定时器链表为空，此时有４个定时事件需要放入链表，分别为　A 10ms B 30ms C 20ms D 40ms，</p>
 <p>RTC闹钟链表：<br>其存储的结果会是这样:</p>
@@ -525,14 +520,9 @@
 </tr>
 </tbody>
 </table>
-<p>以下是RTC闹钟的部分插入代码，其中可以看到他的定时器插入的逻辑<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">elapsedTime = TimerGetValue( );//获取距离上一次设置闹钟的时间</div><div class="line">remainingTime = TimerListHead-&gt;Timestamp - elapsedTime;//remainingTime表示剩余的头节点中的事件剩余的定时事件，因为此链表是按顺序存储的，所以头节点中的定时时间一定是最少的</div><div class="line"></div><div class="line"></div><div class="line">static void TimerInsertNewHeadTimer( TimerEvent_t *obj, uint32_t remainingTime )</div><div class="line">&#123;</div><div class="line">    TimerEvent_t* cur = TimerListHead;</div><div class="line"></div><div class="line">    if( cur != NULL )//表头不为空，将新的定时器插入之前，将原先表头的定时器时间减去新定时器的定时时间，确保原先的定时器任务定时正常</div><div class="line">    &#123;</div><div class="line">        cur-&gt;Timestamp = remainingTime - obj-&gt;Timestamp;</div><div class="line">        cur-&gt;IsRunning = false;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    obj-&gt;Next = cur;</div><div class="line">    obj-&gt;IsRunning = true;</div><div class="line">    TimerListHead = obj;</div><div class="line">    TimerSetTimeout( TimerListHead );//设置超时，等时间到的时候，会发生RTC报警</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>另外还有一点，此RTC中的1s并非物理时间的1s，在此具体的时间基准如下:</p>
-<pre><code>/*!
- * RTC Time base in ms
- */
-#define RTC_ALARM_TICK_DURATION                     0.48828125      // 1 tick every 488us
-#define RTC_ALARM_TICK_PER_MS                       2.048           // 1/2.048 = tick duration in ms
-</code></pre><p>所以在程序中能够实现ms级的定时任务。</p>
+<p>以下是RTC闹钟的部分插入代码，其中可以看到他的定时器插入的逻辑<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">elapsedTime = TimerGetValue( );<span class="comment">//获取距离上一次设置闹钟的时间</span></div><div class="line">remainingTime = TimerListHead-&gt;Timestamp - elapsedTime;<span class="comment">//remainingTime表示剩余的头节点中的事件剩余的定时事件，因为此链表是按顺序存储的，所以头节点中的定时时间一定是最少的</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">TimerInsertNewHeadTimer</span><span class="params">( TimerEvent_t *obj, <span class="keyword">uint32_t</span> remainingTime )</span></span></div><div class="line">&#123;</div><div class="line">    TimerEvent_t* cur = TimerListHead;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>( cur != <span class="literal">NULL</span> )<span class="comment">//表头不为空，将新的定时器插入之前，将原先表头的定时器时间减去新定时器的定时时间，确保原先的定时器任务定时正常</span></div><div class="line">    &#123;</div><div class="line">        cur-&gt;Timestamp = remainingTime - obj-&gt;Timestamp;</div><div class="line">        cur-&gt;IsRunning = <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    obj-&gt;Next = cur;</div><div class="line">    obj-&gt;IsRunning = <span class="literal">true</span>;</div><div class="line">    TimerListHead = obj;</div><div class="line">    TimerSetTimeout( TimerListHead );<span class="comment">//设置超时，等时间到的时候，会发生RTC报警</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>另外还有一点，此RTC中的1s并非物理时间的1s，在此具体的时间基准如下:<br>    此项目中，使用的RTC的时钟源为32.768Khz的LSE，通过AsynchPrediv和SynchPrediv分频得到2.048KHz的RTCtick，计算公式为32.768/(3+1)/(3+1) = 2.048;<br>相关的配置代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">RtcInit</span><span class="params">( <span class="keyword">void</span> )</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	RtcHandle.Init.AsynchPrediv = <span class="number">3</span>;</div><div class="line">    RtcHandle.Init.SynchPrediv = <span class="number">3</span>;	</div><div class="line">	...</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*!</span></div><div class="line"> * RTC Time base in ms</div><div class="line"> */</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RTC_ALARM_TICK_DURATION                     0.48828125      <span class="comment">// 1 tick every 488us</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RTC_ALARM_TICK_PER_MS                       2.048           <span class="comment">// 1/2.048 = tick duration in ms</span></span></div></pre></td></tr></table></figure></p>
+<p>由于原本每个tick相当于1s，而在这里，每个tick相当于0.48828125ms，小于1ms，所以在程序中能够实现ms级的定时任务。</p>
 <p>RTC定时器的用法主要分为三步：</p>
 <pre><code>1. 初始化，注册回调函数
     void TimerInit( TimerEvent_t *obj, void ( *callback )( void ) )//设置回调函数
@@ -580,6 +570,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/11/STM32时钟源配置/" rel="prev" title="STM32时钟讲解">
+                STM32时钟讲解 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -670,7 +664,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -687,7 +681,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
