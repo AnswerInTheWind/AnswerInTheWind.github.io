@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mcu,stm32," />
+  <meta name="keywords" content="stm32,mcu," />
 
 
 
@@ -90,7 +90,7 @@
 HSE是外部的高速晶振，可以直接使用或者通过PLL倍频,最终输出不能超过32Mhz
 HSI是内部的高速RC振荡器，频率为">
 <meta property="og:type" content="article">
-<meta property="og:title" content="STM32时钟讲解">
+<meta property="og:title" content="STM32时钟配置--系统时钟、RTC时钟、IWDG时钟">
 <meta property="og:url" content="http://yoursite.com/2016/10/11/STM32时钟源配置/index.html">
 <meta property="og:site_name" content="陈均奎">
 <meta property="og:description" content="stm32L0x1的时钟分类先给大家推荐一个软件STM32CubeMX，上面的那张关于时钟的图就是从这个软件中截图得来的，这个软件还可以查看配置的时钟情况以及时钟树，挺方便的。
@@ -101,9 +101,9 @@ HSI是内部的高速RC振荡器，频率为">
 <meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/STM32_OSC.png">
 <meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/STM32_OSC_SYSTEM.png">
 <meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/STM32_OSC_RTC.png">
-<meta property="og:updated_time" content="2016-10-11T16:14:14.906Z">
+<meta property="og:updated_time" content="2016-10-12T15:28:58.251Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="STM32时钟讲解">
+<meta name="twitter:title" content="STM32时钟配置--系统时钟、RTC时钟、IWDG时钟">
 <meta name="twitter:description" content="stm32L0x1的时钟分类先给大家推荐一个软件STM32CubeMX，上面的那张关于时钟的图就是从这个软件中截图得来的，这个软件还可以查看配置的时钟情况以及时钟树，挺方便的。
 从图上，可以看出，STM32的始终源一共有HSE、HSI、LSE、LSI、MSI、PLL六种，其中
 
@@ -132,7 +132,7 @@ HSI是内部的高速RC振荡器，频率为">
 
   <link rel="canonical" href="http://yoursite.com/2016/10/11/STM32时钟源配置/"/>
 
-  <title> STM32时钟讲解 | 陈均奎 </title>
+  <title> STM32时钟配置--系统时钟、RTC时钟、IWDG时钟 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -305,7 +305,7 @@ HSI是内部的高速RC振荡器，频率为">
             
             
               
-                STM32时钟讲解
+                STM32时钟配置--系统时钟、RTC时钟、IWDG时钟
               
             
           </h1>
@@ -358,7 +358,7 @@ HSI是内部的高速RC振荡器，频率为">
 
           
           
-             <span id="/2016/10/11/STM32时钟源配置/" class="leancloud_visitors" data-flag-title="STM32时钟讲解">
+             <span id="/2016/10/11/STM32时钟源配置/" class="leancloud_visitors" data-flag-title="STM32时钟配置--系统时钟、RTC时钟、IWDG时钟">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -380,7 +380,7 @@ HSI是内部的高速RC振荡器，频率为">
       
 
       
-        <h2 id="stm32L0x1的时钟分类"><a href="#stm32L0x1的时钟分类" class="headerlink" title="stm32L0x1的时钟分类"></a>stm32L0x1的时钟分类</h2><p><img src="../../../../uploads/LoRaWAN_STM32/STM32_OSC.png" alt=""><br>先给大家推荐一个软件STM32CubeMX，上面的那张关于时钟的图就是从这个软件中截图得来的，这个软件还可以查看配置的时钟情况以及时钟树，挺方便的。</p>
+        <h1 id="stm32L0x1的时钟分类"><a href="#stm32L0x1的时钟分类" class="headerlink" title="stm32L0x1的时钟分类"></a>stm32L0x1的时钟分类</h1><p><img src="../../../../uploads/LoRaWAN_STM32/STM32_OSC.png" alt=""><br>先给大家推荐一个软件STM32CubeMX，上面的那张关于时钟的图就是从这个软件中截图得来的，这个软件还可以查看配置的时钟情况以及时钟树，挺方便的。</p>
 <p>从图上，可以看出，STM32的始终源一共有HSE、HSI、LSE、LSI、MSI、PLL六种，<br>其中</p>
 <ul>
 <li>HSE是外部的高速晶振，可以直接使用或者通过PLL倍频,最终输出不能超过32Mhz</li>
@@ -432,9 +432,9 @@ HSI是内部的高速RC振荡器，频率为">
       
         <div class="post-tags">
           
-            <a href="/tags/mcu/" rel="tag">#mcu</a>
-          
             <a href="/tags/stm32/" rel="tag">#stm32</a>
+          
+            <a href="/tags/mcu/" rel="tag">#mcu</a>
           
         </div>
       
@@ -451,8 +451,8 @@ HSI是内部的高速RC振荡器，频率为">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/10/11/LoRaWAN_stack移植笔记/" rel="prev" title="LoRaWAN_stack移植笔记(一)">
-                LoRaWAN_stack移植笔记(一) <i class="fa fa-chevron-right"></i>
+              <a href="/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/" rel="prev" title="LoRaWAN_stack移植笔记(一)--RF硬件相关">
+                LoRaWAN_stack移植笔记(一)--RF硬件相关 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -469,7 +469,7 @@ HSI是内部的高速RC振荡器，频率为">
     <div class="post-spread">
       
         <div class="ds-share flat" data-thread-key="2016/10/11/STM32时钟源配置/"
-     data-title="STM32时钟讲解"
+     data-title="STM32时钟配置--系统时钟、RTC时钟、IWDG时钟"
      data-content=""
      data-url="http://yoursite.com/2016/10/11/STM32时钟源配置/">
   <div class="ds-share-inline">
@@ -499,7 +499,7 @@ HSI是内部的高速RC振荡器，频率为">
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/10/11/STM32时钟源配置/"
-           data-title="STM32时钟讲解" data-url="http://yoursite.com/2016/10/11/STM32时钟源配置/">
+           data-title="STM32时钟配置--系统时钟、RTC时钟、IWDG时钟" data-url="http://yoursite.com/2016/10/11/STM32时钟源配置/">
       </div>
     
   </div>
@@ -601,7 +601,7 @@ HSI是内部的高速RC振荡器，频率为">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#stm32L0x1的时钟分类"><span class="nav-number">1.</span> <span class="nav-text">stm32L0x1的时钟分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统时钟源"><span class="nav-number">2.</span> <span class="nav-text">系统时钟源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RTC时钟源-IWDG-时钟源"><span class="nav-number">3.</span> <span class="nav-text">RTC时钟源  IWDG 时钟源</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#stm32L0x1的时钟分类"><span class="nav-number">1.</span> <span class="nav-text">stm32L0x1的时钟分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统时钟源"><span class="nav-number">1.1.</span> <span class="nav-text">系统时钟源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RTC时钟源-IWDG-时钟源"><span class="nav-number">1.2.</span> <span class="nav-text">RTC时钟源  IWDG 时钟源</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

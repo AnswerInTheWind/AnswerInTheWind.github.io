@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LoRaWAN,stm32,sx1276," />
+  <meta name="keywords" content="LoRaWAN,sx1276,stm32," />
 
 
 
@@ -89,8 +89,8 @@
 如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下
 123456789101112void SX1276SetTcxoConfig(void)//此函数为自定义的&amp;#123;  SX1276Write( REG_TCXO, 0x19 ); //设置TCXO  &amp;#125;//在初始化中调用void SX1276Init">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LoRaWAN_stack移植笔记(一)">
-<meta property="og:url" content="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记/index.html">
+<meta property="og:title" content="LoRaWAN_stack移植笔记(一)--RF硬件相关">
+<meta property="og:url" content="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/index.html">
 <meta property="og:site_name" content="陈均奎">
 <meta property="og:description" content="和硬件相关的问题TCXO 的使用根据SX1276数据手册，
 
@@ -99,9 +99,9 @@
 <meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/REGTCXO.png">
 <meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/REGPACONFIG.png">
 <meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/TXRX.png">
-<meta property="og:updated_time" content="2016-10-11T16:09:24.802Z">
+<meta property="og:updated_time" content="2016-10-12T15:26:18.860Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LoRaWAN_stack移植笔记(一)">
+<meta name="twitter:title" content="LoRaWAN_stack移植笔记(一)--RF硬件相关">
 <meta name="twitter:description" content="和硬件相关的问题TCXO 的使用根据SX1276数据手册，
 
 如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下
@@ -127,9 +127,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/"/>
 
-  <title> LoRaWAN_stack移植笔记(一) | 陈均奎 </title>
+  <title> LoRaWAN_stack移植笔记(一)--RF硬件相关 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -302,7 +302,7 @@
             
             
               
-                LoRaWAN_stack移植笔记(一)
+                LoRaWAN_stack移植笔记(一)--RF硬件相关
               
             
           </h1>
@@ -344,8 +344,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/10/11/LoRaWAN_stack移植笔记/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记/" itemprop="commentsCount"></span>
+                <a href="/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -355,7 +355,7 @@
 
           
           
-             <span id="/2016/10/11/LoRaWAN_stack移植笔记/" class="leancloud_visitors" data-flag-title="LoRaWAN_stack移植笔记(一)">
+             <span id="/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/" class="leancloud_visitors" data-flag-title="LoRaWAN_stack移植笔记(一)--RF硬件相关">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -427,9 +427,9 @@ Note: When both prescalers are used, it is recommended to configure the
           
             <a href="/tags/LoRaWAN/" rel="tag">#LoRaWAN</a>
           
-            <a href="/tags/stm32/" rel="tag">#stm32</a>
-          
             <a href="/tags/sx1276/" rel="tag">#sx1276</a>
+          
+            <a href="/tags/stm32/" rel="tag">#stm32</a>
           
         </div>
       
@@ -438,8 +438,8 @@ Note: When both prescalers are used, it is recommended to configure the
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/11/STM32时钟源配置/" rel="next" title="STM32时钟讲解">
-                <i class="fa fa-chevron-left"></i> STM32时钟讲解
+              <a href="/2016/10/11/STM32时钟源配置/" rel="next" title="STM32时钟配置--系统时钟、RTC时钟、IWDG时钟">
+                <i class="fa fa-chevron-left"></i> STM32时钟配置--系统时钟、RTC时钟、IWDG时钟
               </a>
             
           </div>
@@ -459,10 +459,10 @@ Note: When both prescalers are used, it is recommended to configure the
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记/"
-     data-title="LoRaWAN_stack移植笔记(一)"
+        <div class="ds-share flat" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/"
+     data-title="LoRaWAN_stack移植笔记(一)--RF硬件相关"
      data-content=""
-     data-url="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记/">
+     data-url="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -489,8 +489,8 @@ Note: When both prescalers are used, it is recommended to configure the
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记/"
-           data-title="LoRaWAN_stack移植笔记(一)" data-url="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记/">
+      <div class="ds-thread" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/"
+           data-title="LoRaWAN_stack移植笔记(一)--RF硬件相关" data-url="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/">
       </div>
     
   </div>
