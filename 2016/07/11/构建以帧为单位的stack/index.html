@@ -84,22 +84,22 @@
 
 
 
-<meta name="description" content="我的stack frame的src以及例程位于stack_FrameTest这个库当中，在使用前最好先阅读readme.md文件
-为了配合项目的需要，我构造了一个循环的stack，stack是一种后进先出的存储结构，在实际中使用这种存储结构，可以使保证最新的数据拥有最高优先级。在物联网的系统中，往往需要获取传感器的最新的状态，所以传输传感器的最新状态往往比传送之前的状态更有意义。
-stack构造及">
+<meta name="description" content="此stack主要是作为存储空间使用，主要的借口就是push和pop。
+stack frame的src以及例程位于stack_FrameTest这个库当中，其中有readme文件，可以快速上手。
+stack构造及代码实现其中我对stack以及frame的构造的代码如下：123456789101112typedef struct Frame&amp;#123;	uint8_t frame_len;//帧的字节">
 <meta property="og:type" content="article">
-<meta property="og:title" content="以帧为存储单位的循环stack存储结构的设计">
+<meta property="og:title" content="以帧为存储单位的循环stack">
 <meta property="og:url" content="http://yoursite.com/2016/07/11/构建以帧为单位的stack/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="我的stack frame的src以及例程位于stack_FrameTest这个库当中，在使用前最好先阅读readme.md文件
-为了配合项目的需要，我构造了一个循环的stack，stack是一种后进先出的存储结构，在实际中使用这种存储结构，可以使保证最新的数据拥有最高优先级。在物联网的系统中，往往需要获取传感器的最新的状态，所以传输传感器的最新状态往往比传送之前的状态更有意义。
-stack构造及">
-<meta property="og:updated_time" content="2016-07-26T02:06:53.699Z">
+<meta property="og:description" content="此stack主要是作为存储空间使用，主要的借口就是push和pop。
+stack frame的src以及例程位于stack_FrameTest这个库当中，其中有readme文件，可以快速上手。
+stack构造及代码实现其中我对stack以及frame的构造的代码如下：123456789101112typedef struct Frame&amp;#123;	uint8_t frame_len;//帧的字节">
+<meta property="og:updated_time" content="2016-10-12T15:50:57.314Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="以帧为存储单位的循环stack存储结构的设计">
-<meta name="twitter:description" content="我的stack frame的src以及例程位于stack_FrameTest这个库当中，在使用前最好先阅读readme.md文件
-为了配合项目的需要，我构造了一个循环的stack，stack是一种后进先出的存储结构，在实际中使用这种存储结构，可以使保证最新的数据拥有最高优先级。在物联网的系统中，往往需要获取传感器的最新的状态，所以传输传感器的最新状态往往比传送之前的状态更有意义。
-stack构造及">
+<meta name="twitter:title" content="以帧为存储单位的循环stack">
+<meta name="twitter:description" content="此stack主要是作为存储空间使用，主要的借口就是push和pop。
+stack frame的src以及例程位于stack_FrameTest这个库当中，其中有readme文件，可以快速上手。
+stack构造及代码实现其中我对stack以及frame的构造的代码如下：123456789101112typedef struct Frame&amp;#123;	uint8_t frame_len;//帧的字节">
 
 
 
@@ -122,7 +122,7 @@ stack构造及">
 
   <link rel="canonical" href="http://yoursite.com/2016/07/11/构建以帧为单位的stack/"/>
 
-  <title> 以帧为存储单位的循环stack存储结构的设计 | 陈均奎 </title>
+  <title> 以帧为存储单位的循环stack | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -295,7 +295,7 @@ stack构造及">
             
             
               
-                以帧为存储单位的循环stack存储结构的设计
+                以帧为存储单位的循环stack
               
             
           </h1>
@@ -348,7 +348,7 @@ stack构造及">
 
           
           
-             <span id="/2016/07/11/构建以帧为单位的stack/" class="leancloud_visitors" data-flag-title="以帧为存储单位的循环stack存储结构的设计">
+             <span id="/2016/07/11/构建以帧为单位的stack/" class="leancloud_visitors" data-flag-title="以帧为存储单位的循环stack">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -370,32 +370,23 @@ stack构造及">
       
 
       
-        <p>我的stack frame的src以及例程位于<a href="https://github.com/AnswerInTheWind/Data_Structure/tree/master/stack_FrameTest" target="_blank" rel="external">stack_FrameTest</a>这个库当中，在使用前最好先阅读readme.md文件</p>
-<p>为了配合项目的需要，我构造了一个循环的stack，stack是一种后进先出的存储结构，在实际中使用这种存储结构，可以使保证最新的数据拥有最高优先级。<br>在物联网的系统中，往往需要获取传感器的最新的状态，所以传输传感器的最新状态往往比传送之前的状态更有意义。</p>
-<h2 id="stack构造及代码实现"><a href="#stack构造及代码实现" class="headerlink" title="stack构造及代码实现"></a>stack构造及代码实现</h2><p>其中我对stack以及frame的构造的代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Frame</div><div class="line">&#123;</div><div class="line">	<span class="keyword">uint8_t</span> frame_len;<span class="comment">//帧的字节数</span></div><div class="line">	<span class="keyword">uint8_t</span> frame_data[MAX_TRANSMISSION_UINT];<span class="comment">//帧的存储空间</span></div><div class="line">&#125;Frame;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> STACK</div><div class="line">&#123;</div><div class="line">	<span class="keyword">int8_t</span> frame_lastNum;<span class="comment">//最近的帧的序号</span></div><div class="line">	<span class="keyword">uint8_t</span> frame_count;<span class="comment">//stack中的帧的个数</span></div><div class="line">	Frame frame_info[MAX_STACK_FRAME_NUM];<span class="comment">//最多允许存储MAX_STACK_FRAME_NUM帧</span></div><div class="line">&#125;STACK;</div></pre></td></tr></table></figure></p>
+        <p>此stack主要是作为存储空间使用，主要的借口就是push和pop。</p>
+<p>stack frame的src以及例程位于<a href="https://github.com/AnswerInTheWind/Data_Structure/tree/master/stack_FrameTest" target="_blank" rel="external">stack_FrameTest</a>这个库当中，其中有readme文件，可以快速上手。</p>
+<h2 id="stack构造及代码实现"><a href="#stack构造及代码实现" class="headerlink" title="stack构造及代码实现"></a>stack构造及代码实现</h2><p>其中我对stack以及frame的构造的代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Frame</div><div class="line">&#123;</div><div class="line">	<span class="keyword">uint8_t</span> frame_len;<span class="comment">//帧的字节数</span></div><div class="line">	<span class="keyword">uint8_t</span> frame_data[MAX_TRANSMISSION_UINT];<span class="comment">//一帧数据最大为MAX_TRANSMISSION_UINT字节</span></div><div class="line">&#125;Frame;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> STACK</div><div class="line">&#123;</div><div class="line">	<span class="keyword">int8_t</span> frame_lastNum;<span class="comment">//最新的帧的序号</span></div><div class="line">	<span class="keyword">uint8_t</span> frame_count;<span class="comment">//stack中未取出的帧的个数</span></div><div class="line">	Frame frame_info[MAX_STACK_FRAME_NUM];<span class="comment">//stack中最多允许存储MAX_STACK_FRAME_NUM个帧</span></div><div class="line">&#125;STACK;</div></pre></td></tr></table></figure></p>
 <p>首先构造了一个stack，stack包含两个内容:</p>
 <ol>
-<li>stack的统计信息：stack中帧的个数，最新的帧的ID；</li>
-<li>数据存储区,所有帧的数据存放区域；</li>
+<li>stack的统计信息：stack中帧的个数(frame_count)，最新的帧的ID(frame_lastNum)；</li>
+<li>数据存储区–一个数组，数据格式为Frame，容量为MAX_STACK_FRAME_NUM(frame_info[MAX_STACK_FRAME_NUM])；</li>
 </ol>
 <p>然后，帧的构造也包含了两个部分：</p>
 <ol>
-<li>此frame中的数据存储区中的有效数据的字节数；</li>
-<li>数据存储区，此帧的数据存放区域；</li>
+<li>此帧数据的字节数(frame_len)；</li>
+<li>数据存储空间–数组,数据格式为uint8_t,容量为MAX_TRANSMISSION_UINT(frame_data[MAX_TRANSMISSION_UINT])；</li>
 </ol>
-<p>循环意味着此stack并非标准的stack，没有栈顶限制，当栈满了，仍然有数据进入时，数据从帧底开始存储，相当于栈底的原来的数据会被覆盖掉，也就没了栈越界的危险。</p>
-<h2 id="此数据结构的优点"><a href="#此数据结构的优点" class="headerlink" title="此数据结构的优点"></a>此数据结构的优点</h2><ol>
-<li>永远是最新的数据被最优先处理；</li>
-<li>没有栈越界的危险，在嵌入式或者其他队稳定性要求较高的环境中，可靠，不会因为数据过多出现指针异常导致崩溃的情况出现；</li>
-<li>在海量数据涌来但无法全部进行处理的时候，选择最新的数据保存，进行处理，保证了数据的实时性；</li>
-</ol>
-<h2 id="此数据结构也有明显的缺点"><a href="#此数据结构也有明显的缺点" class="headerlink" title="此数据结构也有明显的缺点"></a>此数据结构也有明显的缺点</h2><ol>
-<li>如果处理速度慢，较早的未处理的数据被覆盖就再也无法找回了；</li>
-<li>由于stack中frame的存储空间是静态分配的，而不是在运行时动态分配的，若frame的负载情况远远小于MTU，则会出现大量空间被浪费的情况；</li>
-</ol>
+<p>另外，此stack为一个循环栈，当stack存满之后仍有数据存入，并不会发生越界，而是会从头开始覆盖，此种操作，有利也有弊。</p>
 <h2 id="拼包机制"><a href="#拼包机制" class="headerlink" title="拼包机制"></a>拼包机制</h2><p>在最后，此例程中还写了一个拼包的机制，代码如下<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//将stack中的数据进行拼包,在不造成断包的情况下最大限度地拼包</span></div><div class="line"><span class="keyword">uint8_t</span> SpliceFrame(<span class="keyword">uint8_t</span>* dest)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">uint8_t</span> Splice_len = <span class="number">0</span>;</div><div class="line"></div><div class="line">    Splice_len = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</div><div class="line">    &#123;</div><div class="line">		<span class="comment">//确保当前数据加下一帧数据不会超过最大单帧负载量(MTU)</span></div><div class="line">        <span class="keyword">if</span>((Splice_len +Stack_GetFrameLastNum()) &lt;= MAX_TRANSMISSION_UINT)</div><div class="line">        &#123;</div><div class="line">            Splice_len +=Stack_PopData(dest+Splice_len);<span class="comment">//</span></div><div class="line">            <span class="keyword">if</span>(Stack_GetFrameCount() == <span class="number">0</span>)<span class="comment">//当前融合帧的数量小于stack中已存帧的数量</span></div><div class="line">               <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> Splice_len;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>从程序中可见，此拼包的机制就是在MTU的限制内，在不造成断包的情况下，最大限度的地将stack中已经已有的数据包进行拼包，打包成一个较长的数据包进行处理。此拼包机制在无线网络中可以大大提高无线信道的传输效率。具体的测试情况可以查看源代码。</p>
-<p>如果有什么疑问或者错误欢迎大家指正，欢迎大家评论或者提出issues.</p>
+<p>思路就是假如当MTU=70，而如果收到的数据为10bytes，10bytes这样的短数据，我们就可以把这样的短数据由多个包拼接成一个包，一次性发送出去，提高通道的利用效率，因为一次发送70个字节所需的时间大约为5s，而一次发送10个字节的时间也基本等于5s，但是拼包的时候如果造成断包，在接收端处理会非常的麻烦，所以拼包机制制定成这样–在不造成断包以及不超过MTU的情况下最大限度地拼包。</p>
+<p>有任何问题欢迎联系我。</p>
 
       
     </div>
@@ -457,7 +448,7 @@ stack构造及">
     <div class="post-spread">
       
         <div class="ds-share flat" data-thread-key="2016/07/11/构建以帧为单位的stack/"
-     data-title="以帧为存储单位的循环stack存储结构的设计"
+     data-title="以帧为存储单位的循环stack"
      data-content=""
      data-url="http://yoursite.com/2016/07/11/构建以帧为单位的stack/">
   <div class="ds-share-inline">
@@ -487,7 +478,7 @@ stack构造及">
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/07/11/构建以帧为单位的stack/"
-           data-title="以帧为存储单位的循环stack存储结构的设计" data-url="http://yoursite.com/2016/07/11/构建以帧为单位的stack/">
+           data-title="以帧为存储单位的循环stack" data-url="http://yoursite.com/2016/07/11/构建以帧为单位的stack/">
       </div>
     
   </div>
@@ -589,7 +580,7 @@ stack构造及">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#stack构造及代码实现"><span class="nav-number">1.</span> <span class="nav-text">stack构造及代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#此数据结构的优点"><span class="nav-number">2.</span> <span class="nav-text">此数据结构的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#此数据结构也有明显的缺点"><span class="nav-number">3.</span> <span class="nav-text">此数据结构也有明显的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拼包机制"><span class="nav-number">4.</span> <span class="nav-text">拼包机制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#stack构造及代码实现"><span class="nav-number">1.</span> <span class="nav-text">stack构造及代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拼包机制"><span class="nav-number">2.</span> <span class="nav-text">拼包机制</span></a></li></ol></div>
             
           </div>
         </section>
