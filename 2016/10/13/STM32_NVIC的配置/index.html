@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="chenjunkui" />
+  <meta name="keywords" content="STM32,NVIC," />
 
 
 
@@ -84,15 +84,18 @@
 
 
 
-<meta name="description" content="Answer in the wind">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈均奎">
-<meta property="og:url" content="http://yoursite.com/categories/MCU/index.html">
+<meta name="description" content="接口12345678//设置中断的抢占优先级static __INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority);//使能中断static __INLINE void NVIC_EnableIRQ(IRQn_Type IRQn);//设置优先级组static __INLINE void NVIC_SetPriorityGr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32_NVIC设置">
+<meta property="og:url" content="http://yoursite.com/2016/10/13/STM32_NVIC的配置/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="Answer in the wind">
+<meta property="og:description" content="接口12345678//设置中断的抢占优先级static __INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority);//使能中断static __INLINE void NVIC_EnableIRQ(IRQn_Type IRQn);//设置优先级组static __INLINE void NVIC_SetPriorityGr">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/STM32_NVIC.png">
+<meta property="og:updated_time" content="2016-10-13T16:03:30.068Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈均奎">
-<meta name="twitter:description" content="Answer in the wind">
+<meta name="twitter:title" content="STM32_NVIC设置">
+<meta name="twitter:description" content="接口12345678//设置中断的抢占优先级static __INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority);//使能中断static __INLINE void NVIC_EnableIRQ(IRQn_Type IRQn);//设置优先级组static __INLINE void NVIC_SetPriorityGr">
+<meta name="twitter:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/STM32_NVIC.png">
 
 
 
@@ -113,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/MCU/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/13/STM32_NVIC的配置/"/>
 
-  <title> 分类: MCU | 陈均奎 </title>
+  <title> STM32_NVIC设置 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -146,7 +149,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -267,75 +270,193 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        MCU
-        <small>分类</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/10/11/STM32时钟源配置/" itemprop="url">
-              
-                <span itemprop="name">STM32时钟配置--系统时钟、RTC时钟、IWDG时钟</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-11T16:55:58+08:00"
-              content="2016-10-11" >
-          10-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/11/STM32_PVD/" itemprop="url">
-              
-                <span itemprop="name">STM32L051 PVD的调试</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-11T00:00:00+08:00"
-              content="2016-07-11" >
-          07-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
+  
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                STM32_NVIC设置
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-13T09:32:18+08:00" content="2016-10-13">
+              2016-10-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/STM32/" itemprop="url" rel="index">
+                    <span itemprop="name">STM32</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/13/STM32_NVIC的配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/13/STM32_NVIC的配置/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/10/13/STM32_NVIC的配置/" class="leancloud_visitors" data-flag-title="STM32_NVIC设置">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//设置中断的抢占优先级</span></div><div class="line"><span class="keyword">static</span> <span class="number">__</span><span class="function">INLINE <span class="keyword">void</span> <span class="title">NVIC_SetPriority</span><span class="params">(IRQn_Type IRQn, <span class="keyword">uint32_t</span> priority)</span></span>;</div><div class="line"></div><div class="line"><span class="comment">//使能中断</span></div><div class="line"><span class="keyword">static</span> <span class="number">__</span><span class="function">INLINE <span class="keyword">void</span> <span class="title">NVIC_EnableIRQ</span><span class="params">(IRQn_Type IRQn)</span></span>;</div><div class="line"></div><div class="line"><span class="comment">//设置优先级组</span></div><div class="line"><span class="keyword">static</span> <span class="number">__</span><span class="function">INLINE <span class="keyword">void</span> <span class="title">NVIC_SetPriorityGrouping</span><span class="params">(<span class="keyword">uint32_t</span> PriorityGroup)</span></span>;</div></pre></td></tr></table></figure>
+<p>常用的配置中断优先级的函数就是三个，其中最常用的就是两个：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="number">__</span><span class="function">INLINE <span class="keyword">void</span> <span class="title">NVIC_SetPriority</span><span class="params">(IRQn_Type IRQn, <span class="keyword">uint32_t</span> priority)</span></span>;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="number">__</span><span class="function">INLINE <span class="keyword">void</span> <span class="title">NVIC_EnableIRQ</span><span class="params">(IRQn_Type IRQn)</span></span>;</div></pre></td></tr></table></figure></p>
+<p>因为NVIC默认就是是组4，可以不用设置，即四位抢占优先级，0位响应优先级<br><img src="../../../../uploads/LoRaWAN_STM32/STM32_NVIC.png" alt=""></p>
+<h2 id="优先级冲突的处理"><a href="#优先级冲突的处理" class="headerlink" title="优先级冲突的处理"></a>优先级冲突的处理</h2><ul>
+<li>具有高抢占式优先级的中断可以在具有低抢占式优先级的中断处理过程中被响应，即中断的嵌套，或者说高抢占式优先级的中断可以嵌套低抢占式优先级的中断；</li>
+<li>当两个中断源的抢占式优先级相同时，这两个中断将没有嵌套关系，当一个中断到来后，如果正在处理另一个中断，这个后到来的中断就要等到前一个中断处理完之后才能被处理。如果这个两个中断同时到达，则中断控制器根据他们的响应优先级高低来决定先处理哪一个；</li>
+<li>如果他们的抢占式优先级和响应优先级都相等，则根据他们在中断表中的排位顺序决定先处理哪一个；</li>
+</ul>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>例如:<br>NVIC_SetPriority(UART1_IRQn,2);</p>
+<p>NVIC_EnableIRQ(UART1_IRQn);</p>
+<p>NVIC_SetPriority(UART0_IRQn,9);<br>NVIC_EnableIRQ(UART0_IRQn);<br>设置UART1_IRQn的优先级为2，UART0_IRQn的优先级为9，并且使能中断。</p>
+<p>其中，抢占优先级的数字越低，优先级越高</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/STM32/" rel="tag">#STM32</a>
+          
+            <a href="/tags/NVIC/" rel="tag">#NVIC</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/" rel="next" title="LoRaWAN_stack移植笔记(一)--RF硬件相关">
+                <i class="fa fa-chevron-left"></i> LoRaWAN_stack移植笔记(一)--RF硬件相关
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/14/LoRaWAN_stack移植笔记 (二)_GPIO/" rel="prev" title="LoRaWAN_stack移植笔记 (二)_GPIO">
+                LoRaWAN_stack移植笔记 (二)_GPIO <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/10/13/STM32_NVIC的配置/"
+     data-title="STM32_NVIC设置"
+     data-content=""
+     data-url="http://yoursite.com/2016/10/13/STM32_NVIC的配置/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -343,6 +464,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/13/STM32_NVIC的配置/"
+           data-title="STM32_NVIC设置" data-url="http://yoursite.com/2016/10/13/STM32_NVIC的配置/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -362,8 +491,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -374,7 +512,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -382,7 +520,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -391,7 +529,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -433,6 +571,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口"><span class="nav-number">1.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先级冲突的处理"><span class="nav-number">2.</span> <span class="nav-text">优先级冲突的处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方法"><span class="nav-number">3.</span> <span class="nav-text">使用方法</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -536,6 +685,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

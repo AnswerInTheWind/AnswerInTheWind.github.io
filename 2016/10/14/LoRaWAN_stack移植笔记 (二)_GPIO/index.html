@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数据结构,stack,MTU,拆包,拼包," />
+  <meta name="keywords" content="LoRaWAN、STM32," />
 
 
 
@@ -84,22 +84,19 @@
 
 
 
-<meta name="description" content="此stack主要是作为存储空间使用，主要的借口就是push和pop。
-stack frame的src以及例程位于stack_FrameTest这个库当中，其中有readme文件，可以快速上手。
-stack构造及代码实现其中我对stack以及frame的构造的代码如下：123456789101112typedef struct Frame&amp;#123;	uint8_t frame_len;//帧的字节">
+<meta name="description" content="stm32相关的配置由于例程使用的主控芯片为STM32L151C8T6,而在本设计中使用的主控芯片为STM32L051C8T6，内核不一样，并且Cube库相关的函数接口及配置也会有不同，所以芯片的驱动所以做修改。另外例程中对STM32库函数的再一次封装的方法也非常值得学习。
+GPIO 的配置1GpioInit( &amp;amp;obj-&amp;gt;Tx, tx, PIN_ALTERNATE_FCT, PIN">
 <meta property="og:type" content="article">
-<meta property="og:title" content="以帧为存储单位的循环stack">
-<meta property="og:url" content="http://yoursite.com/2016/07/11/构建以帧为单位的stack/index.html">
+<meta property="og:title" content="LoRaWAN_stack移植笔记 (二)_GPIO">
+<meta property="og:url" content="http://yoursite.com/2016/10/14/LoRaWAN_stack移植笔记 (二)_GPIO/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="此stack主要是作为存储空间使用，主要的借口就是push和pop。
-stack frame的src以及例程位于stack_FrameTest这个库当中，其中有readme文件，可以快速上手。
-stack构造及代码实现其中我对stack以及frame的构造的代码如下：123456789101112typedef struct Frame&amp;#123;	uint8_t frame_len;//帧的字节">
-<meta property="og:updated_time" content="2016-10-12T15:50:57.314Z">
+<meta property="og:description" content="stm32相关的配置由于例程使用的主控芯片为STM32L151C8T6,而在本设计中使用的主控芯片为STM32L051C8T6，内核不一样，并且Cube库相关的函数接口及配置也会有不同，所以芯片的驱动所以做修改。另外例程中对STM32库函数的再一次封装的方法也非常值得学习。
+GPIO 的配置1GpioInit( &amp;amp;obj-&amp;gt;Tx, tx, PIN_ALTERNATE_FCT, PIN">
+<meta property="og:updated_time" content="2016-10-13T16:10:11.747Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="以帧为存储单位的循环stack">
-<meta name="twitter:description" content="此stack主要是作为存储空间使用，主要的借口就是push和pop。
-stack frame的src以及例程位于stack_FrameTest这个库当中，其中有readme文件，可以快速上手。
-stack构造及代码实现其中我对stack以及frame的构造的代码如下：123456789101112typedef struct Frame&amp;#123;	uint8_t frame_len;//帧的字节">
+<meta name="twitter:title" content="LoRaWAN_stack移植笔记 (二)_GPIO">
+<meta name="twitter:description" content="stm32相关的配置由于例程使用的主控芯片为STM32L151C8T6,而在本设计中使用的主控芯片为STM32L051C8T6，内核不一样，并且Cube库相关的函数接口及配置也会有不同，所以芯片的驱动所以做修改。另外例程中对STM32库函数的再一次封装的方法也非常值得学习。
+GPIO 的配置1GpioInit( &amp;amp;obj-&amp;gt;Tx, tx, PIN_ALTERNATE_FCT, PIN">
 
 
 
@@ -120,9 +117,9 @@ stack构造及代码实现其中我对stack以及frame的构造的代码如下�
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/11/构建以帧为单位的stack/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/14/LoRaWAN_stack移植笔记 (二)_GPIO/"/>
 
-  <title> 以帧为存储单位的循环stack | 陈均奎 </title>
+  <title> LoRaWAN_stack移植笔记 (二)_GPIO | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -295,7 +292,7 @@ stack构造及代码实现其中我对stack以及frame的构造的代码如下�
             
             
               
-                以帧为存储单位的循环stack
+                LoRaWAN_stack移植笔记 (二)_GPIO
               
             
           </h1>
@@ -307,8 +304,8 @@ stack构造及代码实现其中我对stack以及frame的构造的代码如下�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-11T00:00:00+08:00" content="2016-07-11">
-              2016-07-11
+            <time itemprop="dateCreated" datetime="2016-10-14T00:10:11+08:00" content="2016-10-14">
+              2016-10-14
             </time>
           </span>
 
@@ -321,8 +318,8 @@ stack构造及代码实现其中我对stack以及frame的构造的代码如下�
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/LoRaWAN/" itemprop="url" rel="index">
+                    <span itemprop="name">LoRaWAN</span>
                   </a>
                 </span>
 
@@ -337,8 +334,8 @@ stack构造及代码实现其中我对stack以及frame的构造的代码如下�
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/11/构建以帧为单位的stack/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/11/构建以帧为单位的stack/" itemprop="commentsCount"></span>
+                <a href="/2016/10/14/LoRaWAN_stack移植笔记 (二)_GPIO/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/14/LoRaWAN_stack移植笔记 (二)_GPIO/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -348,7 +345,7 @@ stack构造及代码实现其中我对stack以及frame的构造的代码如下�
 
           
           
-             <span id="/2016/07/11/构建以帧为单位的stack/" class="leancloud_visitors" data-flag-title="以帧为存储单位的循环stack">
+             <span id="/2016/10/14/LoRaWAN_stack移植笔记 (二)_GPIO/" class="leancloud_visitors" data-flag-title="LoRaWAN_stack移植笔记 (二)_GPIO">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -370,23 +367,25 @@ stack构造及代码实现其中我对stack以及frame的构造的代码如下�
       
 
       
-        <p>此stack主要是作为存储空间使用，主要的借口就是push和pop。</p>
-<p>stack frame的src以及例程位于<a href="https://github.com/AnswerInTheWind/Data_Structure/tree/master/stack_FrameTest" target="_blank" rel="external">stack_FrameTest</a>这个库当中，其中有readme文件，可以快速上手。</p>
-<h2 id="stack构造及代码实现"><a href="#stack构造及代码实现" class="headerlink" title="stack构造及代码实现"></a>stack构造及代码实现</h2><p>其中我对stack以及frame的构造的代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Frame</div><div class="line">&#123;</div><div class="line">	<span class="keyword">uint8_t</span> frame_len;<span class="comment">//帧的字节数</span></div><div class="line">	<span class="keyword">uint8_t</span> frame_data[MAX_TRANSMISSION_UINT];<span class="comment">//一帧数据最大为MAX_TRANSMISSION_UINT字节</span></div><div class="line">&#125;Frame;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> STACK</div><div class="line">&#123;</div><div class="line">	<span class="keyword">int8_t</span> frame_lastNum;<span class="comment">//最新的帧的序号</span></div><div class="line">	<span class="keyword">uint8_t</span> frame_count;<span class="comment">//stack中未取出的帧的个数</span></div><div class="line">	Frame frame_info[MAX_STACK_FRAME_NUM];<span class="comment">//stack中最多允许存储MAX_STACK_FRAME_NUM个帧</span></div><div class="line">&#125;STACK;</div></pre></td></tr></table></figure></p>
-<p>首先构造了一个stack，stack包含两个内容:</p>
-<ol>
-<li>stack的统计信息：stack中帧的个数(frame_count)，最新的帧的ID(frame_lastNum)；</li>
-<li>数据存储区–一个数组，数据格式为Frame，容量为MAX_STACK_FRAME_NUM(frame_info[MAX_STACK_FRAME_NUM])；</li>
-</ol>
-<p>然后，帧的构造也包含了两个部分：</p>
-<ol>
-<li>此帧数据的字节数(frame_len)；</li>
-<li>数据存储空间–数组,数据格式为uint8_t,容量为MAX_TRANSMISSION_UINT(frame_data[MAX_TRANSMISSION_UINT])；</li>
-</ol>
-<p>另外，此stack为一个循环栈，当stack存满之后仍有数据存入，并不会发生越界，而是会从头开始覆盖，此种操作，有利也有弊。</p>
-<h2 id="拼包机制"><a href="#拼包机制" class="headerlink" title="拼包机制"></a>拼包机制</h2><p>在最后，此例程中还写了一个拼包的机制，代码如下<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//将stack中的数据进行拼包,在不造成断包的情况下最大限度地拼包</span></div><div class="line"><span class="keyword">uint8_t</span> SpliceFrame(<span class="keyword">uint8_t</span>* dest)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">uint8_t</span> Splice_len = <span class="number">0</span>;</div><div class="line"></div><div class="line">    Splice_len = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</div><div class="line">    &#123;</div><div class="line">		<span class="comment">//确保当前数据加下一帧数据不会超过最大单帧负载量(MTU)</span></div><div class="line">        <span class="keyword">if</span>((Splice_len +Stack_GetFrameLastNum()) &lt;= MAX_TRANSMISSION_UINT)</div><div class="line">        &#123;</div><div class="line">            Splice_len +=Stack_PopData(dest+Splice_len);<span class="comment">//</span></div><div class="line">            <span class="keyword">if</span>(Stack_GetFrameCount() == <span class="number">0</span>)<span class="comment">//当前融合帧的数量小于stack中已存帧的数量</span></div><div class="line">               <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> Splice_len;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>思路就是假如当MTU=70，而如果收到的数据为10bytes，10bytes这样的短数据，我们就可以把这样的短数据由多个包拼接成一个包，一次性发送出去，提高通道的利用效率，因为一次发送70个字节所需的时间大约为5s，而一次发送10个字节的时间也基本等于5s，但是拼包的时候如果造成断包，在接收端处理会非常的麻烦，所以拼包机制制定成这样–在不造成断包以及不超过MTU的情况下最大限度地拼包。</p>
-<p>有任何问题欢迎联系我。</p>
+        <h1 id="stm32相关的配置"><a href="#stm32相关的配置" class="headerlink" title="stm32相关的配置"></a>stm32相关的配置</h1><p>由于例程使用的主控芯片为STM32L151C8T6,而在本设计中使用的主控芯片为STM32L051C8T6，内核不一样，并且Cube库相关的函数接口及配置也会有不同，所以芯片的驱动所以做修改。另外例程中对STM32库函数的再一次封装的方法也非常值得学习。</p>
+<h2 id="GPIO-的配置"><a href="#GPIO-的配置" class="headerlink" title="GPIO 的配置"></a>GPIO 的配置</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GpioInit( &amp;obj-&gt;Tx, tx, PIN_ALTERNATE_FCT, PIN_PUSH_PULL, PIN_PULL_UP, GPIO_AF0_USART1 );</div></pre></td></tr></table></figure>
+<p>例程中可以看到，对IO口的初始化只有这一句，是因为例程中对GPIO的操作进行了封装，方便了上层的使用。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*!</span></div><div class="line"> * Board GPIO pin names</div><div class="line"> */</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span></div><div class="line">&#123;</div><div class="line">    MCU_PINS,</div><div class="line">    IOE_PINS,</div><div class="line"></div><div class="line">    <span class="comment">// Not connected</span></div><div class="line">    NC = (<span class="keyword">int</span>)<span class="number">0xFFFFFFFF</span></div><div class="line">&#125;PinNames;</div><div class="line"></div><div class="line"><span class="comment">/*!</span></div><div class="line"> * STM32 Pin Names</div><div class="line"> */</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MCU_PINS \</span></div><div class="line">    PA_0 = 0, PA_1, PA_2, PA_3, PA_4, PA_5, PA_6, PA_7, PA_8, PA_9, PA_10, PA_11, PA_12, PA_13, PA_14, PA_15, \</div><div class="line">    PB_0, PB_1, PB_2, PB_3, PB_4, PB_5, PB_6, PB_7, PB_8, PB_9, PB_10, PB_11, PB_12, PB_13, PB_14, PB_15,     \</div><div class="line">    PC_0, PC_1, PC_2, PC_3, PC_4, PC_5, PC_6, PC_7, PC_8, PC_9, PC_10, PC_11, PC_12, PC_13, PC_14, PC_15,     \</div><div class="line">    PD_0, PD_1, PD_2, PD_3, PD_4, PD_5, PD_6, PD_7, PD_8, PD_9, PD_10, PD_11, PD_12, PD_13, PD_14, PD_15,     \</div><div class="line">    PE_0, PE_1, PE_2, PE_3, PE_4, PE_5, PE_6, PE_7, PE_8, PE_9, PE_10, PE_11, PE_12, PE_13, PE_14, PE_15,     \</div><div class="line">    PF_0, PF_1, PF_2, PF_3, PF_4, PF_5, PF_6, PF_7, PF_8, PF_9, PF_10, PF_11, PF_12, PF_13, PF_14, PF_15,     \</div><div class="line">    PH_0, PH_1, PH_2, PH_3, PH_4, PH_5, PH_6, PH_7, PH_8, PH_9, PH_10, PH_11, PH_12, PH_13, PH_14, PH_15</div></pre></td></tr></table></figure>
+<p>例程中使用Enum定义了64个IO口，其中</p>
+<ul>
+<li>0-15 表示PA0-15</li>
+<li>16-31表示PB0-15</li>
+<li>32-47表示PC0-15</li>
+<li>48-63表示PD0-15</li>
+<li>64-79表示PE0-15</li>
+<li>80-95表示PF0-15</li>
+<li>96-111表示PH0-15</li>
+</ul>
+<p>这样，在定义引脚的时候直接是用Enum变量就可以表示出IO的PIN以及PORT，在完成驱动程序之后，操作引脚非常的方便。</p>
+<p>例如 使用了一个LED灯，连接的是PB_5，这样我们#define LED PB_5，在程序里面就可以得知使用的是PB口，以及PIN_5，方法如下：</p>
+<pre><code>由于PB_5 = 16+5 = 21;
+21/16 = 1，得知使用的是PB口，21%16 = 5,得知使用的是PIN_5。
+</code></pre><p>其中C语言的时下代码如下，使用(&amp;0xff)以及&lt;&lt;的操作，效率比做除法及取模的效率更高<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">GpioMcuInit</span><span class="params">( Gpio_t *obj, PinNames pin, PinModes mode, PinConfigs config, PinTypes type, <span class="keyword">uint32_t</span> value )</span></span></div><div class="line">&#123;</div><div class="line">    GPIO_InitTypeDef GPIO_InitStructure;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>( pin == NC )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    obj-&gt;pin = pin;</div><div class="line">    obj-&gt;pinIndex = ( <span class="number">0x01</span> &lt;&lt; ( obj-&gt;pin &amp; <span class="number">0x0F</span> ) );</div><div class="line"></div><div class="line">    <span class="keyword">if</span>( ( obj-&gt;pin &amp; <span class="number">0xF0</span> ) == <span class="number">0x00</span> )</div><div class="line">    &#123;</div><div class="line">        obj-&gt;port = GPIOA;</div><div class="line">        <span class="number">__</span>HAL_RCC_GPIOA_CLK_ENABLE( );</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( ( obj-&gt;pin &amp; <span class="number">0xF0</span> ) == <span class="number">0x10</span> )</div><div class="line">    &#123;</div><div class="line">        obj-&gt;port = GPIOB;</div><div class="line">        <span class="number">__</span>HAL_RCC_GPIOB_CLK_ENABLE( );</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( ( obj-&gt;pin &amp; <span class="number">0xF0</span> ) == <span class="number">0x20</span> )</div><div class="line">    &#123;</div><div class="line">        obj-&gt;port = GPIOC;</div><div class="line">        <span class="number">__</span>HAL_RCC_GPIOC_CLK_ENABLE( );</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( ( obj-&gt;pin &amp; <span class="number">0xF0</span> ) == <span class="number">0x30</span> )</div><div class="line">    &#123;</div><div class="line">        obj-&gt;port = GPIOD;</div><div class="line">        <span class="number">__</span>HAL_RCC_GPIOD_CLK_ENABLE( );</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        obj-&gt;port = GPIOH;</div><div class="line">        <span class="number">__</span>HAL_RCC_GPIOH_CLK_ENABLE( );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    GPIO_InitStructure.Pin =  obj-&gt;pinIndex ;</div><div class="line">    GPIO_InitStructure.Pull = type;</div><div class="line">    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>( mode == PIN_INPUT )</div><div class="line">    &#123;</div><div class="line">        GPIO_InitStructure.Mode = GPIO_MODE_INPUT;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( mode == PIN_ANALOGIC )</div><div class="line">    &#123;</div><div class="line">        GPIO_InitStructure.Mode = GPIO_MODE_ANALOG;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( mode == PIN_ALTERNATE_FCT )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>( config == PIN_OPEN_DRAIN )</div><div class="line">        &#123;</div><div class="line">            GPIO_InitStructure.Mode = GPIO_MODE_AF_OD;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;</div><div class="line">        &#125;</div><div class="line">        GPIO_InitStructure.Alternate = value;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="comment">// mode ouptut</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>( config == PIN_OPEN_DRAIN )</div><div class="line">        &#123;</div><div class="line">            GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_OD;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    HAL_GPIO_Init( obj-&gt;port, &amp;GPIO_InitStructure );</div><div class="line"></div><div class="line">    <span class="comment">// Sets initial output value</span></div><div class="line">    <span class="keyword">if</span>( mode == PIN_OUTPUT )</div><div class="line">    &#123;</div><div class="line">        GpioMcuWrite( obj, value );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -409,15 +408,7 @@ stack构造及代码实现其中我对stack以及frame的构造的代码如下�
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag">#数据结构</a>
-          
-            <a href="/tags/stack/" rel="tag">#stack</a>
-          
-            <a href="/tags/MTU/" rel="tag">#MTU</a>
-          
-            <a href="/tags/拆包/" rel="tag">#拆包</a>
-          
-            <a href="/tags/拼包/" rel="tag">#拼包</a>
+            <a href="/tags/LoRaWAN、STM32/" rel="tag">#LoRaWAN、STM32</a>
           
         </div>
       
@@ -426,13 +417,13 @@ stack构造及代码实现其中我对stack以及frame的构造的代码如下�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/10/13/STM32_NVIC的配置/" rel="next" title="STM32_NVIC设置">
+                <i class="fa fa-chevron-left"></i> STM32_NVIC设置
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/11/STM32_PVD/" rel="prev" title="STM32L051 PVD的调试">
-                STM32L051 PVD的调试 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -447,10 +438,10 @@ stack构造及代码实现其中我对stack以及frame的构造的代码如下�
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/07/11/构建以帧为单位的stack/"
-     data-title="以帧为存储单位的循环stack"
+        <div class="ds-share flat" data-thread-key="2016/10/14/LoRaWAN_stack移植笔记 (二)_GPIO/"
+     data-title="LoRaWAN_stack移植笔记 (二)_GPIO"
      data-content=""
-     data-url="http://yoursite.com/2016/07/11/构建以帧为单位的stack/">
+     data-url="http://yoursite.com/2016/10/14/LoRaWAN_stack移植笔记 (二)_GPIO/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -477,8 +468,8 @@ stack构造及代码实现其中我对stack以及frame的构造的代码如下�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/11/构建以帧为单位的stack/"
-           data-title="以帧为存储单位的循环stack" data-url="http://yoursite.com/2016/07/11/构建以帧为单位的stack/">
+      <div class="ds-thread" data-thread-key="2016/10/14/LoRaWAN_stack移植笔记 (二)_GPIO/"
+           data-title="LoRaWAN_stack移植笔记 (二)_GPIO" data-url="http://yoursite.com/2016/10/14/LoRaWAN_stack移植笔记 (二)_GPIO/">
       </div>
     
   </div>
@@ -589,7 +580,7 @@ stack构造及代码实现其中我对stack以及frame的构造的代码如下�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#stack构造及代码实现"><span class="nav-number">1.</span> <span class="nav-text">stack构造及代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拼包机制"><span class="nav-number">2.</span> <span class="nav-text">拼包机制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#stm32相关的配置"><span class="nav-number">1.</span> <span class="nav-text">stm32相关的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GPIO-的配置"><span class="nav-number">1.1.</span> <span class="nav-text">GPIO 的配置</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
