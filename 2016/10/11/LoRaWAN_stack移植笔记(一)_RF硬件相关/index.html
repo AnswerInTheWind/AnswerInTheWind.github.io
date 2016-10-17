@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LoRaWAN,sx1276,stm32," />
+  <meta name="keywords" content="LoRaWAN,stm32,sx1276," />
 
 
 
@@ -99,7 +99,7 @@
 <meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/REGTCXO.png">
 <meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/REGPACONFIG.png">
 <meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/TXRX.png">
-<meta property="og:updated_time" content="2016-10-12T15:26:18.860Z">
+<meta property="og:updated_time" content="2016-10-17T14:31:07.141Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LoRaWAN_stack移植笔记(一)--RF硬件相关">
 <meta name="twitter:description" content="和硬件相关的问题TCXO 的使用根据SX1276数据手册，
@@ -395,15 +395,7 @@
 </ul>
 <h3 id="RXTX-switch-接收和发送的天线电路的切换"><a href="#RXTX-switch-接收和发送的天线电路的切换" class="headerlink" title="RXTX switch(接收和发送的天线电路的切换)"></a>RXTX switch(接收和发送的天线电路的切换)</h3><p><img src="../../../../uploads/LoRaWAN_STM32/TXRX.png" alt=""><br>在图中可以看到，射频输入和射频输出是不一样的电路，但是用的是一个天线，所以用到了一个射频电路切换的芯片。<br>在程序中，需要做的就是控制FEM_CPS脚，在RX和TX时进行RF1(RFI)和RF2(RFO)的切换。<br>由于在设计中兼容高低频，并且使用两个引脚分别控制高频和低频部分的射频部分输入输出的切换，所以在实际使用中需要控制两个引脚。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SX1276SetAntSw</span><span class="params">( <span class="keyword">uint8_t</span> rxTx )</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>( rxTx != <span class="number">0</span> ) <span class="comment">// 1: TX, 0: RX</span></div><div class="line">    &#123;</div><div class="line">        GpioWrite( &amp;AntSwitchLf, <span class="number">0</span> );<span class="comment">//切换到低频发射电路</span></div><div class="line">        GpioWrite( &amp;AntSwitchHf, <span class="number">1</span> );<span class="comment">//切换到高频发射电路</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        GpioWrite( &amp;AntSwitchLf, <span class="number">1</span> );<span class="comment">//切换到低频接收电路</span></div><div class="line">        GpioWrite( &amp;AntSwitchHf, <span class="number">0</span> );<span class="comment">//切换到高频接收电路 </span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>如果只有高频或者低频一个部分，上面的代码只要保留相应的部分即可</p>
-<h3 id="RTC-相关的问题"><a href="#RTC-相关的问题" class="headerlink" title="RTC 相关的问题"></a>RTC 相关的问题</h3><p>由于原厂例程中使用的是32.768KHz的LSE给RTC提供时钟，而在本设计中，RTC使用的是LSI，所以，此处需要注意，<br>LSE的频率为32.768Khz，</p>
-<p>根据Fck_spre = Frtcclk/(PREDIV_S+1)/(PREDIV_A+1)<br>例程中RTC的工作频率为32.778/(3+1)/(3+1) = 2.048Khz,</p>
-<p>而内部晶振的频率约为37Khz，故PRVEDIV_S和PREDIV_A的值需要改变。</p>
-<pre><code>37/2.048 ~= 18；
-数据手册里面有这样一句话：    
-Note: When both prescalers are used, it is recommended to configure the 
-    asynchronous prescaler to a high value to minimize consumption.
-所以：18 = 9*2；故设置PREDIV_A = 8，PREDIV_S = 1;
-</code></pre>
+
       
     </div>
 
@@ -427,9 +419,9 @@ Note: When both prescalers are used, it is recommended to configure the
           
             <a href="/tags/LoRaWAN/" rel="tag">#LoRaWAN</a>
           
-            <a href="/tags/sx1276/" rel="tag">#sx1276</a>
-          
             <a href="/tags/stm32/" rel="tag">#stm32</a>
+          
+            <a href="/tags/sx1276/" rel="tag">#sx1276</a>
           
         </div>
       
@@ -539,7 +531,7 @@ Note: When both prescalers are used, it is recommended to configure the
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -556,7 +548,7 @@ Note: When both prescalers are used, it is recommended to configure the
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -605,7 +597,7 @@ Note: When both prescalers are used, it is recommended to configure the
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#和硬件相关的问题"><span class="nav-number">1.</span> <span class="nav-text">和硬件相关的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCXO-的使用"><span class="nav-number">1.1.</span> <span class="nav-text">TCXO 的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PA-BOOST-引脚的使用"><span class="nav-number">1.2.</span> <span class="nav-text">PA_BOOST 引脚的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RXTX-switch-接收和发送的天线电路的切换"><span class="nav-number">1.3.</span> <span class="nav-text">RXTX switch(接收和发送的天线电路的切换)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTC-相关的问题"><span class="nav-number">1.4.</span> <span class="nav-text">RTC 相关的问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#和硬件相关的问题"><span class="nav-number">1.</span> <span class="nav-text">和硬件相关的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCXO-的使用"><span class="nav-number">1.1.</span> <span class="nav-text">TCXO 的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PA-BOOST-引脚的使用"><span class="nav-number">1.2.</span> <span class="nav-text">PA_BOOST 引脚的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RXTX-switch-接收和发送的天线电路的切换"><span class="nav-number">1.3.</span> <span class="nav-text">RXTX switch(接收和发送的天线电路的切换)</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
