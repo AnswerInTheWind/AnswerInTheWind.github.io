@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="chenjunkui" />
+  <meta name="keywords" content="LoRaWAN," />
 
 
 
@@ -84,15 +84,28 @@
 
 
 
-<meta name="description" content="Answer in the wind">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈均奎">
-<meta property="og:url" content="http://yoursite.com/categories/MCU外设/index.html">
+<meta name="description" content="终端数据发送由于LoRaWAN的gw具有49个LoRa的解调器，其配置成8通道，每个通道支持6种速度(DR0-DR5) 8*6 = 48
+所以，只要在设置的8个通道内，以任何的速度发送都可以，只要满足占空比的要求即可。
+终端数据接收由于终端的射频芯片是半双工的，出于省电的考虑，LoRaWAN对终端的接收做了很多的规定(因为接收不是终端自主控制的，长时间的等待会增加终端的功耗)。
+CLASS A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LoRaWAN__specification_数据收发机制">
+<meta property="og:url" content="http://yoursite.com/2016/10/20/LoRaWAN_ClassA_C_数据收发机制/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="Answer in the wind">
+<meta property="og:description" content="终端数据发送由于LoRaWAN的gw具有49个LoRa的解调器，其配置成8通道，每个通道支持6种速度(DR0-DR5) 8*6 = 48
+所以，只要在设置的8个通道内，以任何的速度发送都可以，只要满足占空比的要求即可。
+终端数据接收由于终端的射频芯片是半双工的，出于省电的考虑，LoRaWAN对终端的接收做了很多的规定(因为接收不是终端自主控制的，长时间的等待会增加终端的功耗)。
+CLASS A">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/LoRaWAN_CLASSA_RX.png">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/LoRaWAN_CLASSC_RX.png">
+<meta property="og:updated_time" content="2016-10-20T11:35:42.449Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈均奎">
-<meta name="twitter:description" content="Answer in the wind">
+<meta name="twitter:title" content="LoRaWAN__specification_数据收发机制">
+<meta name="twitter:description" content="终端数据发送由于LoRaWAN的gw具有49个LoRa的解调器，其配置成8通道，每个通道支持6种速度(DR0-DR5) 8*6 = 48
+所以，只要在设置的8个通道内，以任何的速度发送都可以，只要满足占空比的要求即可。
+终端数据接收由于终端的射频芯片是半双工的，出于省电的考虑，LoRaWAN对终端的接收做了很多的规定(因为接收不是终端自主控制的，长时间的等待会增加终端的功耗)。
+CLASS A">
+<meta name="twitter:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/LoRaWAN_CLASSA_RX.png">
 
 
 
@@ -113,9 +126,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/MCU外设/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/20/LoRaWAN_ClassA_C_数据收发机制/"/>
 
-  <title> 分类: MCU外设 | 陈均奎 </title>
+  <title> LoRaWAN__specification_数据收发机制 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -146,7 +159,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -267,75 +280,191 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        MCU外设
-        <small>分类</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/26/MPU9250调试/" itemprop="url">
-              
-                <span itemprop="name">MPU9250调试</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-26T00:00:00+08:00"
-              content="2016-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/21/74HC165/" itemprop="url">
-              
-                <span itemprop="name">74HC165的级联以及MCU硬件SPI的通讯</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-21T00:00:00+08:00"
-              content="2016-07-21" >
-          07-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
+  
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                LoRaWAN__specification_数据收发机制
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-20T09:20:26+08:00" content="2016-10-20">
+              2016-10-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/LoRaWAN/" itemprop="url" rel="index">
+                    <span itemprop="name">LoRaWAN</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/20/LoRaWAN_ClassA_C_数据收发机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/20/LoRaWAN_ClassA_C_数据收发机制/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/10/20/LoRaWAN_ClassA_C_数据收发机制/" class="leancloud_visitors" data-flag-title="LoRaWAN__specification_数据收发机制">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="终端数据发送"><a href="#终端数据发送" class="headerlink" title="终端数据发送"></a>终端数据发送</h2><p>由于LoRaWAN的gw具有49个LoRa的解调器，其配置成8通道，每个通道支持6种速度(DR0-DR5) 8*6 = 48</p>
+<p>所以，只要在设置的8个通道内，以任何的速度发送都可以，只要满足占空比的要求即可。</p>
+<h2 id="终端数据接收"><a href="#终端数据接收" class="headerlink" title="终端数据接收"></a>终端数据接收</h2><p>由于终端的射频芯片是半双工的，出于省电的考虑，LoRaWAN对终端的接收做了很多的规定(因为接收不是终端自主控制的，长时间的等待会增加终端的功耗)。</p>
+<h3 id="CLASS-A-RX"><a href="#CLASS-A-RX" class="headerlink" title="CLASS A  RX"></a>CLASS A  RX</h3><p>在LoRaWAN specification中,关于Class A的描述如下<br><img src="../../../../uploads/LoRaWAN_STM32/LoRaWAN_CLASSA_RX.png" alt=""></p>
+<p>CLASS A的接收方式是LoRaWAN的三种接收方式中最省电的</p>
+<p>终端在发送完上行数据之后，会开启两个接收窗口期，RX1 和 RX2 ，其中RX1会在发送完成之后RECEIVE_DELAY1(s)之后开启，RX2会在发送完成之后RECEIVE_DELAY2(S)之后开启。</p>
+<p>RX1的接收频点和上行时用的发送频点相同，接收的速率和发送速率存在一定的映射关系。默认情况下,接收速率和上一次上行的速率是一样的。</p>
+<p>RX2的接收频点和速率是固定的。也可以通过MAC COMMAND修改。</p>
+<p>其中地区不同，默认的接收频点和速率也会不一样。</p>
+<h3 id="CLASS-C-RX"><a href="#CLASS-C-RX" class="headerlink" title="CLASS C  RX"></a>CLASS C  RX</h3><p>CLASS C的设备除了在发送期间，其他时间都处于接收模式，也就是除了Transmit Time On Air 之外，几乎其他时间都是在接收。</p>
+<p>接收的窗口和频点是RX2的接收串口和频点，是一个固定值。<br> <img src="../../../../uploads/LoRaWAN_STM32/LoRaWAN_CLASSC_RX.png" alt=""></p>
+<p>由图可知，CLASS C的接收窗口是在CLASS A的基础上的，即在CLASS A的设备休眠时间打开RX2接收窗口：</p>
+<ol>
+<li>首先在RECEIVE_DELAY1这段时间里面打开接收窗口，而CLASS A的设备在这段时间里面是做休眠的，</li>
+<li>然后RECEIVE_DELAY1之后打开RX1的接收窗口，再在设备发送完成过了RECEIVE_DELAY2(S)之后,打开RX2接收窗口，之后一直开着RX2的接收窗口，直到设备需要切换到发送状态。</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LoRaWAN/" rel="tag">#LoRaWAN</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/17/LoRaWAN_specification_ADR/" rel="next" title="LoRaWAN协议(二)__ADR">
+                <i class="fa fa-chevron-left"></i> LoRaWAN协议(二)__ADR
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/10/20/LoRaWAN_ClassA_C_数据收发机制/"
+     data-title="LoRaWAN__specification_数据收发机制"
+     data-content=""
+     data-url="http://yoursite.com/2016/10/20/LoRaWAN_ClassA_C_数据收发机制/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -343,6 +472,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/20/LoRaWAN_ClassA_C_数据收发机制/"
+           data-title="LoRaWAN__specification_数据收发机制" data-url="http://yoursite.com/2016/10/20/LoRaWAN_ClassA_C_数据收发机制/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -362,8 +499,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -433,6 +579,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#终端数据发送"><span class="nav-number">1.</span> <span class="nav-text">终端数据发送</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#终端数据接收"><span class="nav-number">2.</span> <span class="nav-text">终端数据接收</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CLASS-A-RX"><span class="nav-number">2.1.</span> <span class="nav-text">CLASS A  RX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CLASS-C-RX"><span class="nav-number">2.2.</span> <span class="nav-text">CLASS C  RX</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -536,6 +693,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
