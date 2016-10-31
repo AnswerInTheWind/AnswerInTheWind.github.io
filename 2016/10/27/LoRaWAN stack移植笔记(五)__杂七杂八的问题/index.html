@@ -102,7 +102,7 @@ KEIL选择JLINK之后，点击设置进入，会出现一个对话框">
 KEIL选择JLINK之后，点击设置进入，会出现一个对话框">
 <meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/JLINK_DEVICE_SELECTION.png">
 <meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/FLASH_DOWNLOAD.png">
-<meta property="og:updated_time" content="2016-10-31T13:16:59.050Z">
+<meta property="og:updated_time" content="2016-10-31T14:37:00.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LoRaWAN stack移植笔记(五)__杂七杂八的问题">
 <meta name="twitter:description" content="先废话一小段在将LoRaWAN的程序移植的过程中，调试发现了很多的问题。
@@ -396,12 +396,10 @@ KEIL选择JLINK之后，点击设置进入，会出现一个对话框">
 <li><p>Flash download要选择对应大小的芯片，注意Flash的大小要选择正确<br><img src="../../../../uploads/LoRaWAN_STM32/FLASH_DOWNLOAD.png" alt=""></p>
 </li>
 </ol>
-<h3 id="程序无法进入main，甚至一个函数都没有跑"><a href="#程序无法进入main，甚至一个函数都没有跑" class="headerlink" title="程序无法进入main，甚至一个函数都没有跑"></a>程序无法进入main，甚至一个函数都没有跑</h3><p>当配置完JLink之后，程序可以正常烧写调试了，但是问题又出现了，无法跑进main函数，再进一步调试，发现来一个函数都没有拍，直接就进入进入死循环了(但不调试看上面的汇编代码)。这个现象就很奇怪了，以前也没有碰到过。</p>
-<p>因为3.3V和GND是正常的，这样就算晶振有问题，也会执行程序到配置晶振才会出问题，而不是一句函数都没有执行。</p>
-<p>后来顿悟，大概是BOOT0没接，仔细一看原理图，果然BOOT0是悬空的，飞线焊上之后，问题终于得到了解决。</p>
+<h3 id="程序无法进入main，甚至一个函数都没有跑"><a href="#程序无法进入main，甚至一个函数都没有跑" class="headerlink" title="程序无法进入main，甚至一个函数都没有跑"></a>程序无法进入main，甚至一个函数都没有跑</h3><p>当配置完JLink之后，程序可以正常烧写调试了，但是问题又出现了，无法跑进main函数，再进一步调试，发现来一个函数都没有执行，直接就进入进入死循环了(通过单步调试看上面的汇编代码)。这个现象就很奇怪了，以前也没有碰到过。<br>因为3.3V和GND是正常的，这样就算晶振有问题，也会执行程序到配置晶振才会出问题，而不是一句函数都没有执行。<br>后来顿悟，大概是BOOT0没接，仔细一看原理图，果然BOOT0是悬空的，飞线焊上之后，问题终于得到了解决。</p>
 <pre><code>NOTE：画原理图时一定要主要，BOOT0一定要接地，这样程序才能正常从FLASH启动
 </code></pre><h3 id="RTC定时链表的配置"><a href="#RTC定时链表的配置" class="headerlink" title="RTC定时链表的配置"></a>RTC定时链表的配置</h3><p>官方的库中使用了RTC来作为定时器来处理一些定时的事件，这也是库中唯一的任务调度机制。所以保证这个机制的正常运行非常重要。</p>
-<p>但是，当我把一切参数都配置完成之后，却发现，RTC的定时器不听使唤，经常不进入中断，初步诊断是写入寄存器的定时时间除了问题，但是却找不到出问题的原因。</p>
+<p>但是，当我把一切参数都配置完成之后，却发现，RTC的定时器不听使唤，经常不进入中断，初步诊断是写入寄存器的定时时间出了问题，但是却找不到出问题的原因。</p>
 <p>这个问题也是非常的诡异，至今还未发现原因。</p>
 <p>但是在一次偶然的调试中，我将原本处于<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">RtcStartWakeUpAlarm</span><span class="params">( <span class="keyword">uint32_t</span> timeoutValue )</span></span></div></pre></td></tr></table></figure></p>
 <p>这个函数中的<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">RtcCalendar_t now;</div><div class="line">RtcCalendar_t alarmTimer;</div><div class="line">RTC_AlarmTypeDef alarmStructure;</div></pre></td></tr></table></figure></p>
