@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="chenjunkui" />
+  <meta name="keywords" content="LoRaWAN," />
 
 
 
@@ -84,15 +84,34 @@
 
 
 
-<meta name="description" content="Answer in the wind">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈均奎">
-<meta property="og:url" content="http://yoursite.com/tags/JSON/index.html">
+<meta name="description" content="先废话一小段在将LoRaWAN的程序移植的过程中，调试发现了很多的问题。
+做好记录工作，防止以后再踩坑
+移植使用的是LoRaMac-node库，使用的是STM32L151CBT6 MCU，需要要移植到STM32L051C8T6 这个MCU上面。
+开始正文JLink的配置由于第一次使用JLink(SWD方式)，在一开始使用时，踩了几处坑：
+
+KEIL选择JLINK之后，点击设置进入，会出现一个对话框">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LoRaWAN stack移植笔记(五)__杂七杂八的问题">
+<meta property="og:url" content="http://yoursite.com/2016/10/27/LoRaWAN stack移植笔记(五)__杂七杂八的问题/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="Answer in the wind">
+<meta property="og:description" content="先废话一小段在将LoRaWAN的程序移植的过程中，调试发现了很多的问题。
+做好记录工作，防止以后再踩坑
+移植使用的是LoRaMac-node库，使用的是STM32L151CBT6 MCU，需要要移植到STM32L051C8T6 这个MCU上面。
+开始正文JLink的配置由于第一次使用JLink(SWD方式)，在一开始使用时，踩了几处坑：
+
+KEIL选择JLINK之后，点击设置进入，会出现一个对话框">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/JLINK_DEVICE_SELECTION.png">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/FLASH_DOWNLOAD.png">
+<meta property="og:updated_time" content="2016-10-31T13:16:59.050Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈均奎">
-<meta name="twitter:description" content="Answer in the wind">
+<meta name="twitter:title" content="LoRaWAN stack移植笔记(五)__杂七杂八的问题">
+<meta name="twitter:description" content="先废话一小段在将LoRaWAN的程序移植的过程中，调试发现了很多的问题。
+做好记录工作，防止以后再踩坑
+移植使用的是LoRaMac-node库，使用的是STM32L151CBT6 MCU，需要要移植到STM32L051C8T6 这个MCU上面。
+开始正文JLink的配置由于第一次使用JLink(SWD方式)，在一开始使用时，踩了几处坑：
+
+KEIL选择JLINK之后，点击设置进入，会出现一个对话框">
+<meta name="twitter:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/JLINK_DEVICE_SELECTION.png">
 
 
 
@@ -113,9 +132,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/JSON/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/27/LoRaWAN stack移植笔记(五)__杂七杂八的问题/"/>
 
-  <title> 标签: JSON | 陈均奎 </title>
+  <title> LoRaWAN stack移植笔记(五)__杂七杂八的问题 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -146,7 +165,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -267,46 +286,210 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        JSON
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                LoRaWAN stack移植笔记(五)__杂七杂八的问题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-27T10:01:52+08:00" content="2016-10-27">
+              2016-10-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/LoRaWAN/" itemprop="url" rel="index">
+                    <span itemprop="name">LoRaWAN</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/27/LoRaWAN stack移植笔记(五)__杂七杂八的问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/27/LoRaWAN stack移植笔记(五)__杂七杂八的问题/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/10/27/LoRaWAN stack移植笔记(五)__杂七杂八的问题/" class="leancloud_visitors" data-flag-title="LoRaWAN stack移植笔记(五)__杂七杂八的问题">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h2 id="先废话一小段"><a href="#先废话一小段" class="headerlink" title="先废话一小段"></a>先废话一小段</h2><p>在将LoRaWAN的程序移植的过程中，调试发现了很多的问题。</p>
+<p>做好记录工作，防止以后再踩坑</p>
+<p>移植使用的是<a href="https://github.com/Lora-net/LoRaMac-node" target="_blank" rel="external">LoRaMac-node</a>库，使用的是STM32L151CBT6 MCU，需要要移植到STM32L051C8T6 这个MCU上面。</p>
+<h2 id="开始正文"><a href="#开始正文" class="headerlink" title="开始正文"></a>开始正文</h2><h3 id="JLink的配置"><a href="#JLink的配置" class="headerlink" title="JLink的配置"></a>JLink的配置</h3><p>由于第一次使用JLink(SWD方式)，在一开始使用时，踩了几处坑：</p>
+<ol>
+<li>KEIL选择JLINK之后，点击设置进入，会出现一个对话框，要选择NO</li>
+</ol>
+<p><img src="../../../../uploads/LoRaWAN_STM32/JLINK_DEVICE_SELECTION.png" alt=""></p>
+<ol>
+<li><p>KEIL里面JLINK的 方式要选择SW，不然认不到芯片</p>
+</li>
+<li><p>Flash download要选择对应大小的芯片，注意Flash的大小要选择正确<br><img src="../../../../uploads/LoRaWAN_STM32/FLASH_DOWNLOAD.png" alt=""></p>
+</li>
+</ol>
+<h3 id="程序无法进入main，甚至一个函数都没有跑"><a href="#程序无法进入main，甚至一个函数都没有跑" class="headerlink" title="程序无法进入main，甚至一个函数都没有跑"></a>程序无法进入main，甚至一个函数都没有跑</h3><p>当配置完JLink之后，程序可以正常烧写调试了，但是问题又出现了，无法跑进main函数，再进一步调试，发现来一个函数都没有拍，直接就进入进入死循环了(但不调试看上面的汇编代码)。这个现象就很奇怪了，以前也没有碰到过。</p>
+<p>因为3.3V和GND是正常的，这样就算晶振有问题，也会执行程序到配置晶振才会出问题，而不是一句函数都没有执行。</p>
+<p>后来顿悟，大概是BOOT0没接，仔细一看原理图，果然BOOT0是悬空的，飞线焊上之后，问题终于得到了解决。</p>
+<pre><code>NOTE：画原理图时一定要主要，BOOT0一定要接地，这样程序才能正常从FLASH启动
+</code></pre><h3 id="RTC定时链表的配置"><a href="#RTC定时链表的配置" class="headerlink" title="RTC定时链表的配置"></a>RTC定时链表的配置</h3><p>官方的库中使用了RTC来作为定时器来处理一些定时的事件，这也是库中唯一的任务调度机制。所以保证这个机制的正常运行非常重要。</p>
+<p>但是，当我把一切参数都配置完成之后，却发现，RTC的定时器不听使唤，经常不进入中断，初步诊断是写入寄存器的定时时间除了问题，但是却找不到出问题的原因。</p>
+<p>这个问题也是非常的诡异，至今还未发现原因。</p>
+<p>但是在一次偶然的调试中，我将原本处于<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">RtcStartWakeUpAlarm</span><span class="params">( <span class="keyword">uint32_t</span> timeoutValue )</span></span></div></pre></td></tr></table></figure></p>
+<p>这个函数中的<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">RtcCalendar_t now;</div><div class="line">RtcCalendar_t alarmTimer;</div><div class="line">RTC_AlarmTypeDef alarmStructure;</div></pre></td></tr></table></figure></p>
+<p>这三个变量由局部变量改为了全局变量，问题就得到了解决。</p>
+<p>但是原因还未发现。原本以为是变量未赋初值就使用，但是程序中都有在使用前赋初值，具体原因不明。</p>
+<h3 id="程序进入Default-handler"><a href="#程序进入Default-handler" class="headerlink" title="程序进入Default_handler"></a>程序进入Default_handler</h3><p>在调试程序的时候，程序又出现跑死的情况，然后单步调试发现程序进入了Default_handler这里，始终无法跑出来。</p>
+<p><strong>然后通过搜索得知，进入这里的情况应该是发生了中断但是没有处理，然后程序一直进入中断。</strong></p>
+<p>后来查看代码发现，由于Cotex-M3和cotex-M0的核，对GPIO的中断的入口是不一样的，在移植时需要做修改，在做了修改之后，程序终于跑正常了。</p>
+<h3 id="无法点对点通信"><a href="#无法点对点通信" class="headerlink" title="无法点对点通信"></a>无法点对点通信</h3><p>需要注意的是，点对点通信中，能够建立条件需要两个点的通信参数配置成相同。</p>
+<p>特别注意的是<strong>iqInverted preamble SYNCWORD</strong></p>
+<pre><code>note：
+1. 如果发射方使能了iqInverted，那么接收方也要使能iqInverted    
+2. 接收方的preambleLen必须设置大于发射方，否则有很大可能接收不到(偶尔可以收到，但是接收成功率很低)
+3. 发射方和接收方的SYNCWORD必须设置一样(同步字一样)，否则认为是不同网络
+</code></pre><p>接收机在接收检测时，会先检测前导码的长度，小于设置的最大接收长度时再检测同步字的内容，看是否一致，都符合时，才会接收负载的内容。</p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/07/21/CJSON_JSON包的C语言解析库/" itemprop="url">
-              
-                <span itemprop="name">cJSON_json包的C语言解析库</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-21T00:00:00+08:00"
-              content="2016-07-21" >
-          07-21
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LoRaWAN/" rel="tag">#LoRaWAN</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/20/LoRaWAN_ClassA_C_数据收发机制/" rel="next" title="LoRaWAN__specification_数据收发机制">
+                <i class="fa fa-chevron-left"></i> LoRaWAN__specification_数据收发机制
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/10/27/LoRaWAN stack移植笔记(五)__杂七杂八的问题/"
+     data-title="LoRaWAN stack移植笔记(五)__杂七杂八的问题"
+     data-content=""
+     data-url="http://yoursite.com/2016/10/27/LoRaWAN stack移植笔记(五)__杂七杂八的问题/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -314,6 +497,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/27/LoRaWAN stack移植笔记(五)__杂七杂八的问题/"
+           data-title="LoRaWAN stack移植笔记(五)__杂七杂八的问题" data-url="http://yoursite.com/2016/10/27/LoRaWAN stack移植笔记(五)__杂七杂八的问题/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -333,8 +524,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -404,6 +604,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#先废话一小段"><span class="nav-number">1.</span> <span class="nav-text">先废话一小段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始正文"><span class="nav-number">2.</span> <span class="nav-text">开始正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JLink的配置"><span class="nav-number">2.1.</span> <span class="nav-text">JLink的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序无法进入main，甚至一个函数都没有跑"><span class="nav-number">2.2.</span> <span class="nav-text">程序无法进入main，甚至一个函数都没有跑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTC定时链表的配置"><span class="nav-number">2.3.</span> <span class="nav-text">RTC定时链表的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序进入Default-handler"><span class="nav-number">2.4.</span> <span class="nav-text">程序进入Default_handler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无法点对点通信"><span class="nav-number">2.5.</span> <span class="nav-text">无法点对点通信</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -507,6 +718,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
