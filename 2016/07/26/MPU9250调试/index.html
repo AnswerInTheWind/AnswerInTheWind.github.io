@@ -96,7 +96,7 @@
 可以获取传感芯片的加速度、角速度、以及磁力值。
 角速度可以知芯片的转动速度，加速度可以知道芯片运动的距离、速度情况，而磁力计可以知道物芯片的运动方向。
 另外MPU9250芯片内置DMP姿态融合器，可以在不涉及算法的情况下，直接读">
-<meta property="og:updated_time" content="2016-10-19T16:10:11.071Z">
+<meta property="og:updated_time" content="2016-11-06T17:02:28.218Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MPU9250调试">
 <meta name="twitter:description" content="MPU9250 芯片概述MPU9250芯片是一个9轴姿态传感芯片，其中包含了3轴加速度传感器、3轴角速度传感器以及三轴磁力计。其本质上是MPU6050芯片+AK8963。
@@ -382,6 +382,7 @@
 <p>在完成IOI2C的驱动之后，就是对MPU9250的寄存器进行操作，来成功获取传感数据。</p>
 <h2 id="MPU9250的寄存器操作"><a href="#MPU9250的寄存器操作" class="headerlink" title="MPU9250的寄存器操作"></a>MPU9250的寄存器操作</h2><p>操作MPU9250寄存器并且开启DMP模式，获取三维角度，其步骤如下：</p>
 <ol>
+<li>复位，配置PWR_MGMT_1 0x80,延时一段时间</li>
 <li>配置PWR_MGMT_1(一般为00，表示使用内部晶振20Mhz)</li>
 <li>设置采样频率</li>
 <li>设置量程（角速度、加速度量程）</li>
@@ -404,6 +405,8 @@
 <li><p>在判断DMP是否完成时，应当从FIFO的计数中去判断，当计数大于等于42，说明DMP转换完成，也可以采用中断的方式来作为标志。</p>
 </li>
 <li><p>本例程中使用的I2C为GPIO模拟的I2C，主要是移植方便，但是在将此驱动移植到不同平台时需要注意寄存器以及引脚的定义。</p>
+</li>
+<li><p><strong>注意芯片上电之后需要先复位，即设置PWR_MGMT_1为0x80,过一段时间之后再设置为0x00,否则有时芯片会工作异常</strong></p>
 </li>
 </ul>
 <p>具体的程序在我的代码库中，欢迎大家能找出其中的不足，E-mail给我。</p>
