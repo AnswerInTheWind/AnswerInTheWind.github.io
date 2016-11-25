@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LoRaWAN,STM32,sx1276," />
+  <meta name="keywords" content="chenjunkui" />
 
 
 
@@ -84,29 +84,15 @@
 
 
 
-<meta name="description" content="和硬件相关的问题TCXO 的使用根据SX1276数据手册，
-
-如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下
-123456789101112void SX1276SetTcxoConfig(void)//此函数为自定义的&amp;#123;  SX1276Write( REG_TCXO, 0x19 ); //设置TCXO  &amp;#125;//在初始化中调用void SX1276Init">
-<meta property="og:type" content="article">
-<meta property="og:title" content="LoRaWAN_stack移植笔记(一)--RF硬件相关">
-<meta property="og:url" content="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/index.html">
+<meta name="description" content="Answer in the wind">
+<meta property="og:type" content="website">
+<meta property="og:title" content="陈均奎">
+<meta property="og:url" content="http://yoursite.com/archives/2016/page/2/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="和硬件相关的问题TCXO 的使用根据SX1276数据手册，
-
-如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下
-123456789101112void SX1276SetTcxoConfig(void)//此函数为自定义的&amp;#123;  SX1276Write( REG_TCXO, 0x19 ); //设置TCXO  &amp;#125;//在初始化中调用void SX1276Init">
-<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/REGTCXO.png">
-<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/REGPACONFIG.png">
-<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/TXRX.png">
-<meta property="og:updated_time" content="2016-10-19T16:01:32.061Z">
+<meta property="og:description" content="Answer in the wind">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LoRaWAN_stack移植笔记(一)--RF硬件相关">
-<meta name="twitter:description" content="和硬件相关的问题TCXO 的使用根据SX1276数据手册，
-
-如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下
-123456789101112void SX1276SetTcxoConfig(void)//此函数为自定义的&amp;#123;  SX1276Write( REG_TCXO, 0x19 ); //设置TCXO  &amp;#125;//在初始化中调用void SX1276Init">
-<meta name="twitter:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/REGTCXO.png">
+<meta name="twitter:title" content="陈均奎">
+<meta name="twitter:description" content="Answer in the wind">
 
 
 
@@ -127,9 +113,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/"/>
+  <link rel="canonical" href="http://yoursite.com/archives/2016/page/2/"/>
 
-  <title> LoRaWAN_stack移植笔记(一)--RF硬件相关 | 陈均奎 </title>
+  <title> 归档 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -160,7 +146,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  page-archive  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -281,201 +267,70 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
+
+    <span class="archive-page-counter">
+      
+      
+      
+        
+      
+      嗯..! 目前共计 21 篇日志。 继续努力。
+    </span>
+
     
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                LoRaWAN_stack移植笔记(一)--RF硬件相关
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-11T17:16:43+08:00" content="2016-10-11">
-              2016-10-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/LoRaWAN/" itemprop="url" rel="index">
-                    <span itemprop="name">LoRaWAN</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/" class="leancloud_visitors" data-flag-title="LoRaWAN_stack移植笔记(一)--RF硬件相关">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
-      
-        <h2 id="和硬件相关的问题"><a href="#和硬件相关的问题" class="headerlink" title="和硬件相关的问题"></a>和硬件相关的问题</h2><h3 id="TCXO-的使用"><a href="#TCXO-的使用" class="headerlink" title="TCXO 的使用"></a>TCXO 的使用</h3><p>根据SX1276数据手册，<br><img src="../../../../uploads/LoRaWAN_STM32/REGTCXO.png" alt=""></p>
-<ul>
-<li><p>如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SX1276SetTcxoConfig</span><span class="params">(<span class="keyword">void</span>)</span><span class="comment">//此函数为自定义的</span></span></div><div class="line">&#123;</div><div class="line">  SX1276Write( REG_TCXO, <span class="number">0x19</span> ); <span class="comment">//设置TCXO  </span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//在初始化中调用</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SX1276Init</span><span class="params">( RadioEvents_t *events )</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	SX1276SetTcxoConfig();</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>否则配置为0x09,因为芯片上电默认不使用TCXO，即上电寄存器值即为0x09,所以无需配置</p>
-</li>
-</ul>
-<h3 id="PA-BOOST-引脚的使用"><a href="#PA-BOOST-引脚的使用" class="headerlink" title="PA_BOOST 引脚的使用"></a>PA_BOOST 引脚的使用</h3><p>根据sx1276 数据手册<br><img src="../../../../uploads/LoRaWAN_STM32/REGPACONFIG.png" alt=""></p>
-<ul>
-<li>如果使用PA_BOOST作为RF输出，则需要配置PaSelect脚为1</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SX1276SetTxConfig</span><span class="params">(......)</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	paConfig = ( paConfig &amp; RF_PACONFIG_PASELECT_MASK ) | SX1276GetPaSelect( SX1276.Settings.Channel );<span class="comment">//选择是否使用PA_BOOST引脚</span></div><div class="line">	...</div><div class="line">	</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//根据具体的电路图不一样，此函数也会币一样，比如低频使用PA_BOOST，高频使用RFO_HF，则函数体如下</span></div><div class="line"><span class="keyword">uint8_t</span> SX1276GetPaSelect( <span class="keyword">uint32_t</span> channel )</div><div class="line">&#123;</div><div class="line">	<span class="comment">//如果是低频的，使用PA_BOOST，高频使用RFO_HF</span></div><div class="line">    <span class="keyword">if</span>( channel &lt; RF_MID_BAND_THRESH )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> RF_PACONFIG_PASELECT_PABOOST;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> RF_PACONFIG_PASELECT_RFO;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//如果高低频都使用PA_BOOST，则函数体如下</span></div><div class="line"><span class="keyword">uint8_t</span> SX1276GetPaSelect( <span class="keyword">uint32_t</span> channel )</div><div class="line">&#123;</div><div class="line">	<span class="keyword">return</span> RF_PACONFIG_PASELECT_PABOOST; </div><div class="line">&#125;</div><div class="line"><span class="comment">//如果高频使用PA_BOOST，低频使用RFO_LF，则函数体如下</span></div><div class="line"><span class="keyword">uint8_t</span> SX1276GetPaSelect( <span class="keyword">uint32_t</span> channel )</div><div class="line">&#123;</div><div class="line">	<span class="comment">//如果是高频的，使用PA_BOOST，低频使用RFO_LF</span></div><div class="line">    <span class="keyword">if</span>( channel &gt; RF_MID_BAND_THRESH )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> RF_PACONFIG_PASELECT_PABOOST;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> RF_PACONFIG_PASELECT_RFO;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*!</span></div><div class="line">* RegPaConfig</div><div class="line">*/</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RF_PACONFIG_PASELECT_MASK                   0x7F</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RF_PACONFIG_PASELECT_PABOOST                0x80</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RF_PACONFIG_PASELECT_RFO                    0x00 <span class="comment">// Default</span></span></div></pre></td></tr></table></figure>
-<ul>
-<li>否则为0</li>
-</ul>
-<h3 id="RXTX-switch-接收和发送的天线电路的切换"><a href="#RXTX-switch-接收和发送的天线电路的切换" class="headerlink" title="RXTX switch(接收和发送的天线电路的切换)"></a>RXTX switch(接收和发送的天线电路的切换)</h3><p><img src="../../../../uploads/LoRaWAN_STM32/TXRX.png" alt=""><br>在图中可以看到，射频输入和射频输出是不一样的电路，但是用的是一个天线，所以用到了一个射频电路切换的芯片。<br>在程序中，需要做的就是控制FEM_CPS脚，在RX和TX时进行RF1(RFI)和RF2(RFO)的切换。<br>由于在设计中兼容高低频，并且使用两个引脚分别控制高频和低频部分的射频部分输入输出的切换，所以在实际使用中需要控制两个引脚。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SX1276SetAntSw</span><span class="params">( <span class="keyword">uint8_t</span> rxTx )</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>( rxTx != <span class="number">0</span> ) <span class="comment">// 1: TX, 0: RX</span></div><div class="line">    &#123;</div><div class="line">        GpioWrite( &amp;AntSwitchLf, <span class="number">0</span> );<span class="comment">//切换到低频发射电路</span></div><div class="line">        GpioWrite( &amp;AntSwitchHf, <span class="number">1</span> );<span class="comment">//切换到高频发射电路</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        GpioWrite( &amp;AntSwitchLf, <span class="number">1</span> );<span class="comment">//切换到低频接收电路</span></div><div class="line">        GpioWrite( &amp;AntSwitchHf, <span class="number">0</span> );<span class="comment">//切换到高频接收电路 </span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>如果只有高频或者低频一个部分，上面的代码只要保留相应的部分即可</p>
-
-      
-    </div>
-
-    <div>
       
         
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/LoRaWAN/" rel="tag">#LoRaWAN</a>
-          
-            <a href="/tags/STM32/" rel="tag">#STM32</a>
-          
-            <a href="/tags/sx1276/" rel="tag">#sx1276</a>
-          
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
         </div>
       
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/10/11/STM32时钟源配置/" rel="next" title="STM32时钟配置--系统时钟、RTC时钟、IWDG时钟">
-                <i class="fa fa-chevron-left"></i> STM32时钟配置--系统时钟、RTC时钟、IWDG时钟
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/13/STM32_NVIC的配置/" rel="prev" title="STM32_NVIC设置">
-                STM32_NVIC设置 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
 
       
-      
-    </footer>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2016/07/11/构建以帧为单位的stack/" itemprop="url">
+              
+                <span itemprop="name">以帧为存储单位的循环stack</span>
+              
+            </a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-07-11T00:00:00+08:00"
+              content="2016-07-11" >
+          07-11
+        </time>
+      </div>
+
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
-      
-        <div class="ds-share flat" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/"
-     data-title="LoRaWAN_stack移植笔记(一)--RF硬件相关"
-     data-content=""
-     data-url="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/">
-  <div class="ds-share-inline">
-    <ul  class="ds-share-icons-16">
+    
 
-      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+  </section>
 
-    </ul>
-    <div class="ds-share-icons-more">
-    </div>
-  </div>
-</div>
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/archives/2016/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2016/">1</a><span class="page-number current">2</span>
+  </nav>
+
+
 
 
           </div>
@@ -483,14 +338,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/"
-           data-title="LoRaWAN_stack移植笔记(一)--RF硬件相关" data-url="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/">
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -510,17 +357,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -590,17 +428,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#和硬件相关的问题"><span class="nav-number">1.</span> <span class="nav-text">和硬件相关的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCXO-的使用"><span class="nav-number">1.1.</span> <span class="nav-text">TCXO 的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PA-BOOST-引脚的使用"><span class="nav-number">1.2.</span> <span class="nav-text">PA_BOOST 引脚的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RXTX-switch-接收和发送的天线电路的切换"><span class="nav-number">1.3.</span> <span class="nav-text">RXTX switch(接收和发送的天线电路的切换)</span></a></li></ol></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -704,9 +531,11 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
 
 
   

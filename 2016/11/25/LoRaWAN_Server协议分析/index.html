@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LoRaWAN,STM32,sx1276," />
+  <meta name="keywords" content="LoRaWAN," />
 
 
 
@@ -84,29 +84,34 @@
 
 
 
-<meta name="description" content="和硬件相关的问题TCXO 的使用根据SX1276数据手册，
+<meta name="description" content="LoRaWAN Server 端架构LoRaWAN 的server包括 NS(Network server)、AS(application server)、CS(Custom server)….
+其中NS和AS是比不可少的，是完成LoRaWAN协议的重要组成部分
+NS 职责NS是直接与GW通信的服务器，也是AS和GW之间的桥梁
+我所知道的工作有如下几点：
 
-如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下
-123456789101112void SX1276SetTcxoConfig(void)//此函数为自定义的&amp;#123;  SX1276Write( REG_TCXO, 0x19 ); //设置TCXO  &amp;#125;//在初始化中调用void SX1276Init">
+验证数据的合法性(校验MIC)
+从GW的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LoRaWAN_stack移植笔记(一)--RF硬件相关">
-<meta property="og:url" content="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/index.html">
+<meta property="og:title" content="LoRaWAN协议(三)__Server端数据协议">
+<meta property="og:url" content="http://yoursite.com/2016/11/25/LoRaWAN_Server协议分析/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="和硬件相关的问题TCXO 的使用根据SX1276数据手册，
+<meta property="og:description" content="LoRaWAN Server 端架构LoRaWAN 的server包括 NS(Network server)、AS(application server)、CS(Custom server)….
+其中NS和AS是比不可少的，是完成LoRaWAN协议的重要组成部分
+NS 职责NS是直接与GW通信的服务器，也是AS和GW之间的桥梁
+我所知道的工作有如下几点：
 
-如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下
-123456789101112void SX1276SetTcxoConfig(void)//此函数为自定义的&amp;#123;  SX1276Write( REG_TCXO, 0x19 ); //设置TCXO  &amp;#125;//在初始化中调用void SX1276Init">
-<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/REGTCXO.png">
-<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/REGPACONFIG.png">
-<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/TXRX.png">
-<meta property="og:updated_time" content="2016-10-19T16:01:32.061Z">
+验证数据的合法性(校验MIC)
+从GW的">
+<meta property="og:updated_time" content="2016-11-25T17:07:55.218Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LoRaWAN_stack移植笔记(一)--RF硬件相关">
-<meta name="twitter:description" content="和硬件相关的问题TCXO 的使用根据SX1276数据手册，
+<meta name="twitter:title" content="LoRaWAN协议(三)__Server端数据协议">
+<meta name="twitter:description" content="LoRaWAN Server 端架构LoRaWAN 的server包括 NS(Network server)、AS(application server)、CS(Custom server)….
+其中NS和AS是比不可少的，是完成LoRaWAN协议的重要组成部分
+NS 职责NS是直接与GW通信的服务器，也是AS和GW之间的桥梁
+我所知道的工作有如下几点：
 
-如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下
-123456789101112void SX1276SetTcxoConfig(void)//此函数为自定义的&amp;#123;  SX1276Write( REG_TCXO, 0x19 ); //设置TCXO  &amp;#125;//在初始化中调用void SX1276Init">
-<meta name="twitter:image" content="http://yoursite.com/../../../../uploads/LoRaWAN_STM32/REGTCXO.png">
+验证数据的合法性(校验MIC)
+从GW的">
 
 
 
@@ -127,9 +132,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/11/25/LoRaWAN_Server协议分析/"/>
 
-  <title> LoRaWAN_stack移植笔记(一)--RF硬件相关 | 陈均奎 </title>
+  <title> LoRaWAN协议(三)__Server端数据协议 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -302,7 +307,7 @@
             
             
               
-                LoRaWAN_stack移植笔记(一)--RF硬件相关
+                LoRaWAN协议(三)__Server端数据协议
               
             
           </h1>
@@ -314,8 +319,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-11T17:16:43+08:00" content="2016-10-11">
-              2016-10-11
+            <time itemprop="dateCreated" datetime="2016-11-25T23:43:01+08:00" content="2016-11-25">
+              2016-11-25
             </time>
           </span>
 
@@ -344,8 +349,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/" itemprop="commentsCount"></span>
+                <a href="/2016/11/25/LoRaWAN_Server协议分析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/25/LoRaWAN_Server协议分析/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -355,7 +360,7 @@
 
           
           
-             <span id="/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/" class="leancloud_visitors" data-flag-title="LoRaWAN_stack移植笔记(一)--RF硬件相关">
+             <span id="/2016/11/25/LoRaWAN_Server协议分析/" class="leancloud_visitors" data-flag-title="LoRaWAN协议(三)__Server端数据协议">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -377,24 +382,45 @@
       
 
       
-        <h2 id="和硬件相关的问题"><a href="#和硬件相关的问题" class="headerlink" title="和硬件相关的问题"></a>和硬件相关的问题</h2><h3 id="TCXO-的使用"><a href="#TCXO-的使用" class="headerlink" title="TCXO 的使用"></a>TCXO 的使用</h3><p>根据SX1276数据手册，<br><img src="../../../../uploads/LoRaWAN_STM32/REGTCXO.png" alt=""></p>
-<ul>
-<li><p>如果使用TCXO,则需要配置RegTcxo寄存器为0x19,代码如下</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SX1276SetTcxoConfig</span><span class="params">(<span class="keyword">void</span>)</span><span class="comment">//此函数为自定义的</span></span></div><div class="line">&#123;</div><div class="line">  SX1276Write( REG_TCXO, <span class="number">0x19</span> ); <span class="comment">//设置TCXO  </span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//在初始化中调用</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SX1276Init</span><span class="params">( RadioEvents_t *events )</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	SX1276SetTcxoConfig();</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>否则配置为0x09,因为芯片上电默认不使用TCXO，即上电寄存器值即为0x09,所以无需配置</p>
-</li>
-</ul>
-<h3 id="PA-BOOST-引脚的使用"><a href="#PA-BOOST-引脚的使用" class="headerlink" title="PA_BOOST 引脚的使用"></a>PA_BOOST 引脚的使用</h3><p>根据sx1276 数据手册<br><img src="../../../../uploads/LoRaWAN_STM32/REGPACONFIG.png" alt=""></p>
-<ul>
-<li>如果使用PA_BOOST作为RF输出，则需要配置PaSelect脚为1</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SX1276SetTxConfig</span><span class="params">(......)</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	paConfig = ( paConfig &amp; RF_PACONFIG_PASELECT_MASK ) | SX1276GetPaSelect( SX1276.Settings.Channel );<span class="comment">//选择是否使用PA_BOOST引脚</span></div><div class="line">	...</div><div class="line">	</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//根据具体的电路图不一样，此函数也会币一样，比如低频使用PA_BOOST，高频使用RFO_HF，则函数体如下</span></div><div class="line"><span class="keyword">uint8_t</span> SX1276GetPaSelect( <span class="keyword">uint32_t</span> channel )</div><div class="line">&#123;</div><div class="line">	<span class="comment">//如果是低频的，使用PA_BOOST，高频使用RFO_HF</span></div><div class="line">    <span class="keyword">if</span>( channel &lt; RF_MID_BAND_THRESH )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> RF_PACONFIG_PASELECT_PABOOST;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> RF_PACONFIG_PASELECT_RFO;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//如果高低频都使用PA_BOOST，则函数体如下</span></div><div class="line"><span class="keyword">uint8_t</span> SX1276GetPaSelect( <span class="keyword">uint32_t</span> channel )</div><div class="line">&#123;</div><div class="line">	<span class="keyword">return</span> RF_PACONFIG_PASELECT_PABOOST; </div><div class="line">&#125;</div><div class="line"><span class="comment">//如果高频使用PA_BOOST，低频使用RFO_LF，则函数体如下</span></div><div class="line"><span class="keyword">uint8_t</span> SX1276GetPaSelect( <span class="keyword">uint32_t</span> channel )</div><div class="line">&#123;</div><div class="line">	<span class="comment">//如果是高频的，使用PA_BOOST，低频使用RFO_LF</span></div><div class="line">    <span class="keyword">if</span>( channel &gt; RF_MID_BAND_THRESH )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> RF_PACONFIG_PASELECT_PABOOST;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> RF_PACONFIG_PASELECT_RFO;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*!</span></div><div class="line">* RegPaConfig</div><div class="line">*/</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RF_PACONFIG_PASELECT_MASK                   0x7F</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RF_PACONFIG_PASELECT_PABOOST                0x80</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RF_PACONFIG_PASELECT_RFO                    0x00 <span class="comment">// Default</span></span></div></pre></td></tr></table></figure>
-<ul>
-<li>否则为0</li>
-</ul>
-<h3 id="RXTX-switch-接收和发送的天线电路的切换"><a href="#RXTX-switch-接收和发送的天线电路的切换" class="headerlink" title="RXTX switch(接收和发送的天线电路的切换)"></a>RXTX switch(接收和发送的天线电路的切换)</h3><p><img src="../../../../uploads/LoRaWAN_STM32/TXRX.png" alt=""><br>在图中可以看到，射频输入和射频输出是不一样的电路，但是用的是一个天线，所以用到了一个射频电路切换的芯片。<br>在程序中，需要做的就是控制FEM_CPS脚，在RX和TX时进行RF1(RFI)和RF2(RFO)的切换。<br>由于在设计中兼容高低频，并且使用两个引脚分别控制高频和低频部分的射频部分输入输出的切换，所以在实际使用中需要控制两个引脚。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SX1276SetAntSw</span><span class="params">( <span class="keyword">uint8_t</span> rxTx )</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>( rxTx != <span class="number">0</span> ) <span class="comment">// 1: TX, 0: RX</span></div><div class="line">    &#123;</div><div class="line">        GpioWrite( &amp;AntSwitchLf, <span class="number">0</span> );<span class="comment">//切换到低频发射电路</span></div><div class="line">        GpioWrite( &amp;AntSwitchHf, <span class="number">1</span> );<span class="comment">//切换到高频发射电路</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        GpioWrite( &amp;AntSwitchLf, <span class="number">1</span> );<span class="comment">//切换到低频接收电路</span></div><div class="line">        GpioWrite( &amp;AntSwitchHf, <span class="number">0</span> );<span class="comment">//切换到高频接收电路 </span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>如果只有高频或者低频一个部分，上面的代码只要保留相应的部分即可</p>
+        <h2 id="LoRaWAN-Server-端架构"><a href="#LoRaWAN-Server-端架构" class="headerlink" title="LoRaWAN Server 端架构"></a>LoRaWAN Server 端架构</h2><p>LoRaWAN 的server包括 NS(Network server)、AS(application server)、CS(Custom server)….</p>
+<p>其中NS和AS是比不可少的，是完成LoRaWAN协议的重要组成部分</p>
+<h2 id="NS-职责"><a href="#NS-职责" class="headerlink" title="NS 职责"></a>NS 职责</h2><p>NS是直接与GW通信的服务器，也是AS和GW之间的桥梁</p>
+<p>我所知道的工作有如下几点：</p>
+<ol>
+<li>验证数据的合法性(校验MIC)</li>
+<li>从GW的信息中提取数据，整理成NS 的JSON数据包</li>
+<li>将校验合法的数据打包成新的JSON包上传至AS</li>
+<li>OTAA入网时向AS发送请求入网消息，然后再将入网信息告诉AS，当获取AS传来的入网的信息，告诉GW</li>
+<li>GW 和 AS之间的数据通道</li>
+</ol>
+<p>有几点需要注意的是NS端的数据不进行AES解密工作。</p>
+<h2 id="AS-职责"><a href="#AS-职责" class="headerlink" title="AS 职责"></a>AS 职责</h2><p>AS是server端的数据处理中心</p>
+<p>它的工作有如下几点:</p>
+<ol>
+<li>上行数据的解密</li>
+<li>下行数据的加密</li>
+<li>OTAA入网请求的处理(同意入网/生成APPSKEY/NWKSKEY)</li>
+</ol>
+<h2 id="CS-职责"><a href="#CS-职责" class="headerlink" title="CS 职责"></a>CS 职责</h2><p>CS负责将AS给的数据处理成用户自定义的数据协议格式，也就是说，CS端必须是用户来完成的，因为上面运行的是用户的协议。这里也就不再多说了。</p>
+<h2 id="抓包分析"><a href="#抓包分析" class="headerlink" title="抓包分析"></a>抓包分析</h2><p>以下是我在本地服务器端通过抓到得来的数据，我们通过分析数据包来理解数据的走向已及现有的server端处理流程。抓包使用的是tcpdump。</p>
+<p>1.NS-&gt;AS数据<br>这是一帧从NS-&gt;AS的数据，使用的是TCP方式，AS的数据端口为4000。从data部分我们可以看出来，这是一个未解密的数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">15:30:53.662471 IP localhost.60795 &gt; localhost.4000: Flags [P.], seq 13:328, ack 14, </div><div class="line">win 442, options [nop,nop,TS val 414153 ecr 414145], length 315</div><div class="line"></div><div class="line">	0x0000:  4500 016f aee3 4000 4006 8ca3 7f00 0001</div><div class="line">	0x0010:  7f00 0001 ed7b 0fa0 5505 b988 2261 4f1b</div><div class="line">	0x0020:  8018 01ba ff63 0000 0101 080a 0006 51c9</div><div class="line">	0x0030:  0006 51c1 7b22 6170 7022 3a7b 226d 6f74</div><div class="line">	0x0040:  6565 7569 223a 2234 6137 3730 3032 3031</div><div class="line">	0x0050:  3631 3031 3622 2c22 6469 7222 3a22 7570</div><div class="line">	0x0060:  222c 2273 6571 6e6f 223a 3532 332c 2275</div><div class="line">	0x0070:  7365 7264 6174 6122 3a7b 2270 6f72 7422</div><div class="line">	0x0080:  3a32 2c22 7061 796c 6f61 6422 3a22 5645</div><div class="line">	0x0090:  7666 6f56 2b72 6631 5838 4177 316e 6c52</div><div class="line">	0x00a0:  7077 227d 2c22 6d6f 7465 7478 223a 7b22</div><div class="line">	0x00b0:  6672 6571 223a 3437 312e 352c 2264 6174</div><div class="line">	0x00c0:  7222 3a22 5346 3132 4257 3132 3522 2c22</div><div class="line">	0x00d0:  636f 6472 223a 2234 2f35 222c 2261 6472</div><div class="line">	0x00e0:  223a 6661 6c73 657d 2c22 6777 7278 223a</div><div class="line">	0x00f0:  5b7b 2265 7569 223a 2266 6666 6562 3832</div><div class="line">	0x0100:  3765 6266 3231 6130 3722 2c22 7469 6d65</div><div class="line">	0x0110:  223a 2232 3031 362d 3131 2d32 3454 3135</div><div class="line">	0x0120:  3a33 303a 3533 5a22 2c22 7469 6d65 6672</div><div class="line">	0x0130:  6f6d 6761 7465 7761 7922 3a66 616c 7365</div><div class="line">	0x0140:  2c22 6368 616e 223a 342c 2272 6663 6822</div><div class="line">	0x0150:  3a30 2c22 7273 7369 223a 2d37 392c 226c</div><div class="line">	0x0160:  736e 7222 3a2d 3136 2e35 7d5d 7d7d 00</div></pre></td></tr></table></figure>
+<p>提取其中的数据部分为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;app&quot;: &#123;</div><div class="line">        &quot;moteeui&quot;: &quot;4a770020161016&quot;,</div><div class="line">        &quot;dir&quot;: &quot;up&quot;,</div><div class="line">        &quot;seqno&quot;: 523,</div><div class="line">        &quot;userdata&quot;: &#123;</div><div class="line">            &quot;port&quot;: 2,</div><div class="line">            &quot;payload&quot;: &quot;VEvfoV+rf1X8Aw1nlRpw&quot;</div><div class="line">        &#125;,</div><div class="line">        &quot;motetx&quot;: &#123;</div><div class="line">            &quot;freq&quot;: 471.5,</div><div class="line">            &quot;datr&quot;: &quot;SF12BW125&quot;,</div><div class="line">            &quot;codr&quot;: &quot;4/5&quot;,</div><div class="line">            &quot;adr&quot;: false</div><div class="line">        &#125;,</div><div class="line">        &quot;gwrx&quot;: [</div><div class="line">            &#123;</div><div class="line">                &quot;eui&quot;: &quot;fffeb827ebf21a07&quot;,</div><div class="line">                &quot;time&quot;: &quot;2016-11-24T15:30:53Z&quot;,</div><div class="line">                &quot;timefromgateway&quot;: false,</div><div class="line">                &quot;chan&quot;: 4,</div><div class="line">                &quot;rfch&quot;: 0,</div><div class="line">                &quot;rssi&quot;: -79,</div><div class="line">                &quot;lsnr&quot;: -16.5</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>再把app.userdata.payload 做base64解码之后，得到的payload内容是这个:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.userdata.payload base64 decoded:</div><div class="line">\x54 \x4b \xdf \xa1 \x5f \xab \x7f \x55 </div><div class="line">\xfc \x03 \x0d \x67 \x95 \x1a \x70</div></pre></td></tr></table></figure>
+<p>此时看到的payload因为是加密的，所以完全看不出来数据内容是什么。</p>
+<p>不过在这里，我们可以看到，NS已经将GW上传的数据做了一定的解析，封装成了另外一种JSON格式，由此，我们不难得出，NS做的工作包括–base64解码/MIC校验/GW数据包的重新组包</p>
+<p>2.AS-&gt;CS数据<br>这是一帧从AS-&gt;CS的数据，使用的是TCP方式，CS的数据端口为5000。从data部分我们可以看出来，这是一个已经解密完成的数据了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">15:30:53.663219 IP localhost.36774 &gt; localhost.5000: Flags [P.], seq 13:328, ack 13, </div><div class="line">win 342, options [nop,nop,TS val 414153 ecr 414140], length 315</div><div class="line">        0x0000:  4500 016f 928b 4000 4006 a8fb 7f00 0001</div><div class="line">        0x0010:  7f00 0001 8fa6 1388 2a2a 93a0 9d70 4aae</div><div class="line">        0x0020:  8018 0156 ff63 0000 0101 080a 0006 51c9</div><div class="line">        0x0030:  0006 51bc 7b22 6170 7022 3a7b 226d 6f74</div><div class="line">        0x0040:  6565 7569 223a 2234 6137 3730 3032 3031</div><div class="line">        0x0050:  3631 3031 3622 2c22 6469 7222 3a22 7570</div><div class="line">        0x0060:  222c 2273 6571 6e6f 223a 3532 332c 2275</div><div class="line">        0x0070:  7365 7264 6174 6122 3a7b 2270 6f72 7422</div><div class="line">        0x0080:  3a32 2c22 7061 796c 6f61 6422 3a22 4151</div><div class="line">        0x0090:  4944 4241 5547 4277 674a 4367 734d 4451</div><div class="line">        0x00a0:  3450 227d 2c22 6d6f 7465 7478 223a 7b22</div><div class="line">        0x00b0:  6672 6571 223a 3437 312e 352c 2264 6174</div><div class="line">        0x00c0:  7222 3a22 5346 3132 4257 3132 3522 2c22</div><div class="line">        0x00d0:  636f 6472 223a 2234 2f35 222c 2261 6472</div><div class="line">        0x00e0:  223a 6661 6c73 657d 2c22 6777 7278 223a</div><div class="line">        0x00f0:  5b7b 2265 7569 223a 2266 6666 6562 3832</div><div class="line">        0x0100:  3765 6266 3231 6130 3722 2c22 7469 6d65</div><div class="line">        0x0110:  223a 2232 3031 362d 3131 2d32 3454 3135</div><div class="line">        0x0120:  3a33 303a 3533 5a22 2c22 7469 6d65 6672</div><div class="line">        0x0130:  6f6d 6761 7465 7761 7922 3a66 616c 7365</div><div class="line">        0x0140:  2c22 6368 616e 223a 342c 2272 6663 6822</div><div class="line">        0x0150:  3a30 2c22 7273 7369 223a 2d37 392c 226c</div><div class="line">        0x0160:  736e 7222 3a2d 3136 2e35 7d5d 7d7d 00</div></pre></td></tr></table></figure>
+<p>提取其中的数据部分为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;app&quot;: &#123;</div><div class="line">        &quot;moteeui&quot;: &quot;4a770020161016&quot;,</div><div class="line">        &quot;dir&quot;: &quot;up&quot;,</div><div class="line">        &quot;seqno&quot;: 523,</div><div class="line">        &quot;userdata&quot;: &#123;</div><div class="line">            &quot;port&quot;: 2,</div><div class="line">            &quot;payload&quot;: &quot;AQIDBAUGBwgJCgsMDQ4P&quot;</div><div class="line">        &#125;,</div><div class="line">        &quot;motetx&quot;: &#123;</div><div class="line">            &quot;freq&quot;: 471.5,</div><div class="line">            &quot;datr&quot;: &quot;SF12BW125&quot;,</div><div class="line">            &quot;codr&quot;: &quot;4/5&quot;,</div><div class="line">            &quot;adr&quot;: false</div><div class="line">        &#125;,</div><div class="line">        &quot;gwrx&quot;: [</div><div class="line">            &#123;</div><div class="line">                &quot;eui&quot;: &quot;fffeb827ebf21a07&quot;,</div><div class="line">                &quot;time&quot;: &quot;2016-11-24T15:30:53Z&quot;,</div><div class="line">                &quot;timefromgateway&quot;: false,</div><div class="line">                &quot;chan&quot;: 4,</div><div class="line">                &quot;rfch&quot;: 0,</div><div class="line">                &quot;rssi&quot;: -79,</div><div class="line">                &quot;lsnr&quot;: -16.5</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>再把app.userdata.payload 做base64解码之后，得到的payload内容是这个:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">\x01 \x02 \x03 \x04 \x05 \x06 \x07 \x08 </div><div class="line">\x09 \x0a \x0b \x0c \x0d \x0e \x0f</div></pre></td></tr></table></figure>
+<p>而此时，数据已经完全解密了，可以看到数据就是在AS解密的，解密完再发送给CS，CS再做进一步用户协议的处理。</p>
+<p>在这里，我们可以看到，AS已经将NS传输过来的JSON包的payload部分做了解密，然后再传给了CS。所以解密工作是在AS完成的。</p>
+<p><strong>本期的LoRaWAN笔记就到这里了，如果本文有什么错误，或者对LoRaWAN有什么不理解的，欢迎联系我，邮箱(454626653@qq.com),在右边也有链接，谢谢大家。
+</strong></p>
 
       
     </div>
@@ -419,10 +445,6 @@
           
             <a href="/tags/LoRaWAN/" rel="tag">#LoRaWAN</a>
           
-            <a href="/tags/STM32/" rel="tag">#STM32</a>
-          
-            <a href="/tags/sx1276/" rel="tag">#sx1276</a>
-          
         </div>
       
 
@@ -430,17 +452,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/11/STM32时钟源配置/" rel="next" title="STM32时钟配置--系统时钟、RTC时钟、IWDG时钟">
-                <i class="fa fa-chevron-left"></i> STM32时钟配置--系统时钟、RTC时钟、IWDG时钟
+              <a href="/2016/11/03/LoRaWAN stack移植笔记(六)/" rel="next" title="LoRaWAN stack移植笔记(六)">
+                <i class="fa fa-chevron-left"></i> LoRaWAN stack移植笔记(六)
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/13/STM32_NVIC的配置/" rel="prev" title="STM32_NVIC设置">
-                STM32_NVIC设置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -455,10 +473,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/"
-     data-title="LoRaWAN_stack移植笔记(一)--RF硬件相关"
+        <div class="ds-share flat" data-thread-key="2016/11/25/LoRaWAN_Server协议分析/"
+     data-title="LoRaWAN协议(三)__Server端数据协议"
      data-content=""
-     data-url="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/">
+     data-url="http://yoursite.com/2016/11/25/LoRaWAN_Server协议分析/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -485,8 +503,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/"
-           data-title="LoRaWAN_stack移植笔记(一)--RF硬件相关" data-url="http://yoursite.com/2016/10/11/LoRaWAN_stack移植笔记(一)_RF硬件相关/">
+      <div class="ds-thread" data-thread-key="2016/11/25/LoRaWAN_Server协议分析/"
+           data-title="LoRaWAN协议(三)__Server端数据协议" data-url="http://yoursite.com/2016/11/25/LoRaWAN_Server协议分析/">
       </div>
     
   </div>
@@ -597,7 +615,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#和硬件相关的问题"><span class="nav-number">1.</span> <span class="nav-text">和硬件相关的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCXO-的使用"><span class="nav-number">1.1.</span> <span class="nav-text">TCXO 的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PA-BOOST-引脚的使用"><span class="nav-number">1.2.</span> <span class="nav-text">PA_BOOST 引脚的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RXTX-switch-接收和发送的天线电路的切换"><span class="nav-number">1.3.</span> <span class="nav-text">RXTX switch(接收和发送的天线电路的切换)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LoRaWAN-Server-端架构"><span class="nav-number">1.</span> <span class="nav-text">LoRaWAN Server 端架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NS-职责"><span class="nav-number">2.</span> <span class="nav-text">NS 职责</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AS-职责"><span class="nav-number">3.</span> <span class="nav-text">AS 职责</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CS-职责"><span class="nav-number">4.</span> <span class="nav-text">CS 职责</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抓包分析"><span class="nav-number">5.</span> <span class="nav-text">抓包分析</span></a></li></ol></div>
             
           </div>
         </section>
