@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="chenjunkui" />
+  <meta name="keywords" content="LoRaWAN," />
 
 
 
@@ -84,15 +84,26 @@
 
 
 
-<meta name="description" content="Answer in the wind">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈均奎">
-<meta property="og:url" content="http://yoursite.com/archives/2016/11/03/index.html">
+<meta name="description" content="名词解析上行：终端的数据发送经过一个或多个网关中转到达网络服务器。下行：由网络服务器发送给终端设备，每条消息对应的终端设备是唯一确定的，而且只通过一个网关中转。
+LoRaWAN ClassesLoRaWAN Classes 一共分为3类：Class A,Class B,Class C
+Class A:终端先发送，在发送后开启一段时间的接收窗口，终端只有在发送后才可以接收。也就是说上行没有限制，下行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LoRaWAN架构解析(二)--LoRaWAN MAC解析">
+<meta property="og:url" content="http://yoursite.com/2016/07/29/LoRaWAN协议(二)--LoRaWAN MAC解析/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="Answer in the wind">
+<meta property="og:description" content="名词解析上行：终端的数据发送经过一个或多个网关中转到达网络服务器。下行：由网络服务器发送给终端设备，每条消息对应的终端设备是唯一确定的，而且只通过一个网关中转。
+LoRaWAN ClassesLoRaWAN Classes 一共分为3类：Class A,Class B,Class C
+Class A:终端先发送，在发送后开启一段时间的接收窗口，终端只有在发送后才可以接收。也就是说上行没有限制，下行">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRa/uplink.png">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRa/downlink.png">
+<meta property="og:image" content="http://yoursite.com/../../../../uploads/LoRa/PHY_data_format.png">
+<meta property="og:updated_time" content="2016-10-13T16:04:58.450Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈均奎">
-<meta name="twitter:description" content="Answer in the wind">
+<meta name="twitter:title" content="LoRaWAN架构解析(二)--LoRaWAN MAC解析">
+<meta name="twitter:description" content="名词解析上行：终端的数据发送经过一个或多个网关中转到达网络服务器。下行：由网络服务器发送给终端设备，每条消息对应的终端设备是唯一确定的，而且只通过一个网关中转。
+LoRaWAN ClassesLoRaWAN Classes 一共分为3类：Class A,Class B,Class C
+Class A:终端先发送，在发送后开启一段时间的接收窗口，终端只有在发送后才可以接收。也就是说上行没有限制，下行">
+<meta name="twitter:image" content="http://yoursite.com/../../../../uploads/LoRa/uplink.png">
 
 
 
@@ -113,9 +124,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2016/11/03/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/29/LoRaWAN协议(二)--LoRaWAN MAC解析/"/>
 
-  <title> 归档 | 陈均奎 </title>
+  <title> LoRaWAN架构解析(二)--LoRaWAN MAC解析 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -146,7 +157,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -267,66 +278,221 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 22 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                LoRaWAN架构解析(二)--LoRaWAN MAC解析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-29T00:00:00+08:00" content="2016-07-29">
+              2016-07-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/LoRaWAN/" itemprop="url" rel="index">
+                    <span itemprop="name">LoRaWAN</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/29/LoRaWAN协议(二)--LoRaWAN MAC解析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/29/LoRaWAN协议(二)--LoRaWAN MAC解析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/07/29/LoRaWAN协议(二)--LoRaWAN MAC解析/" class="leancloud_visitors" data-flag-title="LoRaWAN架构解析(二)--LoRaWAN MAC解析">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <h2 id="名词解析"><a href="#名词解析" class="headerlink" title="名词解析"></a>名词解析</h2><p>上行：终端的数据发送经过一个或多个网关中转到达网络服务器。<br>下行：由网络服务器发送给终端设备，每条消息对应的终端设备是唯一确定的，而且只通过一个网关中转。</p>
+<h2 id="LoRaWAN-Classes"><a href="#LoRaWAN-Classes" class="headerlink" title="LoRaWAN Classes"></a>LoRaWAN Classes</h2><p>LoRaWAN Classes 一共分为3类：Class A,Class B,Class C</p>
+<p>Class A:终端先发送，在发送后开启一段时间的接收窗口，终端只有在发送后才可以接收。也就是说上行没有限制，下行的数据只有在上行包发送上来的时候终端才可以接收到。(功耗最低)</p>
+<p>Class B:终端和服务器协商好接收的窗口开启的时间以及何时开启，然后再约定的时间进行接收，可以一次接收多个包。（功耗次低）</p>
+<p>Class C:终端在发送以外的其他时间都开启接收窗口。更耗能，但通讯延时最低。（功耗最高）</p>
+<h2 id="PHY-层数据链路"><a href="#PHY-层数据链路" class="headerlink" title="PHY 层数据链路"></a>PHY 层数据链路</h2><p>上行链路消息：<br><img src="../../../../uploads/LoRa/uplink.png" alt=""></p>
+<p>上行链路消息：<br><img src="../../../../uploads/LoRa/downlink.png" alt=""></p>
+<p>其中上行最后还有CRC校验，而下行没有CRC校验。其中PHDR PHDR_CRC CRC都是射频芯片用于校准数据的完整新和一致性用的，并非用户生成的数据。</p>
+<h2 id="MAC-层数据链路"><a href="#MAC-层数据链路" class="headerlink" title="MAC 层数据链路"></a>MAC 层数据链路</h2><p><img src="../../../../uploads/LoRa/PHY_data_format.png" alt=""></p>
+<p>由上图可以看到，MAC数据是是作为PHYPayload存在的<br>其中MAC 层的包有三个部分组成：</p>
+<ul>
+<li>MHDR(MAC层帧头) </li>
+<li>MACPayload(MAC层负载) </li>
+<li>MIC(4字节的校验)</li>
+</ul>
+<p>而MACPayload又由三个部分组成:</p>
+<ul>
+<li>FHDR (MAC层负载头)</li>
+<li>FPORT（MAC 层数据的通道号）</li>
+<li>FRMPayload（MAC层负载，加密）</li>
+</ul>
+<p>而FHDR又由由四个部分组成:</p>
+<ul>
+<li>DevAddr(终端的ID 4字节)</li>
+<li>FCtrl（帧的控制字 1个字节）</li>
+<li>FCnt （帧的序号 2个字节）</li>
+<li>FOpts（帧配置，字节数不定，大部分情况0个字节）</li>
+</ul>
+<p>所以，由协议可知，一个上行包或者下行包中的数据内容有哪些，抛开控制命令不说，主要有终端的ID、包的序号、用户的加密负载。</p>
+<p>例如我抓到的一个数据包：</p>
+<p>\x40 \x7f \xf8 \x8a \x29 \x80 \x2a \x00 \x02 \x07 \x42 \x87 \x3f \xc7 \xb4 \x22 \x04 \x00 \x84 \x8d \x1b \x06 \x2f \x5b \xbc \x57 \xdb \xf2 \x31 \xde \x49 \x61 \x00 \x86 \x99 \xec \x08 \x61 \xf0 \xb7 \xda \x54 \x0a \xfa \xd1 \x31 \xac \xd0 \x44 \x1b \x4d \xfa \x48 \x77 \x19 \xee \x61 \x14 \xbf \x23 \x52 \xd1 \xe9 \x93 \x79 \x6e \x16 \xd7 \x13 \x2e \x58 \x06 \x54 \xc3 \xd2 \x04 \xba \x52 \xa7 \xc8 \x7a \x0b \x8e </p>
+<p>这是一个MAC 层的帧即完整的MACPayload部分</p>
+<p>其中 </p>
+<ul>
+<li>MHDR:<br>  \x40</li>
+<li>MACPayload-FHDR-DevAddr:<br>  \x7f \xf8 \x8a \x29 </li>
+<li>MACPayload-FHDR-FCtrl:<br>  \x80 </li>
+<li>MACPayload-FHDR-FCnt:<br>  \x2a \x00 </li>
+<li>MACPayload-FPORT:<br>  \x02 </li>
+<li>MACPayload-FRMPayload（加密）:<br>  \x07 \x42 \x87 \x3f \xc7 \xb4 \x22 \x04 \x00 \x84 \x8d \x1b \x06 \x2f \x5b \xbc \x57 \xdb \xf2 \x31 \xde \x49 \x61 \x00 \x86 \x99 \xec \x08 \x61 \xf0 \xb7 \xda \x54 \x0a \xfa \xd1 \x31 \xac \xd0 \x44 \x1b \x4d \xfa \x48 \x77 \x19 \xee \x61 \x14 \xbf \x23 \x52 \xd1 \xe9 \x93 \x79 \x6e \x16 \xd7 \x13 \x2e \x58 \x06 \x54 \xc3 \xd2 \x04 \xba \x52 \xa7 </li>
+<li>MIC:<br>  \xc8 \x7a \x0b \x8e </li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LoRaWAN/" rel="tag">#LoRaWAN</a>
+          
         </div>
       
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/26/MPU9250调试/" rel="next" title="MPU9250调试">
+                <i class="fa fa-chevron-left"></i> MPU9250调试
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/10/semtech_LoRaWAN_timer/" rel="prev" title="LoRaWAN源码阅读笔记————RTC闹钟链表的实现">
+                LoRaWAN源码阅读笔记————RTC闹钟链表的实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/11/03/LoRaWAN stack移植笔记(六)/" itemprop="url">
-              
-                <span itemprop="name">LoRaWAN stack移植笔记(六)</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-11-03T17:54:17+08:00"
-              content="2016-11-03" >
-          11-03
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/07/29/LoRaWAN协议(二)--LoRaWAN MAC解析/"
+     data-title="LoRaWAN架构解析(二)--LoRaWAN MAC解析"
+     data-content=""
+     data-url="http://yoursite.com/2016/07/29/LoRaWAN协议(二)--LoRaWAN MAC解析/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
 
-  </section>
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
 
-  
-
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -334,6 +500,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/29/LoRaWAN协议(二)--LoRaWAN MAC解析/"
+           data-title="LoRaWAN架构解析(二)--LoRaWAN MAC解析" data-url="http://yoursite.com/2016/07/29/LoRaWAN协议(二)--LoRaWAN MAC解析/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -353,8 +527,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -424,6 +607,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#名词解析"><span class="nav-number">1.</span> <span class="nav-text">名词解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LoRaWAN-Classes"><span class="nav-number">2.</span> <span class="nav-text">LoRaWAN Classes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHY-层数据链路"><span class="nav-number">3.</span> <span class="nav-text">PHY 层数据链路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MAC-层数据链路"><span class="nav-number">4.</span> <span class="nav-text">MAC 层数据链路</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -527,11 +721,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   

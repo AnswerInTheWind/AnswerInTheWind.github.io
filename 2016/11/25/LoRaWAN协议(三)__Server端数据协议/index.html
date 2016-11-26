@@ -84,37 +84,34 @@
 
 
 
-<meta name="description" content="LoRaWAN 分层LoRaWAN从底层到最后用户拿到数据的通讯过程通讯大致可分为三段：
+<meta name="description" content="LoRaWAN Server 端架构LoRaWAN 的server包括 NS(Network server)、AS(application server)、CS(Custom server)….
+其中NS和AS是比不可少的，是完成LoRaWAN协议的重要组成部分
+NS 职责NS是直接与GW通信的服务器，也是AS和GW之间的桥梁
+我所知道的工作有如下几点：
 
-MOTE &amp;lt;—&amp;gt; GW (MAC层)
-GW &amp;lt;—&amp;gt; NS
-NS &amp;lt;—&amp;gt; Customer
-
-LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共同遵守的MAC层协议的前提下，不同硬件厂商的设备才能互相接入。
-而GW &amp;lt;—&amp;gt; NS以及NS &amp;">
+验证数据的合法性(校验MIC)
+从GW的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LoRaWAN解析(一)--架构解析">
-<meta property="og:url" content="http://yoursite.com/2016/07/24/LoRaWan架构解析/index.html">
+<meta property="og:title" content="LoRaWAN协议(三)__Server端数据协议">
+<meta property="og:url" content="http://yoursite.com/2016/11/25/LoRaWAN协议(三)__Server端数据协议/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="LoRaWAN 分层LoRaWAN从底层到最后用户拿到数据的通讯过程通讯大致可分为三段：
+<meta property="og:description" content="LoRaWAN Server 端架构LoRaWAN 的server包括 NS(Network server)、AS(application server)、CS(Custom server)….
+其中NS和AS是比不可少的，是完成LoRaWAN协议的重要组成部分
+NS 职责NS是直接与GW通信的服务器，也是AS和GW之间的桥梁
+我所知道的工作有如下几点：
 
-MOTE &amp;lt;—&amp;gt; GW (MAC层)
-GW &amp;lt;—&amp;gt; NS
-NS &amp;lt;—&amp;gt; Customer
-
-LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共同遵守的MAC层协议的前提下，不同硬件厂商的设备才能互相接入。
-而GW &amp;lt;—&amp;gt; NS以及NS &amp;">
-<meta property="og:updated_time" content="2016-10-13T16:09:22.111Z">
+验证数据的合法性(校验MIC)
+从GW的">
+<meta property="og:updated_time" content="2016-11-26T16:06:52.208Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LoRaWAN解析(一)--架构解析">
-<meta name="twitter:description" content="LoRaWAN 分层LoRaWAN从底层到最后用户拿到数据的通讯过程通讯大致可分为三段：
+<meta name="twitter:title" content="LoRaWAN协议(三)__Server端数据协议">
+<meta name="twitter:description" content="LoRaWAN Server 端架构LoRaWAN 的server包括 NS(Network server)、AS(application server)、CS(Custom server)….
+其中NS和AS是比不可少的，是完成LoRaWAN协议的重要组成部分
+NS 职责NS是直接与GW通信的服务器，也是AS和GW之间的桥梁
+我所知道的工作有如下几点：
 
-MOTE &amp;lt;—&amp;gt; GW (MAC层)
-GW &amp;lt;—&amp;gt; NS
-NS &amp;lt;—&amp;gt; Customer
-
-LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共同遵守的MAC层协议的前提下，不同硬件厂商的设备才能互相接入。
-而GW &amp;lt;—&amp;gt; NS以及NS &amp;">
+验证数据的合法性(校验MIC)
+从GW的">
 
 
 
@@ -135,9 +132,9 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/24/LoRaWan架构解析/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/11/25/LoRaWAN协议(三)__Server端数据协议/"/>
 
-  <title> LoRaWAN解析(一)--架构解析 | 陈均奎 </title>
+  <title> LoRaWAN协议(三)__Server端数据协议 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -310,7 +307,7 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
             
             
               
-                LoRaWAN解析(一)--架构解析
+                LoRaWAN协议(三)__Server端数据协议
               
             
           </h1>
@@ -322,8 +319,8 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-24T00:00:00+08:00" content="2016-07-24">
-              2016-07-24
+            <time itemprop="dateCreated" datetime="2016-11-25T23:43:01+08:00" content="2016-11-25">
+              2016-11-25
             </time>
           </span>
 
@@ -352,8 +349,8 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/24/LoRaWan架构解析/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/24/LoRaWan架构解析/" itemprop="commentsCount"></span>
+                <a href="/2016/11/25/LoRaWAN协议(三)__Server端数据协议/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/25/LoRaWAN协议(三)__Server端数据协议/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -363,7 +360,7 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
 
           
           
-             <span id="/2016/07/24/LoRaWan架构解析/" class="leancloud_visitors" data-flag-title="LoRaWAN解析(一)--架构解析">
+             <span id="/2016/11/25/LoRaWAN协议(三)__Server端数据协议/" class="leancloud_visitors" data-flag-title="LoRaWAN协议(三)__Server端数据协议">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -385,24 +382,45 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
       
 
       
-        <h2 id="LoRaWAN-分层"><a href="#LoRaWAN-分层" class="headerlink" title="LoRaWAN 分层"></a>LoRaWAN 分层</h2><p>LoRaWAN从底层到最后用户拿到数据的通讯过程通讯大致可分为三段：</p>
+        <h2 id="LoRaWAN-Server-端架构"><a href="#LoRaWAN-Server-端架构" class="headerlink" title="LoRaWAN Server 端架构"></a>LoRaWAN Server 端架构</h2><p>LoRaWAN 的server包括 NS(Network server)、AS(application server)、CS(Custom server)….</p>
+<p>其中NS和AS是比不可少的，是完成LoRaWAN协议的重要组成部分</p>
+<h2 id="NS-职责"><a href="#NS-职责" class="headerlink" title="NS 职责"></a>NS 职责</h2><p>NS是直接与GW通信的服务器，也是AS和GW之间的桥梁</p>
+<p>我所知道的工作有如下几点：</p>
 <ol>
-<li>MOTE &lt;—&gt; GW (MAC层)</li>
-<li>GW &lt;—&gt; NS</li>
-<li>NS &lt;—&gt; Customer</li>
+<li>验证数据的合法性(校验MIC)</li>
+<li>从GW的信息中提取数据，整理成NS 的JSON数据包</li>
+<li>将校验合法的数据打包成新的JSON包上传至AS</li>
+<li>OTAA入网时向AS发送请求入网消息，然后再将入网信息告诉AS，当获取AS传来的入网的信息，告诉GW</li>
+<li>GW 和 AS之间的数据通道</li>
 </ol>
-<p>LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共同遵守的MAC层协议的前提下，不同硬件厂商的设备才能互相接入。</p>
-<p>而GW &lt;—&gt; NS以及NS &lt;—&gt; Customer这两层的协议虽然LoRa联盟有所规范，但不同厂商之间可能会存在不同。</p>
-<h2 id="应用分析"><a href="#应用分析" class="headerlink" title="应用分析"></a>应用分析</h2><p>在这里我以LoRaWAN 方式实现农场的土壤湿度检测来做说明。<br>实现农场的土壤湿度的检测主要分为几个步骤：</p>
-<ul>
-<li>实现传感器采集土壤湿度（sensor层）</li>
-<li>将采集到的土壤湿度通过MOTE发送给GW(LoRaMac 层)</li>
-<li>GW将收到的数据发送给NS（GW&lt;—&gt;NS）</li>
-<li>NS再将数据发送给用户(NS&lt;—&gt;Customer)</li>
-<li>用户通过APP或者其他方式可以看到土壤的湿度状态。(Display)</li>
-</ul>
-<p>通过以上的几个步骤，就可以实现远程监控农场土壤湿度。</p>
-<p>好了，第一讲非常的简单。只是讲解了LoRaWAN 作为IOT的一种方式，其中的数据流向。</p>
+<p>有几点需要注意的是NS端的数据不进行AES解密工作。</p>
+<h2 id="AS-职责"><a href="#AS-职责" class="headerlink" title="AS 职责"></a>AS 职责</h2><p>AS是server端的数据处理中心</p>
+<p>它的工作有如下几点:</p>
+<ol>
+<li>上行数据的解密</li>
+<li>下行数据的加密</li>
+<li>OTAA入网请求的处理(同意入网/生成APPSKEY/NWKSKEY)</li>
+</ol>
+<h2 id="CS-职责"><a href="#CS-职责" class="headerlink" title="CS 职责"></a>CS 职责</h2><p>CS负责将AS给的数据处理成用户自定义的数据协议格式，也就是说，CS端必须是用户来完成的，因为上面运行的是用户的协议。这里也就不再多说了。</p>
+<h2 id="抓包分析"><a href="#抓包分析" class="headerlink" title="抓包分析"></a>抓包分析</h2><p>以下是我在本地服务器端通过抓到得来的数据，我们通过分析数据包来理解数据的走向已及现有的server端处理流程。抓包使用的是tcpdump。</p>
+<p>1.NS-&gt;AS数据<br>这是一帧从NS-&gt;AS的数据，使用的是TCP方式，AS的数据端口为4000。从data部分我们可以看出来，这是一个未解密的数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">15:30:53.662471 IP localhost.60795 &gt; localhost.4000: Flags [P.], seq 13:328, ack 14, </div><div class="line">win 442, options [nop,nop,TS val 414153 ecr 414145], length 315</div><div class="line"></div><div class="line">	0x0000:  4500 016f aee3 4000 4006 8ca3 7f00 0001</div><div class="line">	0x0010:  7f00 0001 ed7b 0fa0 5505 b988 2261 4f1b</div><div class="line">	0x0020:  8018 01ba ff63 0000 0101 080a 0006 51c9</div><div class="line">	0x0030:  0006 51c1 7b22 6170 7022 3a7b 226d 6f74</div><div class="line">	0x0040:  6565 7569 223a 2234 6137 3730 3032 3031</div><div class="line">	0x0050:  3631 3031 3622 2c22 6469 7222 3a22 7570</div><div class="line">	0x0060:  222c 2273 6571 6e6f 223a 3532 332c 2275</div><div class="line">	0x0070:  7365 7264 6174 6122 3a7b 2270 6f72 7422</div><div class="line">	0x0080:  3a32 2c22 7061 796c 6f61 6422 3a22 5645</div><div class="line">	0x0090:  7666 6f56 2b72 6631 5838 4177 316e 6c52</div><div class="line">	0x00a0:  7077 227d 2c22 6d6f 7465 7478 223a 7b22</div><div class="line">	0x00b0:  6672 6571 223a 3437 312e 352c 2264 6174</div><div class="line">	0x00c0:  7222 3a22 5346 3132 4257 3132 3522 2c22</div><div class="line">	0x00d0:  636f 6472 223a 2234 2f35 222c 2261 6472</div><div class="line">	0x00e0:  223a 6661 6c73 657d 2c22 6777 7278 223a</div><div class="line">	0x00f0:  5b7b 2265 7569 223a 2266 6666 6562 3832</div><div class="line">	0x0100:  3765 6266 3231 6130 3722 2c22 7469 6d65</div><div class="line">	0x0110:  223a 2232 3031 362d 3131 2d32 3454 3135</div><div class="line">	0x0120:  3a33 303a 3533 5a22 2c22 7469 6d65 6672</div><div class="line">	0x0130:  6f6d 6761 7465 7761 7922 3a66 616c 7365</div><div class="line">	0x0140:  2c22 6368 616e 223a 342c 2272 6663 6822</div><div class="line">	0x0150:  3a30 2c22 7273 7369 223a 2d37 392c 226c</div><div class="line">	0x0160:  736e 7222 3a2d 3136 2e35 7d5d 7d7d 00</div></pre></td></tr></table></figure>
+<p>提取其中的数据部分为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;app&quot;: &#123;</div><div class="line">        &quot;moteeui&quot;: &quot;4a770020161016&quot;,</div><div class="line">        &quot;dir&quot;: &quot;up&quot;,</div><div class="line">        &quot;seqno&quot;: 523,</div><div class="line">        &quot;userdata&quot;: &#123;</div><div class="line">            &quot;port&quot;: 2,</div><div class="line">            &quot;payload&quot;: &quot;VEvfoV+rf1X8Aw1nlRpw&quot;</div><div class="line">        &#125;,</div><div class="line">        &quot;motetx&quot;: &#123;</div><div class="line">            &quot;freq&quot;: 471.5,</div><div class="line">            &quot;datr&quot;: &quot;SF12BW125&quot;,</div><div class="line">            &quot;codr&quot;: &quot;4/5&quot;,</div><div class="line">            &quot;adr&quot;: false</div><div class="line">        &#125;,</div><div class="line">        &quot;gwrx&quot;: [</div><div class="line">            &#123;</div><div class="line">                &quot;eui&quot;: &quot;fffeb827ebf21a07&quot;,</div><div class="line">                &quot;time&quot;: &quot;2016-11-24T15:30:53Z&quot;,</div><div class="line">                &quot;timefromgateway&quot;: false,</div><div class="line">                &quot;chan&quot;: 4,</div><div class="line">                &quot;rfch&quot;: 0,</div><div class="line">                &quot;rssi&quot;: -79,</div><div class="line">                &quot;lsnr&quot;: -16.5</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>再把app.userdata.payload 做base64解码之后，得到的payload内容是这个:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.userdata.payload base64 decoded:</div><div class="line">\x54 \x4b \xdf \xa1 \x5f \xab \x7f \x55 </div><div class="line">\xfc \x03 \x0d \x67 \x95 \x1a \x70</div></pre></td></tr></table></figure>
+<p>此时看到的payload因为是加密的，所以完全看不出来数据内容是什么。</p>
+<p>不过在这里，我们可以看到，NS已经将GW上传的数据做了一定的解析，封装成了另外一种JSON格式，由此，我们不难得出，NS做的工作包括–base64解码/MIC校验/GW数据包的重新组包</p>
+<p>2.AS-&gt;CS数据<br>这是一帧从AS-&gt;CS的数据，使用的是TCP方式，CS的数据端口为5000。从data部分我们可以看出来，这是一个已经解密完成的数据了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">15:30:53.663219 IP localhost.36774 &gt; localhost.5000: Flags [P.], seq 13:328, ack 13, </div><div class="line">win 342, options [nop,nop,TS val 414153 ecr 414140], length 315</div><div class="line">        0x0000:  4500 016f 928b 4000 4006 a8fb 7f00 0001</div><div class="line">        0x0010:  7f00 0001 8fa6 1388 2a2a 93a0 9d70 4aae</div><div class="line">        0x0020:  8018 0156 ff63 0000 0101 080a 0006 51c9</div><div class="line">        0x0030:  0006 51bc 7b22 6170 7022 3a7b 226d 6f74</div><div class="line">        0x0040:  6565 7569 223a 2234 6137 3730 3032 3031</div><div class="line">        0x0050:  3631 3031 3622 2c22 6469 7222 3a22 7570</div><div class="line">        0x0060:  222c 2273 6571 6e6f 223a 3532 332c 2275</div><div class="line">        0x0070:  7365 7264 6174 6122 3a7b 2270 6f72 7422</div><div class="line">        0x0080:  3a32 2c22 7061 796c 6f61 6422 3a22 4151</div><div class="line">        0x0090:  4944 4241 5547 4277 674a 4367 734d 4451</div><div class="line">        0x00a0:  3450 227d 2c22 6d6f 7465 7478 223a 7b22</div><div class="line">        0x00b0:  6672 6571 223a 3437 312e 352c 2264 6174</div><div class="line">        0x00c0:  7222 3a22 5346 3132 4257 3132 3522 2c22</div><div class="line">        0x00d0:  636f 6472 223a 2234 2f35 222c 2261 6472</div><div class="line">        0x00e0:  223a 6661 6c73 657d 2c22 6777 7278 223a</div><div class="line">        0x00f0:  5b7b 2265 7569 223a 2266 6666 6562 3832</div><div class="line">        0x0100:  3765 6266 3231 6130 3722 2c22 7469 6d65</div><div class="line">        0x0110:  223a 2232 3031 362d 3131 2d32 3454 3135</div><div class="line">        0x0120:  3a33 303a 3533 5a22 2c22 7469 6d65 6672</div><div class="line">        0x0130:  6f6d 6761 7465 7761 7922 3a66 616c 7365</div><div class="line">        0x0140:  2c22 6368 616e 223a 342c 2272 6663 6822</div><div class="line">        0x0150:  3a30 2c22 7273 7369 223a 2d37 392c 226c</div><div class="line">        0x0160:  736e 7222 3a2d 3136 2e35 7d5d 7d7d 00</div></pre></td></tr></table></figure>
+<p>提取其中的数据部分为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;app&quot;: &#123;</div><div class="line">        &quot;moteeui&quot;: &quot;4a770020161016&quot;,</div><div class="line">        &quot;dir&quot;: &quot;up&quot;,</div><div class="line">        &quot;seqno&quot;: 523,</div><div class="line">        &quot;userdata&quot;: &#123;</div><div class="line">            &quot;port&quot;: 2,</div><div class="line">            &quot;payload&quot;: &quot;AQIDBAUGBwgJCgsMDQ4P&quot;</div><div class="line">        &#125;,</div><div class="line">        &quot;motetx&quot;: &#123;</div><div class="line">            &quot;freq&quot;: 471.5,</div><div class="line">            &quot;datr&quot;: &quot;SF12BW125&quot;,</div><div class="line">            &quot;codr&quot;: &quot;4/5&quot;,</div><div class="line">            &quot;adr&quot;: false</div><div class="line">        &#125;,</div><div class="line">        &quot;gwrx&quot;: [</div><div class="line">            &#123;</div><div class="line">                &quot;eui&quot;: &quot;fffeb827ebf21a07&quot;,</div><div class="line">                &quot;time&quot;: &quot;2016-11-24T15:30:53Z&quot;,</div><div class="line">                &quot;timefromgateway&quot;: false,</div><div class="line">                &quot;chan&quot;: 4,</div><div class="line">                &quot;rfch&quot;: 0,</div><div class="line">                &quot;rssi&quot;: -79,</div><div class="line">                &quot;lsnr&quot;: -16.5</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>再把app.userdata.payload 做base64解码之后，得到的payload内容是这个:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">\x01 \x02 \x03 \x04 \x05 \x06 \x07 \x08 </div><div class="line">\x09 \x0a \x0b \x0c \x0d \x0e \x0f</div></pre></td></tr></table></figure>
+<p>而此时，数据已经完全解密了，可以看到数据就是在AS解密的，解密完再发送给CS，CS再做进一步用户协议的处理。</p>
+<p>在这里，我们可以看到，AS已经将NS传输过来的JSON包的payload部分做了解密，然后再传给了CS。所以解密工作是在AS完成的。</p>
+<p><strong>本期的LoRaWAN笔记就到这里了，如果本文有什么错误，或者对LoRaWAN有什么不理解的，欢迎联系我，邮箱(454626653@qq.com),在左边也有链接，谢谢大家。
+</strong></p>
 
       
     </div>
@@ -434,16 +452,16 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/21/CJSON_JSON包的C语言解析库/" rel="next" title="cJSON_json包的C语言解析库">
-                <i class="fa fa-chevron-left"></i> cJSON_json包的C语言解析库
+              <a href="/2016/11/03/LoRaWAN stack移植笔记(六)/" rel="next" title="LoRaWAN stack移植笔记(六)">
+                <i class="fa fa-chevron-left"></i> LoRaWAN stack移植笔记(六)
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/26/MPU9250调试/" rel="prev" title="MPU9250调试">
-                MPU9250调试 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/11/26/LoRaWAN协议(四)__入网方式概述/" rel="prev" title="LoRaWAN协议(四)__入网方式概述">
+                LoRaWAN协议(四)__入网方式概述 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -459,10 +477,10 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/07/24/LoRaWan架构解析/"
-     data-title="LoRaWAN解析(一)--架构解析"
+        <div class="ds-share flat" data-thread-key="2016/11/25/LoRaWAN协议(三)__Server端数据协议/"
+     data-title="LoRaWAN协议(三)__Server端数据协议"
      data-content=""
-     data-url="http://yoursite.com/2016/07/24/LoRaWan架构解析/">
+     data-url="http://yoursite.com/2016/11/25/LoRaWAN协议(三)__Server端数据协议/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -489,8 +507,8 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/24/LoRaWan架构解析/"
-           data-title="LoRaWAN解析(一)--架构解析" data-url="http://yoursite.com/2016/07/24/LoRaWan架构解析/">
+      <div class="ds-thread" data-thread-key="2016/11/25/LoRaWAN协议(三)__Server端数据协议/"
+           data-title="LoRaWAN协议(三)__Server端数据协议" data-url="http://yoursite.com/2016/11/25/LoRaWAN协议(三)__Server端数据协议/">
       </div>
     
   </div>
@@ -535,7 +553,7 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -601,7 +619,7 @@ LoRa联盟 规定了 MAC层的通讯协议，只有在设备（GW、MOTE）共�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LoRaWAN-分层"><span class="nav-number">1.</span> <span class="nav-text">LoRaWAN 分层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用分析"><span class="nav-number">2.</span> <span class="nav-text">应用分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LoRaWAN-Server-端架构"><span class="nav-number">1.</span> <span class="nav-text">LoRaWAN Server 端架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NS-职责"><span class="nav-number">2.</span> <span class="nav-text">NS 职责</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AS-职责"><span class="nav-number">3.</span> <span class="nav-text">AS 职责</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CS-职责"><span class="nav-number">4.</span> <span class="nav-text">CS 职责</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抓包分析"><span class="nav-number">5.</span> <span class="nav-text">抓包分析</span></a></li></ol></div>
             
           </div>
         </section>
