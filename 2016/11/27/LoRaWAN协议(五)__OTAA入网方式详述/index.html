@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LoRaWAN,STM32," />
+  <meta name="keywords" content="LoRaWAN," />
 
 
 
@@ -84,22 +84,19 @@
 
 
 
-<meta name="description" content="stm32相关的配置由于例程使用的主控芯片为STM32L151C8T6,而在本设计中使用的主控芯片为STM32L051C8T6，内核不一样，并且Cube库相关的函数接口及配置也会有不同，所以芯片的驱动所以做修改。
-RTC 的配置此例程中，RTC被当做定时器使用，用于定时执行任务。
-例程中，RTC使用外部LSE的32.768Khz的晶振作为时钟源，而在本设计中，使用内部LSI作为RTC的时钟源，需要">
+<meta name="description" content="前言OTAA(Over-The-Air Activation)，是LoRaWAN的一种空中入网方式。当node在上电的时候处于非入网状态时，需要先入网才能和服务器进行通信。其操作就是node发送join_request message，请求入网，然后服务器同意入网，并且返回Join-accept message，node再对信息进行解析，获取通信参数，这样就可以和服务器通信了。
+OTAA方式入网步">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LoRaWAN_stack移植笔记(四)__RTC">
-<meta property="og:url" content="http://yoursite.com/2016/10/14/LoRaWAN_stack移植笔记 (四)__RTC/index.html">
+<meta property="og:title" content="LoRaWAN协议(五)__OTAA入网方式详述">
+<meta property="og:url" content="http://yoursite.com/2016/11/27/LoRaWAN协议(五)__OTAA入网方式详述/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="stm32相关的配置由于例程使用的主控芯片为STM32L151C8T6,而在本设计中使用的主控芯片为STM32L051C8T6，内核不一样，并且Cube库相关的函数接口及配置也会有不同，所以芯片的驱动所以做修改。
-RTC 的配置此例程中，RTC被当做定时器使用，用于定时执行任务。
-例程中，RTC使用外部LSE的32.768Khz的晶振作为时钟源，而在本设计中，使用内部LSI作为RTC的时钟源，需要">
-<meta property="og:updated_time" content="2016-10-19T16:01:53.979Z">
+<meta property="og:description" content="前言OTAA(Over-The-Air Activation)，是LoRaWAN的一种空中入网方式。当node在上电的时候处于非入网状态时，需要先入网才能和服务器进行通信。其操作就是node发送join_request message，请求入网，然后服务器同意入网，并且返回Join-accept message，node再对信息进行解析，获取通信参数，这样就可以和服务器通信了。
+OTAA方式入网步">
+<meta property="og:updated_time" content="2016-11-27T07:17:13.868Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LoRaWAN_stack移植笔记(四)__RTC">
-<meta name="twitter:description" content="stm32相关的配置由于例程使用的主控芯片为STM32L151C8T6,而在本设计中使用的主控芯片为STM32L051C8T6，内核不一样，并且Cube库相关的函数接口及配置也会有不同，所以芯片的驱动所以做修改。
-RTC 的配置此例程中，RTC被当做定时器使用，用于定时执行任务。
-例程中，RTC使用外部LSE的32.768Khz的晶振作为时钟源，而在本设计中，使用内部LSI作为RTC的时钟源，需要">
+<meta name="twitter:title" content="LoRaWAN协议(五)__OTAA入网方式详述">
+<meta name="twitter:description" content="前言OTAA(Over-The-Air Activation)，是LoRaWAN的一种空中入网方式。当node在上电的时候处于非入网状态时，需要先入网才能和服务器进行通信。其操作就是node发送join_request message，请求入网，然后服务器同意入网，并且返回Join-accept message，node再对信息进行解析，获取通信参数，这样就可以和服务器通信了。
+OTAA方式入网步">
 
 
 
@@ -120,9 +117,9 @@ RTC 的配置此例程中，RTC被当做定时器使用，用于定时执行任�
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/10/14/LoRaWAN_stack移植笔记 (四)__RTC/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/11/27/LoRaWAN协议(五)__OTAA入网方式详述/"/>
 
-  <title> LoRaWAN_stack移植笔记(四)__RTC | 陈均奎 </title>
+  <title> LoRaWAN协议(五)__OTAA入网方式详述 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -295,7 +292,7 @@ RTC 的配置此例程中，RTC被当做定时器使用，用于定时执行任�
             
             
               
-                LoRaWAN_stack移植笔记(四)__RTC
+                LoRaWAN协议(五)__OTAA入网方式详述
               
             
           </h1>
@@ -307,8 +304,8 @@ RTC 的配置此例程中，RTC被当做定时器使用，用于定时执行任�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-14T17:16:43+08:00" content="2016-10-14">
-              2016-10-14
+            <time itemprop="dateCreated" datetime="2016-11-27T11:48:00+08:00" content="2016-11-27">
+              2016-11-27
             </time>
           </span>
 
@@ -337,8 +334,8 @@ RTC 的配置此例程中，RTC被当做定时器使用，用于定时执行任�
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/10/14/LoRaWAN_stack移植笔记 (四)__RTC/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/14/LoRaWAN_stack移植笔记 (四)__RTC/" itemprop="commentsCount"></span>
+                <a href="/2016/11/27/LoRaWAN协议(五)__OTAA入网方式详述/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/27/LoRaWAN协议(五)__OTAA入网方式详述/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -348,7 +345,7 @@ RTC 的配置此例程中，RTC被当做定时器使用，用于定时执行任�
 
           
           
-             <span id="/2016/10/14/LoRaWAN_stack移植笔记 (四)__RTC/" class="leancloud_visitors" data-flag-title="LoRaWAN_stack移植笔记(四)__RTC">
+             <span id="/2016/11/27/LoRaWAN协议(五)__OTAA入网方式详述/" class="leancloud_visitors" data-flag-title="LoRaWAN协议(五)__OTAA入网方式详述">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -370,18 +367,179 @@ RTC 的配置此例程中，RTC被当做定时器使用，用于定时执行任�
       
 
       
-        <h1 id="stm32相关的配置"><a href="#stm32相关的配置" class="headerlink" title="stm32相关的配置"></a>stm32相关的配置</h1><p>由于例程使用的主控芯片为STM32L151C8T6,而在本设计中使用的主控芯片为STM32L051C8T6，内核不一样，并且Cube库相关的函数接口及配置也会有不同，所以芯片的驱动所以做修改。</p>
-<h2 id="RTC-的配置"><a href="#RTC-的配置" class="headerlink" title="RTC 的配置"></a>RTC 的配置</h2><p>此例程中，RTC被当做定时器使用，用于定时执行任务。</p>
-<p>例程中，RTC使用外部LSE的32.768Khz的晶振作为时钟源，<br>而在本设计中，使用内部LSI作为RTC的时钟源，需要重新设置RTC的分频参数，使得程序正常运行。</p>
-<p>根据Fck_spre = Frtcclk/(PREDIV_S+1)/(PREDIV_A+1)<br>例程中RTC的工作频率为32.778/(3+1)/(3+1) = 2.048Khz,</p>
-<p>而内部晶振的频率约为37Khz，故PRVEDIV_S和PREDIV_A的值需要改变。</p>
-<pre><code>37/2.048 ~= 18；
-数据手册里面有这样一句话：    
-Note: When both prescalers are used, it is recommended to configure the asynchronous 
-prescaler to a high value to minimize consumption.
-所以：18 = 9*2；故设置PREDIV_A = 8，PREDIV_S = 1;
-</code></pre><p>由于<br>    37/18 ~= 2.055<br>    1/2.055 ~= 0.486618</p>
-<p>故此处的宏定义需要稍作修改<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">/*!</span></div><div class="line"> * RTC Time base in ms</div><div class="line"> */</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RTC_ALARM_TICK_DURATION                     0.486618      <span class="comment">// 1 tick every 466us</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RTC_ALARM_TICK_PER_MS                       2.055           <span class="comment">// 1/2.055 = tick duration in ms ((37/(8+1)/(2+1)) = 2.055Khz)</span></span></div></pre></td></tr></table></figure></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>OTAA(Over-The-Air Activation)，是LoRaWAN的一种空中入网方式。当node在上电的时候处于非入网状态时，需要先入网才能和服务器进行通信。其操作就是node发送join_request message，请求入网，然后服务器同意入网，并且返回Join-accept message，node再对信息进行解析，获取通信参数，这样就可以和服务器通信了。</p>
+<h2 id="OTAA方式入网步骤"><a href="#OTAA方式入网步骤" class="headerlink" title="OTAA方式入网步骤"></a>OTAA方式入网步骤</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>node端在做OTAA入网之前，需要先具备三个参数：</p>
+<ul>
+<li>APPEUI    node自定义的8字节长地址</li>
+<li>APPKEY    网络统一的KEY，服务器和node端都事先存好</li>
+<li>DevNonce  2字节的随机数，用于生成随机的APPSKEY和NWKSKEY</li>
+</ul>
+<p>这些参数可以通过程序固话在里面，或者通过串口或其他方式在入网操作前告诉node。</p>
+<p>当这些准备工作都做好了之后，node设备就能够入网了。</p>
+<h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>1.node发起入网请求，也就是发送join_request message，</p>
+<p>根据LoRaWAN specification 可知，join_request message的格式如下:</p>
+<table>
+<thead>
+<tr>
+<th>MHDR</th>
+<th>APPEUI</th>
+<th>DevEUI</th>
+<th>DevNonce</th>
+<th>MIC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1字节</td>
+<td>8字节</td>
+<td>8字节</td>
+<td>2字节</td>
+<td>4字节</td>
+</tr>
+</tbody>
+</table>
+<p>其中</p>
+<ol>
+<li>MHDR 是数据包头，其中包含了数据包的类型，也就是说从这个包头可以知道，这是一个join_request message</li>
+<li>APPEUI 应用EUI</li>
+<li>DevEUI node的长地址，由node自己定义</li>
+<li>DevNonce 一个随机数，用来生成密码</li>
+<li>MIC 4字节的校验</li>
+</ol>
+<p>需要注意的是Join_request message是未加密的</p>
+<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>2.GW将此数据上传至NS</p>
+<p>GW对MAC层的数据不进行解析，而是直接将其进行base64编码之后，封装成JSON包上传至NS,MAC层的数据位于rxpk.data</p>
+<p>样例数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;rxpk&quot;: [</div><div class="line">        &#123;</div><div class="line">            &quot;tmst&quot;: 532505620,</div><div class="line">            &quot;chan&quot;: 6,</div><div class="line">            &quot;rfch&quot;: 0,</div><div class="line">            &quot;freq&quot;: 471.9,</div><div class="line">            &quot;stat&quot;: 1,</div><div class="line">            &quot;modu&quot;: &quot;LORA&quot;,</div><div class="line">            &quot;datr&quot;: &quot;SF12BW125&quot;,</div><div class="line">            &quot;codr&quot;: &quot;4/5&quot;,</div><div class="line">            &quot;lsnr&quot;: -17,</div><div class="line">            &quot;rssi&quot;: -81,</div><div class="line">            &quot;size&quot;: 23,</div><div class="line">            &quot;data&quot;: &quot;AAEAACAAxSYsFhAWIAB3SgBUe0At4Zo=&quot;</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>此处，将data进行base64解码，我们就可以看到MAC层数据了，因为join_request message数据是未加密的</p>
+<p>data部分的内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">\x00 \x01 \x00 \x00 \x20 \x00 \xc5 \x26 </div><div class="line">\x2c \x16 \x10 \x16 \x20 \x00 \x77 \x4a </div><div class="line">\x00 \x54 \x7b \x40 \x2d \xe1 \x9a</div></pre></td></tr></table></figure></p>
+<p>各部分的内容分别为：</p>
+<ul>
+<li>MHDR         \x00</li>
+<li>AppEUI     \x01 \x00 \x00 \x20 \x00 \xc5 \x26 \x2c</li>
+<li>DevEUI     \x16 \x10 \x16 \x20 \x00 \x77 \x4a \x00</li>
+<li>DevNonce    \x54 \x7b</li>
+<li>MIC        \x40 \x2d \xe1 \x9a </li>
+</ul>
+<h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>3.NS向AS发送设备入网包</p>
+<p>样例数据:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;join&quot;: &#123;</div><div class="line">        &quot;request&quot;: &#123;</div><div class="line">            &quot;frame&quot;: &quot;AAEAACAAxSYsFhAWIAB3SgBUe0At4Zo&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到，原先的MAC 层的data数据没有变化</p>
+<h3 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h3><p>4.AS同意入网并且向NS回复同意入网</p>
+<p>样例数据:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;join&quot;: &#123;</div><div class="line">        &quot;moteeui&quot;: &quot;4a770020161016&quot;,</div><div class="line">        &quot;accept&quot;: true</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h3><p>5.NS生成MoteAddr,并将node端的信息发送给AS</p>
+<p>样例数据:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;join&quot;: &#123;</div><div class="line">        &quot;appeui&quot;: &quot;2c26c50020000001&quot;,</div><div class="line">        &quot;moteeui&quot;: &quot;4a770020161016&quot;,</div><div class="line">        &quot;details&quot;: &#123;</div><div class="line">            &quot;moteaddr&quot;: &quot;48000002&quot;,</div><div class="line">            &quot;devicenonce&quot;: 31572</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="第六步"><a href="#第六步" class="headerlink" title="第六步"></a>第六步</h3><p>6.AS生成密钥，并将相关信息告诉NS</p>
+<p>样例数据:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;join&quot;: &#123;</div><div class="line">        &quot;moteeui&quot;: &quot;4a770020161016&quot;,</div><div class="line">        &quot;complete&quot;: &#123;</div><div class="line">            &quot;frame&quot;: &quot;IPqAKXQ7LS/CmYVCDy8K3k4&quot;,</div><div class="line">            &quot;networkkey&quot;: &quot;de03331aeb4254e9727b6fafbf13db3d&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到，networkkey直接发送给NS了，这也就是NWKSKEY，<br>之所以明文告诉NS，是因为:<br>    1.NS不做解密的工作<br>    2.networkkey在校验的时候回使用到</p>
+<h3 id="第七步"><a href="#第七步" class="headerlink" title="第七步"></a>第七步</h3><p>7.NS将数据告诉GW,GW再转换成MAC包，发送给node</p>
+<p>样例数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;txpk&quot;: &#123;</div><div class="line">        &quot;tmst&quot;: 537505620,</div><div class="line">        &quot;freq&quot;: 471.9,</div><div class="line">        &quot;rfch&quot;: 0,</div><div class="line">        &quot;powe&quot;: 14,</div><div class="line">        &quot;modu&quot;: &quot;LORA&quot;,</div><div class="line">        &quot;datr&quot;: &quot;SF12BW125&quot;,</div><div class="line">        &quot;codr&quot;: &quot;4/5&quot;,</div><div class="line">        &quot;ipol&quot;: true,</div><div class="line">        &quot;size&quot;: 17,</div><div class="line">        &quot;data&quot;: &quot;IPqAKXQ7LS/CmYVCDy8K3k4&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>需要注意的是,此时的data部分是经过base64编码以及AES加密的，直接解码，看到的数据是无效的，需要再进行解密，解密需要使用APPKEY，也就是之前介绍的统一的网络KEY.</p>
+<p>txpk.data部分就是LoRaWAN MAC的join_acept message.</p>
+<h3 id="第八步"><a href="#第八步" class="headerlink" title="第八步"></a>第八步</h3><p>8.node解析join_acept message 部分</p>
+<p>根据LoRaWAN specification 可知，join_acept message的格式如下:</p>
+<table>
+<thead>
+<tr>
+<th>MHDR</th>
+<th>AppNonce</th>
+<th>NetID</th>
+<th>DevAddr</th>
+<th>DLSettings</th>
+<th>RxDelay</th>
+<th>CFList(pad16)</th>
+<th>MIC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1字节</td>
+<td>3字节</td>
+<td>3字节</td>
+<td>4字节</td>
+<td>4字节</td>
+<td>1字节</td>
+<td>0/16字节</td>
+<td>4字节</td>
+</tr>
+</tbody>
+</table>
+<p>其中</p>
+<ol>
+<li>MHDR             是数据包头，其中包含了数据包的类型，也就是说从这个包头可以知道，这是一个join_acept message</li>
+<li>AppNonce         3字节的unique ID,服务器生成的，产生APPSKEY/NWKSKEY 会用到</li>
+<li>NetID             网络ID，产生APPSKEY/NWKSKEY 会用到</li>
+<li>DevAddr             设备的短地址</li>
+<li>DLSettings         设置RX1和RX2的下行接受串口的速率</li>
+<li>RxDelay            从发送完成到打开RX1接受串口的事件</li>
+<li>CFList(pad16)    我也不知道是什么，目前看到的都是0个字节</li>
+<li>MIC                4字节的校验</li>
+</ol>
+<p>需要注意的是Join_acept message是加密的，需要使用APPKEY解密</p>
+<p>txpk.data:<br>    “data”: “IPqAKXQ7LS/CmYVCDy8K3k4”</p>
+<p>base64解码:<br>    \x20 \xfa \x80 \x29 \x74 \x3b \x2d \x2f<br>    \xc2 \x99 \x85 \x42 \x0f \x2f \x0a \xde<br>    \x4e </p>
+<p>这个数据是未解密的，我们还需要解密</p>
+<p>解密后为<br>    \x20 \x43 \x75 \xcb \x24 \x00 \x00 \x02<br>    \x00 \x00 \x48 \x03 \x00 \x82 \xc9 \xd0<br>    \xf9</p>
+<p>具体的情况如下:<br>———–    加密——————–解密后</p>
+<table>
+<thead>
+<tr>
+<th>MHDR</th>
+<th>解密前</th>
+<th>解密后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MHDR</td>
+<td>\x20</td>
+<td>\x20</td>
+</tr>
+<tr>
+<td>AppNonce</td>
+<td>\xfa \x80 \x29</td>
+<td>\x43 \x75 \xcb</td>
+</tr>
+<tr>
+<td>NetID</td>
+<td>\x74 \x3b \x2d</td>
+<td>\x24 \x0  \x0</td>
+</tr>
+<tr>
+<td>DevAddr</td>
+<td>\x2f \xc2 \x99 \x85</td>
+<td>\x2  \x0  \x0 \x48</td>
+</tr>
+<tr>
+<td>DLSettings</td>
+<td>\x42</td>
+<td>\x3</td>
+</tr>
+<tr>
+<td>RxDelay</td>
+<td>\x0f</td>
+<td>\x0</td>
+</tr>
+<tr>
+<td>CFList</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MIC</td>
+<td>\x2f \x0a \xde \x4e</td>
+<td>\x82 \xc9 \xd0 \xf9</td>
+</tr>
+</tbody>
+</table>
+<p>可以看到,DevAddr为0x48000002，而APPSKEY和NWKSKEY无法直接看出来，需要再计算</p>
+<p>计算公式如下:</p>
+<ul>
+<li>NwkSKey = aes128_encrypt(AppKey, 0x01 | AppNonce | NetID | DevNonce | pad16)</li>
+<li>AppSKey = aes128_encrypt(AppKey, 0x02 | AppNonce | NetID | DevNonce | pad16)</li>
+</ul>
+<p>下一篇文章，我会把这个解密的过程，以及NWKSKEY/APPSKEY的计算过程，配合C语言，再分析一下。</p>
+<p><strong>本期的LoRaWAN协议分析就到这里了，如果本文有什么错误，或者对LoRaWAN有什么不理解的，欢迎联系我，邮箱(454626653@qq.com),在左边也有链接，谢谢大家。
+</strong></p>
 
       
     </div>
@@ -406,8 +564,6 @@ prescaler to a high value to minimize consumption.
           
             <a href="/tags/LoRaWAN/" rel="tag">#LoRaWAN</a>
           
-            <a href="/tags/STM32/" rel="tag">#STM32</a>
-          
         </div>
       
 
@@ -415,17 +571,13 @@ prescaler to a high value to minimize consumption.
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/14/LoRaWAN_stack移植笔记 (三)__SPI/" rel="next" title="LoRaWAN_stack移植笔记(三)__SPI">
-                <i class="fa fa-chevron-left"></i> LoRaWAN_stack移植笔记(三)__SPI
+              <a href="/2016/11/26/LoRaWAN协议(四)__入网方式概述/" rel="next" title="LoRaWAN协议(四)__入网方式概述">
+                <i class="fa fa-chevron-left"></i> LoRaWAN协议(四)__入网方式概述
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/17/LoRaWAN_specification_message_format/" rel="prev" title="LoRaWAN协议(一)__MAC Message Format">
-                LoRaWAN协议(一)__MAC Message Format <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -440,10 +592,10 @@ prescaler to a high value to minimize consumption.
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/10/14/LoRaWAN_stack移植笔记 (四)__RTC/"
-     data-title="LoRaWAN_stack移植笔记(四)__RTC"
+        <div class="ds-share flat" data-thread-key="2016/11/27/LoRaWAN协议(五)__OTAA入网方式详述/"
+     data-title="LoRaWAN协议(五)__OTAA入网方式详述"
      data-content=""
-     data-url="http://yoursite.com/2016/10/14/LoRaWAN_stack移植笔记 (四)__RTC/">
+     data-url="http://yoursite.com/2016/11/27/LoRaWAN协议(五)__OTAA入网方式详述/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -470,8 +622,8 @@ prescaler to a high value to minimize consumption.
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/10/14/LoRaWAN_stack移植笔记 (四)__RTC/"
-           data-title="LoRaWAN_stack移植笔记(四)__RTC" data-url="http://yoursite.com/2016/10/14/LoRaWAN_stack移植笔记 (四)__RTC/">
+      <div class="ds-thread" data-thread-key="2016/11/27/LoRaWAN协议(五)__OTAA入网方式详述/"
+           data-title="LoRaWAN协议(五)__OTAA入网方式详述" data-url="http://yoursite.com/2016/11/27/LoRaWAN协议(五)__OTAA入网方式详述/">
       </div>
     
   </div>
@@ -582,7 +734,7 @@ prescaler to a high value to minimize consumption.
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#stm32相关的配置"><span class="nav-number">1.</span> <span class="nav-text">stm32相关的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RTC-的配置"><span class="nav-number">1.1.</span> <span class="nav-text">RTC 的配置</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OTAA方式入网步骤"><span class="nav-number">2.</span> <span class="nav-text">OTAA方式入网步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">2.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步"><span class="nav-number">2.2.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步"><span class="nav-number">2.3.</span> <span class="nav-text">第二步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步"><span class="nav-number">2.4.</span> <span class="nav-text">第三步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四步"><span class="nav-number">2.5.</span> <span class="nav-text">第四步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五步"><span class="nav-number">2.6.</span> <span class="nav-text">第五步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六步"><span class="nav-number">2.7.</span> <span class="nav-text">第六步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七步"><span class="nav-number">2.8.</span> <span class="nav-text">第七步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第八步"><span class="nav-number">2.9.</span> <span class="nav-text">第八步</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
