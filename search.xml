@@ -6,7 +6,182 @@
     <entry>
       <title><![CDATA[LoRaWAN协议(六)__OTAA KEY生成过程]]></title>
       <url>http://yoursite.com/2016/11/27/LoRaWAN%E5%8D%8F%E8%AE%AE(%E5%85%AD)__OTAA%20KEY%E7%94%9F%E6%88%90%E8%BF%87%E7%A8%8B/</url>
-      <content type="html"></content>
+      <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通过OTAA方式入网的设备，通讯时使用的KEY需要通过服务器获得，在入网之间，设备无法通讯。</p>
+<p>相关的OTAA入网流程已经在上一章中讲解过了，有兴趣的可以去看看<strong>LoRaWAN协议(五)__OTAA入网方式详述</strong></p>
+<p>这一章讲解的是OTAA中的密钥生成过程。</p>
+<p>其中使用到的库函数都是从semtech的官方库中来的,官方库代码链接:<a href="https://github.com/Lora-net/LoRaMac-node" target="_blank" rel="external">LoRaMac-node</a>。</p>
+<h2 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h2><p>设备在通讯时，会使用的密钥有NwkSKey 和AppSKey。</p>
+<p>生成的公式如下:</p>
+<ul>
+<li>NwkSKey = aes128_encrypt(AppKey, 0x01 | AppNonce | NetID | DevNonce | pad16)</li>
+<li>AppSKey = aes128_encrypt(AppKey, 0x02 | AppNonce | NetID | DevNonce | pad16)</li>
+</ul>
+<p>可以看到相关的参数一共有四个：<br>1.AppNonce<br>2.NetID<br>3.DevNonce<br>4.pad16</p>
+<p>其中AppNonce、NetID、pad16 是产生于服务器的，DevNonce产生于node设备本身。</p>
+<p>还是使用LoRaWAN协议(五)这篇文章中使用的包数据来进行分析。</p>
+<p><strong>这里，我们调用官方库的接口,因为我们这里只是熟悉协议，并不是要研究Key的生成算法。</strong></p>
+<p><strong>如果不明白数据协议的，可以去看LoRaWAN协议(五)这篇文章</strong></p>
+<h3 id="提取DevNonce"><a href="#提取DevNonce" class="headerlink" title="提取DevNonce"></a>提取DevNonce</h3><p>1.GW-&gt;NS JSON包，从中提取出来DevNonce，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"rxpk"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"tmst"</span>: <span class="number">532505620</span>,</div><div class="line">            <span class="string">"chan"</span>: <span class="number">6</span>,</div><div class="line">            <span class="string">"rfch"</span>: <span class="number">0</span>,</div><div class="line">            <span class="string">"freq"</span>: <span class="number">471.9</span>,</div><div class="line">            <span class="string">"stat"</span>: <span class="number">1</span>,</div><div class="line">            <span class="string">"modu"</span>: <span class="string">"LORA"</span>,</div><div class="line">            <span class="string">"datr"</span>: <span class="string">"SF12BW125"</span>,</div><div class="line">            <span class="string">"codr"</span>: <span class="string">"4/5"</span>,</div><div class="line">            <span class="string">"lsnr"</span>: <span class="number">-17</span>,</div><div class="line">            <span class="string">"rssi"</span>: <span class="number">-81</span>,</div><div class="line">            <span class="string">"size"</span>: <span class="number">23</span>,</div><div class="line">            <span class="string">"data"</span>: <span class="string">"AAEAACAAxSYsFhAWIAB3SgBUe0At4Zo="</span></div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>data为MAC层数据，为join_request message,其数据包格式为 </p>
+<table>
+<thead>
+<tr>
+<th>MHDR</th>
+<th>APPEUI</th>
+<th>DevEUI</th>
+<th>DevNonce</th>
+<th>MIC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1字节</td>
+<td>8字节</td>
+<td>8字节</td>
+<td>2字节</td>
+<td>4字节</td>
+</tr>
+</tbody>
+</table>
+<p>base64解码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">\x00 \x01 \x00 \x00 \x20 \x00 \xc5 \x26 </div><div class="line">\x2c \x16 \x10 \x16 \x20 \x00 \x77 \x4a </div><div class="line">\x00 \x54 \x7b \x40 \x2d \xe1 \x9a</div></pre></td></tr></table></figure></p>
+<p>得到的数据:</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MHDR</td>
+<td>\x00</td>
+</tr>
+<tr>
+<td>AppEUI</td>
+<td>\x01 \x00 \x00 \x20 \x00 \xc5 \x26 \x2c</td>
+</tr>
+<tr>
+<td>DevEUI</td>
+<td>\x16 \x10 \x16 \x20 \x00 \x77 \x4a \x00</td>
+</tr>
+<tr>
+<td>DevNonce</td>
+<td>\x54 \x7b</td>
+</tr>
+<tr>
+<td>MIC</td>
+<td>\x40 \x2d \xe1 \x9a</td>
+</tr>
+</tbody>
+</table>
+<p><strong>可以得到DevNonce的值为0x7b54</strong></p>
+<h3 id="提取AppNonce、NetID、CFList"><a href="#提取AppNonce、NetID、CFList" class="headerlink" title="提取AppNonce、NetID、CFList"></a>提取AppNonce、NetID、CFList</h3><p>2.NS-&gt;GW JSON包,其中txpk.data为包含了MAC层数据内容<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"txpk"</span>: &#123;</div><div class="line">        <span class="string">"tmst"</span>: <span class="number">537505620</span>,</div><div class="line">        <span class="string">"freq"</span>: <span class="number">471.9</span>,</div><div class="line">        <span class="string">"rfch"</span>: <span class="number">0</span>,</div><div class="line">        <span class="string">"powe"</span>: <span class="number">14</span>,</div><div class="line">        <span class="string">"modu"</span>: <span class="string">"LORA"</span>,</div><div class="line">        <span class="string">"datr"</span>: <span class="string">"SF12BW125"</span>,</div><div class="line">        <span class="string">"codr"</span>: <span class="string">"4/5"</span>,</div><div class="line">        <span class="string">"ipol"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"size"</span>: <span class="number">17</span>,</div><div class="line">        <span class="string">"data"</span>: <span class="string">"IPqAKXQ7LS/CmYVCDy8K3k4"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>data base64 decode:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">\x20 \xfa \x80 \x29 \x74 \x3b \x2d \x2f </div><div class="line">\xc2 \x99 \x85 \x42 \x0f \x2f \x0a \xde </div><div class="line">\x4e</div></pre></td></tr></table></figure></p>
+<p>根据LoRaWAN specification 可知，join_accept message的格式如下:</p>
+<table>
+<thead>
+<tr>
+<th>MHDR</th>
+<th>AppNonce</th>
+<th>NetID</th>
+<th>DevAddr</th>
+<th>DLSettings</th>
+<th>RxDelay</th>
+<th>CFList(pad16)</th>
+<th>MIC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1字节</td>
+<td>3字节</td>
+<td>3字节</td>
+<td>4字节</td>
+<td>4字节</td>
+<td>1字节</td>
+<td>0/16字节</td>
+<td>4字节</td>
+</tr>
+</tbody>
+</table>
+<p>但是这个数据是加密的，需要使用AppKey进行解密</p>
+<p>所以，我们需要先使用AppKey解密join_accept message</p>
+<p>payload为join_accept message，此处为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">\x20 \xfa \x80 \x29 \x74 \x3b \x2d \x2f </div><div class="line">\xc2 \x99 \x85 \x42 \x0f \x2f \x0a \xde </div><div class="line">\x4e</div></pre></td></tr></table></figure></p>
+<p>解密之后的数据存放在<strong>LoRaMacRxPayload数组中</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">uint8_t</span> LoRaMacAppKey[] = &#123;<span class="number">0x2B</span>, <span class="number">0x7E</span>, <span class="number">0x15</span>, <span class="number">0x16</span>, <span class="number">0x28</span>, <span class="number">0xAE</span>, <span class="number">0xD2</span>, <span class="number">0xA6</span>, <span class="number">0xAB</span>, <span class="number">0xF7</span>, <span class="number">0x15</span>, <span class="number">0x88</span>, <span class="number">0x09</span>, <span class="number">0xCF</span>, <span class="number">0x4F</span>, <span class="number">0x3C</span>&#125;;</div><div class="line"></div><div class="line">LoRaMacJoinDecrypt( payload + <span class="number">1</span>, size - <span class="number">1</span>, LoRaMacAppKey, LoRaMacRxPayload + <span class="number">1</span> );</div><div class="line"></div><div class="line">LoRaMacRxPayload[<span class="number">0</span>] = payload[<span class="number">0</span>];</div></pre></td></tr></table></figure>
+<p>可以得到解析之后的数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">0x20 0x43 0x75 0xcb 0x24 0x0  0x0  0x2 </div><div class="line">0x0  0x0  0x48 0x3  0x0  0x82 0xc9 0xd0 </div><div class="line">0xf9</div></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>解密前</th>
+<th>解密后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MHDR</td>
+<td>\x20</td>
+<td>\x20</td>
+</tr>
+<tr>
+<td>AppNonce</td>
+<td>\xfa \x80 \x29</td>
+<td>\x43 \x75 \xcb</td>
+</tr>
+<tr>
+<td>NetID</td>
+<td>\x74 \x3b \x2d</td>
+<td>\x24 \x0  \x0</td>
+</tr>
+<tr>
+<td>DevAddr</td>
+<td>\x2f \xc2 \x99 \x85</td>
+<td>\x2  \x0  \x0 \x48</td>
+</tr>
+<tr>
+<td>DLSettings</td>
+<td>\x42</td>
+<td>\x3</td>
+</tr>
+<tr>
+<td>RxDelay</td>
+<td>\x0f</td>
+<td>\x0</td>
+</tr>
+<tr>
+<td>CFList(pad16)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MIC</td>
+<td>\x2f \x0a \xde \x4e</td>
+<td>\x82 \xc9 \xd0 \xf9</td>
+</tr>
+</tbody>
+</table>
+<p>根据协议，我们可以得到:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">AppNonce:\x43 \x75 \xcb</div><div class="line">NetID:\x24 \x0  \x0</div><div class="line">DevNonce:0x7b54</div><div class="line">pad16:没有</div></pre></td></tr></table></figure>
+<p>至此，我们就具备生成密钥的所有参数了</p>
+<h3 id="产生AppSKey-和-NwkSKey"><a href="#产生AppSKey-和-NwkSKey" class="headerlink" title="产生AppSKey 和 NwkSKey"></a>产生AppSKey 和 NwkSKey</h3><p>最后，我们再调用<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LoRaMacJoinComputeSKeys( LoRaMacAppKey, LoRaMacRxPayload + <span class="number">1</span>, LoRaMacDevNonce, LoRaMacNwkSKey, LoRaMacAppSKey );</div></pre></td></tr></table></figure></p>
+<p>就可以生成AppSKey和NwkSKey了。</p>
+<p>得到的NwkSKey为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">0xde 0x3 0x33 0x1a 0xeb 0x42 0x54 0xe9 </div><div class="line">0x72 0x7b 0x6f 0xaf 0xbf 0x13 0xdb 0x3d</div></pre></td></tr></table></figure></p>
+<p>得到的AppSKey为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">0xe0 0x46 0x9e 0x44 0x9c 0x57 0x47 0x8c </div><div class="line">0xbe 0xa7 0x25 0xda 0x84 0xf0 0x13 0x97</div></pre></td></tr></table></figure></p>
+<p>对比之间抓包的AS-&gt;NS的入网信息</p>
+<p>AS-&gt;NS 发送入网信息,可以知道，生成的密码是正确的了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"join"</span>: &#123;</div><div class="line">        <span class="string">"moteeui"</span>: <span class="string">"4a770020161016"</span>,</div><div class="line">        <span class="string">"complete"</span>: &#123;</div><div class="line">            <span class="string">"frame"</span>: <span class="string">"IPqAKXQ7LS/CmYVCDy8K3k4"</span>,</div><div class="line">            <span class="string">"networkkey"</span>: <span class="string">"de03331aeb4254e9727b6fafbf13db3d"</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当然最好是进行实际负载的验证，我也写了两个小程序进行了验证，证明了这两个Key确实是正确的。</p>
+<p>两个小程序的链接:</p>
+<ul>
+<li><a href="https://github.com/AnswerInTheWind/LoRaWAN/tree/master/decode_aes_base64" target="_blank" rel="external">decode_aes_base64</a></li>
+<li><a href="https://github.com/AnswerInTheWind/LoRaWAN/tree/master/generate_key" target="_blank" rel="external">generate_key</a></li>
+</ul>
+<p>至此，我所知的OTAA入网方面的协议就完了。</p>
+<p><strong>如果本文有什么错误，或者对LoRaWAN有什么不理解的，欢迎联系我，邮箱(454626653@qq.com),在左边也有链接，谢谢大家。
+</strong></p>
+]]></content>
     </entry>
     
     <entry>
@@ -23,7 +198,7 @@
 <ul>
 <li>APPEUI    node自定义的8字节长地址</li>
 <li>APPKEY    网络统一的KEY，服务器和node端都事先存好</li>
-<li>DevNonce  2字节的随机数，用于生成随机的APPSKEY和NWKSKEY</li>
+<li>DevNonce  2字节的随机数，用于生成随机的AppSKey和NwkSKey</li>
 </ul>
 <p>这些参数可以通过程序固话在里面，或者通过串口或其他方式在入网操作前告诉node。</p>
 <p>当这些准备工作都做好了之后，node设备就能够入网了。</p>
@@ -50,44 +225,90 @@
 </tbody>
 </table>
 <p>其中</p>
-<ol>
-<li>MHDR 是数据包头，其中包含了数据包的类型，也就是说从这个包头可以知道，这是一个join_request message</li>
-<li>APPEUI 应用EUI</li>
-<li>DevEUI node的长地址，由node自己定义</li>
-<li>DevNonce 一个随机数，用来生成密码</li>
-<li>MIC 4字节的校验</li>
-</ol>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MHDR</td>
+<td>数据包头，其中包含了数据包的类型，也就是说从这个包头可以知道，这是一个join_request message</td>
+</tr>
+<tr>
+<td>APPEUI</td>
+<td>应用EUI</td>
+</tr>
+<tr>
+<td>DevEUI</td>
+<td>node的长地址，由node自己定义</td>
+</tr>
+<tr>
+<td>DevNonce</td>
+<td>一个随机数，用来生成密码</td>
+</tr>
+<tr>
+<td>MIC</td>
+<td>4字节的校验</td>
+</tr>
+</tbody>
+</table>
 <p>需要注意的是Join_request message是未加密的</p>
 <h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>2.GW将此数据上传至NS</p>
 <p>GW对MAC层的数据不进行解析，而是直接将其进行base64编码之后，封装成JSON包上传至NS,MAC层的数据位于rxpk.data</p>
-<p>样例数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;rxpk&quot;: [</div><div class="line">        &#123;</div><div class="line">            &quot;tmst&quot;: 532505620,</div><div class="line">            &quot;chan&quot;: 6,</div><div class="line">            &quot;rfch&quot;: 0,</div><div class="line">            &quot;freq&quot;: 471.9,</div><div class="line">            &quot;stat&quot;: 1,</div><div class="line">            &quot;modu&quot;: &quot;LORA&quot;,</div><div class="line">            &quot;datr&quot;: &quot;SF12BW125&quot;,</div><div class="line">            &quot;codr&quot;: &quot;4/5&quot;,</div><div class="line">            &quot;lsnr&quot;: -17,</div><div class="line">            &quot;rssi&quot;: -81,</div><div class="line">            &quot;size&quot;: 23,</div><div class="line">            &quot;data&quot;: &quot;AAEAACAAxSYsFhAWIAB3SgBUe0At4Zo=&quot;</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>样例数据：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"rxpk"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"tmst"</span>: <span class="number">532505620</span>,</div><div class="line">            <span class="string">"chan"</span>: <span class="number">6</span>,</div><div class="line">            <span class="string">"rfch"</span>: <span class="number">0</span>,</div><div class="line">            <span class="string">"freq"</span>: <span class="number">471.9</span>,</div><div class="line">            <span class="string">"stat"</span>: <span class="number">1</span>,</div><div class="line">            <span class="string">"modu"</span>: <span class="string">"LORA"</span>,</div><div class="line">            <span class="string">"datr"</span>: <span class="string">"SF12BW125"</span>,</div><div class="line">            <span class="string">"codr"</span>: <span class="string">"4/5"</span>,</div><div class="line">            <span class="string">"lsnr"</span>: <span class="number">-17</span>,</div><div class="line">            <span class="string">"rssi"</span>: <span class="number">-81</span>,</div><div class="line">            <span class="string">"size"</span>: <span class="number">23</span>,</div><div class="line">            <span class="string">"data"</span>: <span class="string">"AAEAACAAxSYsFhAWIAB3SgBUe0At4Zo="</span></div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>此处，将data进行base64解码，我们就可以看到MAC层数据了，因为join_request message数据是未加密的</p>
 <p>data部分的内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">\x00 \x01 \x00 \x00 \x20 \x00 \xc5 \x26 </div><div class="line">\x2c \x16 \x10 \x16 \x20 \x00 \x77 \x4a </div><div class="line">\x00 \x54 \x7b \x40 \x2d \xe1 \x9a</div></pre></td></tr></table></figure></p>
 <p>各部分的内容分别为：</p>
-<ul>
-<li>MHDR         \x00</li>
-<li>AppEUI     \x01 \x00 \x00 \x20 \x00 \xc5 \x26 \x2c</li>
-<li>DevEUI     \x16 \x10 \x16 \x20 \x00 \x77 \x4a \x00</li>
-<li>DevNonce    \x54 \x7b</li>
-<li>MIC        \x40 \x2d \xe1 \x9a </li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MHDR</td>
+<td>\x00</td>
+</tr>
+<tr>
+<td>AppEUI</td>
+<td>\x01 \x00 \x00 \x20 \x00 \xc5 \x26 \x2c</td>
+</tr>
+<tr>
+<td>DevEUI</td>
+<td>\x16 \x10 \x16 \x20 \x00 \x77 \x4a \x00</td>
+</tr>
+<tr>
+<td>DevNonce</td>
+<td>\x54 \x7b</td>
+</tr>
+<tr>
+<td>MIC</td>
+<td>\x40 \x2d \xe1 \x9a</td>
+</tr>
+</tbody>
+</table>
 <h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>3.NS向AS发送设备入网包</p>
 <p>样例数据:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;join&quot;: &#123;</div><div class="line">        &quot;request&quot;: &#123;</div><div class="line">            &quot;frame&quot;: &quot;AAEAACAAxSYsFhAWIAB3SgBUe0At4Zo&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"join"</span>: &#123;</div><div class="line">        <span class="string">"request"</span>: &#123;</div><div class="line">            <span class="string">"frame"</span>: <span class="string">"AAEAACAAxSYsFhAWIAB3SgBUe0At4Zo"</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>可以看到，原先的MAC 层的data数据没有变化</p>
 <h3 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h3><p>4.AS同意入网并且向NS回复同意入网</p>
-<p>样例数据:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;join&quot;: &#123;</div><div class="line">        &quot;moteeui&quot;: &quot;4a770020161016&quot;,</div><div class="line">        &quot;accept&quot;: true</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>样例数据:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"join"</span>: &#123;</div><div class="line">        <span class="string">"moteeui"</span>: <span class="string">"4a770020161016"</span>,</div><div class="line">        <span class="string">"accept"</span>: <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h3><p>5.NS生成MoteAddr,并将node端的信息发送给AS</p>
-<p>样例数据:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;join&quot;: &#123;</div><div class="line">        &quot;appeui&quot;: &quot;2c26c50020000001&quot;,</div><div class="line">        &quot;moteeui&quot;: &quot;4a770020161016&quot;,</div><div class="line">        &quot;details&quot;: &#123;</div><div class="line">            &quot;moteaddr&quot;: &quot;48000002&quot;,</div><div class="line">            &quot;devicenonce&quot;: 31572</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>样例数据:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"join"</span>: &#123;</div><div class="line">        <span class="string">"appeui"</span>: <span class="string">"2c26c50020000001"</span>,</div><div class="line">        <span class="string">"moteeui"</span>: <span class="string">"4a770020161016"</span>,</div><div class="line">        <span class="string">"details"</span>: &#123;</div><div class="line">            <span class="string">"moteaddr"</span>: <span class="string">"48000002"</span>,</div><div class="line">            <span class="string">"devicenonce"</span>: <span class="number">31572</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="第六步"><a href="#第六步" class="headerlink" title="第六步"></a>第六步</h3><p>6.AS生成密钥，并将相关信息告诉NS</p>
-<p>样例数据:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;join&quot;: &#123;</div><div class="line">        &quot;moteeui&quot;: &quot;4a770020161016&quot;,</div><div class="line">        &quot;complete&quot;: &#123;</div><div class="line">            &quot;frame&quot;: &quot;IPqAKXQ7LS/CmYVCDy8K3k4&quot;,</div><div class="line">            &quot;networkkey&quot;: &quot;de03331aeb4254e9727b6fafbf13db3d&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>可以看到，networkkey直接发送给NS了，这也就是NWKSKEY，<br>之所以明文告诉NS，是因为:<br>    1.NS不做解密的工作<br>    2.networkkey在校验的时候回使用到</p>
+<p>样例数据:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"join"</span>: &#123;</div><div class="line">        <span class="string">"moteeui"</span>: <span class="string">"4a770020161016"</span>,</div><div class="line">        <span class="string">"complete"</span>: &#123;</div><div class="line">            <span class="string">"frame"</span>: <span class="string">"IPqAKXQ7LS/CmYVCDy8K3k4"</span>,</div><div class="line">            <span class="string">"networkkey"</span>: <span class="string">"de03331aeb4254e9727b6fafbf13db3d"</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到，networkkey直接发送给NS了，这也就是NwkSKey，<br>之所以明文告诉NS，是因为:<br>    1.NS不做解密的工作<br>    2.networkkey在校验的时候回使用到</p>
 <h3 id="第七步"><a href="#第七步" class="headerlink" title="第七步"></a>第七步</h3><p>7.NS将数据告诉GW,GW再转换成MAC包，发送给node</p>
-<p>样例数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;txpk&quot;: &#123;</div><div class="line">        &quot;tmst&quot;: 537505620,</div><div class="line">        &quot;freq&quot;: 471.9,</div><div class="line">        &quot;rfch&quot;: 0,</div><div class="line">        &quot;powe&quot;: 14,</div><div class="line">        &quot;modu&quot;: &quot;LORA&quot;,</div><div class="line">        &quot;datr&quot;: &quot;SF12BW125&quot;,</div><div class="line">        &quot;codr&quot;: &quot;4/5&quot;,</div><div class="line">        &quot;ipol&quot;: true,</div><div class="line">        &quot;size&quot;: 17,</div><div class="line">        &quot;data&quot;: &quot;IPqAKXQ7LS/CmYVCDy8K3k4&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>样例数据：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"txpk"</span>: &#123;</div><div class="line">        <span class="string">"tmst"</span>: <span class="number">537505620</span>,</div><div class="line">        <span class="string">"freq"</span>: <span class="number">471.9</span>,</div><div class="line">        <span class="string">"rfch"</span>: <span class="number">0</span>,</div><div class="line">        <span class="string">"powe"</span>: <span class="number">14</span>,</div><div class="line">        <span class="string">"modu"</span>: <span class="string">"LORA"</span>,</div><div class="line">        <span class="string">"datr"</span>: <span class="string">"SF12BW125"</span>,</div><div class="line">        <span class="string">"codr"</span>: <span class="string">"4/5"</span>,</div><div class="line">        <span class="string">"ipol"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"size"</span>: <span class="number">17</span>,</div><div class="line">        <span class="string">"data"</span>: <span class="string">"IPqAKXQ7LS/CmYVCDy8K3k4"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>需要注意的是,此时的data部分是经过base64编码以及AES加密的，直接解码，看到的数据是无效的，需要再进行解密，解密需要使用APPKEY，也就是之前介绍的统一的网络KEY.</p>
-<p>txpk.data部分就是LoRaWAN MAC的join_acept message.</p>
-<h3 id="第八步"><a href="#第八步" class="headerlink" title="第八步"></a>第八步</h3><p>8.node解析join_acept message 部分</p>
-<p>根据LoRaWAN specification 可知，join_acept message的格式如下:</p>
+<p>txpk.data部分就是LoRaWAN MAC的join_accept message.</p>
+<h3 id="第八步"><a href="#第八步" class="headerlink" title="第八步"></a>第八步</h3><p>8.node解析join_accept message 部分</p>
+<p>根据LoRaWAN specification 可知，join_accept message的格式如下:</p>
 <table>
 <thead>
 <tr>
@@ -115,17 +336,49 @@
 </tbody>
 </table>
 <p>其中</p>
-<ol>
-<li>MHDR             是数据包头，其中包含了数据包的类型，也就是说从这个包头可以知道，这是一个join_acept message</li>
-<li>AppNonce         3字节的unique ID,服务器生成的，产生APPSKEY/NWKSKEY 会用到</li>
-<li>NetID             网络ID，产生APPSKEY/NWKSKEY 会用到</li>
-<li>DevAddr             设备的短地址</li>
-<li>DLSettings         设置RX1和RX2的下行接受串口的速率</li>
-<li>RxDelay            从发送完成到打开RX1接受串口的事件</li>
-<li>CFList(pad16)    我也不知道是什么，目前看到的都是0个字节</li>
-<li>MIC                4字节的校验</li>
-</ol>
-<p>需要注意的是Join_acept message是加密的，需要使用APPKEY解密</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MHDR</td>
+<td>数据包头，其中包含了数据包的类型，也就是说从这个包头可以知道，这是一个join_accept message</td>
+</tr>
+<tr>
+<td>AppNonce</td>
+<td>3字节的unique ID,服务器生成的，产生AppSKey/NwkSKey 会用到</td>
+</tr>
+<tr>
+<td>NetID</td>
+<td>网络ID，产生AppSKey/NwkSKey 会用到</td>
+</tr>
+<tr>
+<td>DevAddr</td>
+<td>设备的短地址</td>
+</tr>
+<tr>
+<td>DLSettings</td>
+<td>设置RX1和RX2的下行接受串口的速率</td>
+</tr>
+<tr>
+<td>RxDelay</td>
+<td>从发送完成到打开RX1接受串口的事件</td>
+</tr>
+<tr>
+<td>CFList(pad16)</td>
+<td>我也不知道是什么，目前看到的都是0个字节</td>
+</tr>
+<tr>
+<td>MIC</td>
+<td>4字节的校验</td>
+</tr>
+</tbody>
+</table>
+<p>需要注意的是Join_accept message是加密的，需要使用APPKEY解密</p>
 <p>txpk.data:<br>    “data”: “IPqAKXQ7LS/CmYVCDy8K3k4”</p>
 <p>base64解码:<br>    \x20 \xfa \x80 \x29 \x74 \x3b \x2d \x2f<br>    \xc2 \x99 \x85 \x42 \x0f \x2f \x0a \xde<br>    \x4e </p>
 <p>这个数据是未解密的，我们还需要解密</p>
@@ -134,7 +387,7 @@
 <table>
 <thead>
 <tr>
-<th>MHDR</th>
+<th>字段</th>
 <th>解密前</th>
 <th>解密后</th>
 </tr>
@@ -182,13 +435,13 @@
 </tr>
 </tbody>
 </table>
-<p>可以看到,DevAddr为0x48000002，而APPSKEY和NWKSKEY无法直接看出来，需要再计算</p>
+<p>可以看到,DevAddr为0x48000002，而AppSKey和NwkSKey无法直接看出来，需要再计算</p>
 <p>计算公式如下:</p>
 <ul>
 <li>NwkSKey = aes128_encrypt(AppKey, 0x01 | AppNonce | NetID | DevNonce | pad16)</li>
 <li>AppSKey = aes128_encrypt(AppKey, 0x02 | AppNonce | NetID | DevNonce | pad16)</li>
 </ul>
-<p>下一篇文章，我会把这个解密的过程，以及NWKSKEY/APPSKEY的计算过程，配合C语言，再分析一下。</p>
+<p>下一篇文章，我会把这个解密的过程，以及NwkSKey/AppSKey的计算过程，配合C语言，再分析一下。</p>
 <p><strong>本期的LoRaWAN协议分析就到这里了，如果本文有什么错误，或者对LoRaWAN有什么不理解的，欢迎联系我，邮箱(454626653@qq.com),在左边也有链接，谢谢大家。
 </strong></p>
 ]]></content>
@@ -827,17 +1080,6 @@ prescaler to a high value to minimize consumption.
     </entry>
     
     <entry>
-      <title><![CDATA[base64的C语言实现]]></title>
-      <url>http://yoursite.com/2016/07/21/base64_C/</url>
-      <content type="html"><![CDATA[<p>首先谢谢这位大神的<a href="https://github.com/zhicheng" target="_blank" rel="external">github</a>,再谢谢这位大神分享的base64的C语言实现代码，库的地址在这里<a href="https://github.com/zhicheng/base64" target="_blank" rel="external">base64</a>。</p>
-<p>其中提供的接口非常的简单明了<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BASE64_ENCODE_OUT_SIZE(s)	(((s) + 2) / 3 * 4)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BASE64_DECODE_OUT_SIZE(s)	(((s)) / 4 * 3)</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">base64_encode</span><span class="params">(<span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *in, <span class="keyword">unsigned</span> <span class="keyword">int</span> inlen, <span class="keyword">char</span> *out)</span></span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">base64_decode</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *in, <span class="keyword">unsigned</span> <span class="keyword">int</span> inlen,<span class="keyword">char</span> *out)</span></span>;</div></pre></td></tr></table></figure></p>
-<p>但是其中有一个问题，base64_decode();函数在返回时并没有返回解码后的字节数，在使用上会存在不方便的情况。</p>
-<p>故，我把这个函数稍加修改之后,在解码之后返回解码数组的长度，在使用上就方便很多了，代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">base64_decode</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *in, <span class="keyword">unsigned</span> <span class="keyword">int</span> inlen, <span class="keyword">char</span> *out)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> i, j;</div><div class="line"></div><div class="line">	<span class="keyword">for</span> (i = j = <span class="number">0</span>; i &lt; inlen; i++) &#123;</div><div class="line">		<span class="keyword">int</span> c;</div><div class="line">		<span class="keyword">int</span> s = i % <span class="number">4</span>; 			<span class="comment">/* from 8/gcd(6, 8) */</span></div><div class="line"></div><div class="line">		<span class="keyword">if</span> (in[i] == <span class="string">'='</span>)</div><div class="line">			<span class="keyword">return</span> j;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (in[i] &lt; BASE64DE_FIRST || in[i] &gt; BASE64DE_LAST ||</div><div class="line">		    (c = base64de[in[i] - BASE64DE_FIRST]) == <span class="number">-1</span>)</div><div class="line">			<span class="keyword">return</span> j;</div><div class="line"></div><div class="line">		<span class="keyword">switch</span> (s) &#123;</div><div class="line">		<span class="keyword">case</span> <span class="number">0</span>:</div><div class="line">			out[j] = ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &lt;&lt; <span class="number">2</span>) &amp; <span class="number">0xFF</span>;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		<span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">			out[j++] += ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x3</span>;</div><div class="line">			<span class="comment">/* if not last char with padding */</span></div><div class="line">			<span class="keyword">if</span> (i &lt; (inlen - <span class="number">3</span>) || in[inlen - <span class="number">2</span>] != <span class="string">'='</span>)</div><div class="line">				out[j] = ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &amp; <span class="number">0xF</span>) &lt;&lt; <span class="number">4</span>;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		<span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">			out[j++] += ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &gt;&gt; <span class="number">2</span>) &amp; <span class="number">0xF</span>;</div><div class="line">			<span class="comment">/* if not last char with padding */</span></div><div class="line">			<span class="keyword">if</span> (i &lt; (inlen - <span class="number">2</span>) || in[inlen - <span class="number">1</span>] != <span class="string">'='</span>)</div><div class="line">				out[j] =  ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &amp; <span class="number">0x3</span>) &lt;&lt; <span class="number">6</span>;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		<span class="keyword">case</span> <span class="number">3</span>:</div><div class="line">			out[j++] += (<span class="keyword">unsigned</span> <span class="keyword">char</span>)c;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> j;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>使用代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> input[] = <span class="string">"pleasure."</span>;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> decode[<span class="number">13</span>];</div><div class="line">	<span class="keyword">char</span> output[<span class="number">13</span>];</div><div class="line">	<span class="keyword">uint16_t</span> len_decode = <span class="number">0</span>;</div><div class="line">	bzero(output, <span class="keyword">sizeof</span>(output));</div><div class="line">	base64_encode(input, <span class="keyword">sizeof</span>(input) - <span class="number">1</span>, output);</div><div class="line">	len_decode = base64_decode(output, <span class="keyword">sizeof</span>(output) - <span class="number">1</span>, decode);</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[cJSON_json包的C语言解析库]]></title>
       <url>http://yoursite.com/2016/07/21/CJSON_JSON%E5%8C%85%E7%9A%84C%E8%AF%AD%E8%A8%80%E8%A7%A3%E6%9E%90%E5%BA%93/</url>
       <content type="html"><![CDATA[<h2 id="cJSON库描述"><a href="#cJSON库描述" class="headerlink" title="cJSON库描述"></a>cJSON库描述</h2><p>CJSON是一个用于解析JSON包的C语言库，库文件为cJSON.c和cJSON.h，<br>所有的实现都在这两个文件中。原作者的地址<a href="https://github.com/DaveGamble/cJSON" target="_blank" rel="external">cJSON</a>。</p>
@@ -857,6 +1099,17 @@ prescaler to a high value to minimize consumption.
 </ol>
 <p>在json包中遇到数组时<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Returns the number of items in an array (or object). */</span></div><div class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span>	  <span class="title">cJSON_GetArraySize</span><span class="params">(cJSON *<span class="built_in">array</span>)</span></span>;</div></pre></td></tr></table></figure></p>
 <p>这个函数可以获取数组的长度。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[base64的C语言实现]]></title>
+      <url>http://yoursite.com/2016/07/21/base64_C/</url>
+      <content type="html"><![CDATA[<p>首先谢谢这位大神的<a href="https://github.com/zhicheng" target="_blank" rel="external">github</a>,再谢谢这位大神分享的base64的C语言实现代码，库的地址在这里<a href="https://github.com/zhicheng/base64" target="_blank" rel="external">base64</a>。</p>
+<p>其中提供的接口非常的简单明了<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BASE64_ENCODE_OUT_SIZE(s)	(((s) + 2) / 3 * 4)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BASE64_DECODE_OUT_SIZE(s)	(((s)) / 4 * 3)</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">base64_encode</span><span class="params">(<span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *in, <span class="keyword">unsigned</span> <span class="keyword">int</span> inlen, <span class="keyword">char</span> *out)</span></span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">base64_decode</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *in, <span class="keyword">unsigned</span> <span class="keyword">int</span> inlen,<span class="keyword">char</span> *out)</span></span>;</div></pre></td></tr></table></figure></p>
+<p>但是其中有一个问题，base64_decode();函数在返回时并没有返回解码后的字节数，在使用上会存在不方便的情况。</p>
+<p>故，我把这个函数稍加修改之后,在解码之后返回解码数组的长度，在使用上就方便很多了，代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">base64_decode</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *in, <span class="keyword">unsigned</span> <span class="keyword">int</span> inlen, <span class="keyword">char</span> *out)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> i, j;</div><div class="line"></div><div class="line">	<span class="keyword">for</span> (i = j = <span class="number">0</span>; i &lt; inlen; i++) &#123;</div><div class="line">		<span class="keyword">int</span> c;</div><div class="line">		<span class="keyword">int</span> s = i % <span class="number">4</span>; 			<span class="comment">/* from 8/gcd(6, 8) */</span></div><div class="line"></div><div class="line">		<span class="keyword">if</span> (in[i] == <span class="string">'='</span>)</div><div class="line">			<span class="keyword">return</span> j;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (in[i] &lt; BASE64DE_FIRST || in[i] &gt; BASE64DE_LAST ||</div><div class="line">		    (c = base64de[in[i] - BASE64DE_FIRST]) == <span class="number">-1</span>)</div><div class="line">			<span class="keyword">return</span> j;</div><div class="line"></div><div class="line">		<span class="keyword">switch</span> (s) &#123;</div><div class="line">		<span class="keyword">case</span> <span class="number">0</span>:</div><div class="line">			out[j] = ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &lt;&lt; <span class="number">2</span>) &amp; <span class="number">0xFF</span>;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		<span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">			out[j++] += ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x3</span>;</div><div class="line">			<span class="comment">/* if not last char with padding */</span></div><div class="line">			<span class="keyword">if</span> (i &lt; (inlen - <span class="number">3</span>) || in[inlen - <span class="number">2</span>] != <span class="string">'='</span>)</div><div class="line">				out[j] = ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &amp; <span class="number">0xF</span>) &lt;&lt; <span class="number">4</span>;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		<span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">			out[j++] += ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &gt;&gt; <span class="number">2</span>) &amp; <span class="number">0xF</span>;</div><div class="line">			<span class="comment">/* if not last char with padding */</span></div><div class="line">			<span class="keyword">if</span> (i &lt; (inlen - <span class="number">2</span>) || in[inlen - <span class="number">1</span>] != <span class="string">'='</span>)</div><div class="line">				out[j] =  ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)c &amp; <span class="number">0x3</span>) &lt;&lt; <span class="number">6</span>;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		<span class="keyword">case</span> <span class="number">3</span>:</div><div class="line">			out[j++] += (<span class="keyword">unsigned</span> <span class="keyword">char</span>)c;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> j;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> input[] = <span class="string">"pleasure."</span>;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> decode[<span class="number">13</span>];</div><div class="line">	<span class="keyword">char</span> output[<span class="number">13</span>];</div><div class="line">	<span class="keyword">uint16_t</span> len_decode = <span class="number">0</span>;</div><div class="line">	bzero(output, <span class="keyword">sizeof</span>(output));</div><div class="line">	base64_encode(input, <span class="keyword">sizeof</span>(input) - <span class="number">1</span>, output);</div><div class="line">	len_decode = base64_decode(output, <span class="keyword">sizeof</span>(output) - <span class="number">1</span>, decode);</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 ]]></content>
     </entry>
     

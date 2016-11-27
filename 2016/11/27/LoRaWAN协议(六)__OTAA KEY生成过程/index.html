@@ -84,16 +84,28 @@
 
 
 
-<meta name="description" content="Answer in the wind">
+<meta name="description" content="前言通过OTAA方式入网的设备，通讯时使用的KEY需要通过服务器获得，在入网之间，设备无法通讯。
+相关的OTAA入网流程已经在上一章中讲解过了，有兴趣的可以去看看LoRaWAN协议(五)__OTAA入网方式详述
+这一章讲解的是OTAA中的密钥生成过程。
+其中使用到的库函数都是从semtech的官方库中来的,官方库代码链接:LoRaMac-node。
+详解设备在通讯时，会使用的密钥有NwkSKey">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LoRaWAN协议(六)__OTAA KEY生成过程">
 <meta property="og:url" content="http://yoursite.com/2016/11/27/LoRaWAN协议(六)__OTAA KEY生成过程/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="Answer in the wind">
-<meta property="og:updated_time" content="2016-11-27T08:30:46.899Z">
+<meta property="og:description" content="前言通过OTAA方式入网的设备，通讯时使用的KEY需要通过服务器获得，在入网之间，设备无法通讯。
+相关的OTAA入网流程已经在上一章中讲解过了，有兴趣的可以去看看LoRaWAN协议(五)__OTAA入网方式详述
+这一章讲解的是OTAA中的密钥生成过程。
+其中使用到的库函数都是从semtech的官方库中来的,官方库代码链接:LoRaMac-node。
+详解设备在通讯时，会使用的密钥有NwkSKey">
+<meta property="og:updated_time" content="2016-11-27T11:18:47.556Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LoRaWAN协议(六)__OTAA KEY生成过程">
-<meta name="twitter:description" content="Answer in the wind">
+<meta name="twitter:description" content="前言通过OTAA方式入网的设备，通讯时使用的KEY需要通过服务器获得，在入网之间，设备无法通讯。
+相关的OTAA入网流程已经在上一章中讲解过了，有兴趣的可以去看看LoRaWAN协议(五)__OTAA入网方式详述
+这一章讲解的是OTAA中的密钥生成过程。
+其中使用到的库函数都是从semtech的官方库中来的,官方库代码链接:LoRaMac-node。
+详解设备在通讯时，会使用的密钥有NwkSKey">
 
 
 
@@ -364,7 +376,182 @@
       
 
       
-        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通过OTAA方式入网的设备，通讯时使用的KEY需要通过服务器获得，在入网之间，设备无法通讯。</p>
+<p>相关的OTAA入网流程已经在上一章中讲解过了，有兴趣的可以去看看<strong>LoRaWAN协议(五)__OTAA入网方式详述</strong></p>
+<p>这一章讲解的是OTAA中的密钥生成过程。</p>
+<p>其中使用到的库函数都是从semtech的官方库中来的,官方库代码链接:<a href="https://github.com/Lora-net/LoRaMac-node" target="_blank" rel="external">LoRaMac-node</a>。</p>
+<h2 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h2><p>设备在通讯时，会使用的密钥有NwkSKey 和AppSKey。</p>
+<p>生成的公式如下:</p>
+<ul>
+<li>NwkSKey = aes128_encrypt(AppKey, 0x01 | AppNonce | NetID | DevNonce | pad16)</li>
+<li>AppSKey = aes128_encrypt(AppKey, 0x02 | AppNonce | NetID | DevNonce | pad16)</li>
+</ul>
+<p>可以看到相关的参数一共有四个：<br>1.AppNonce<br>2.NetID<br>3.DevNonce<br>4.pad16</p>
+<p>其中AppNonce、NetID、pad16 是产生于服务器的，DevNonce产生于node设备本身。</p>
+<p>还是使用LoRaWAN协议(五)这篇文章中使用的包数据来进行分析。</p>
+<p><strong>这里，我们调用官方库的接口,因为我们这里只是熟悉协议，并不是要研究Key的生成算法。</strong></p>
+<p><strong>如果不明白数据协议的，可以去看LoRaWAN协议(五)这篇文章</strong></p>
+<h3 id="提取DevNonce"><a href="#提取DevNonce" class="headerlink" title="提取DevNonce"></a>提取DevNonce</h3><p>1.GW-&gt;NS JSON包，从中提取出来DevNonce，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"rxpk"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"tmst"</span>: <span class="number">532505620</span>,</div><div class="line">            <span class="string">"chan"</span>: <span class="number">6</span>,</div><div class="line">            <span class="string">"rfch"</span>: <span class="number">0</span>,</div><div class="line">            <span class="string">"freq"</span>: <span class="number">471.9</span>,</div><div class="line">            <span class="string">"stat"</span>: <span class="number">1</span>,</div><div class="line">            <span class="string">"modu"</span>: <span class="string">"LORA"</span>,</div><div class="line">            <span class="string">"datr"</span>: <span class="string">"SF12BW125"</span>,</div><div class="line">            <span class="string">"codr"</span>: <span class="string">"4/5"</span>,</div><div class="line">            <span class="string">"lsnr"</span>: <span class="number">-17</span>,</div><div class="line">            <span class="string">"rssi"</span>: <span class="number">-81</span>,</div><div class="line">            <span class="string">"size"</span>: <span class="number">23</span>,</div><div class="line">            <span class="string">"data"</span>: <span class="string">"AAEAACAAxSYsFhAWIAB3SgBUe0At4Zo="</span></div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>data为MAC层数据，为join_request message,其数据包格式为 </p>
+<table>
+<thead>
+<tr>
+<th>MHDR</th>
+<th>APPEUI</th>
+<th>DevEUI</th>
+<th>DevNonce</th>
+<th>MIC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1字节</td>
+<td>8字节</td>
+<td>8字节</td>
+<td>2字节</td>
+<td>4字节</td>
+</tr>
+</tbody>
+</table>
+<p>base64解码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">\x00 \x01 \x00 \x00 \x20 \x00 \xc5 \x26 </div><div class="line">\x2c \x16 \x10 \x16 \x20 \x00 \x77 \x4a </div><div class="line">\x00 \x54 \x7b \x40 \x2d \xe1 \x9a</div></pre></td></tr></table></figure></p>
+<p>得到的数据:</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MHDR</td>
+<td>\x00</td>
+</tr>
+<tr>
+<td>AppEUI</td>
+<td>\x01 \x00 \x00 \x20 \x00 \xc5 \x26 \x2c</td>
+</tr>
+<tr>
+<td>DevEUI</td>
+<td>\x16 \x10 \x16 \x20 \x00 \x77 \x4a \x00</td>
+</tr>
+<tr>
+<td>DevNonce</td>
+<td>\x54 \x7b</td>
+</tr>
+<tr>
+<td>MIC</td>
+<td>\x40 \x2d \xe1 \x9a</td>
+</tr>
+</tbody>
+</table>
+<p><strong>可以得到DevNonce的值为0x7b54</strong></p>
+<h3 id="提取AppNonce、NetID、CFList"><a href="#提取AppNonce、NetID、CFList" class="headerlink" title="提取AppNonce、NetID、CFList"></a>提取AppNonce、NetID、CFList</h3><p>2.NS-&gt;GW JSON包,其中txpk.data为包含了MAC层数据内容<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"txpk"</span>: &#123;</div><div class="line">        <span class="string">"tmst"</span>: <span class="number">537505620</span>,</div><div class="line">        <span class="string">"freq"</span>: <span class="number">471.9</span>,</div><div class="line">        <span class="string">"rfch"</span>: <span class="number">0</span>,</div><div class="line">        <span class="string">"powe"</span>: <span class="number">14</span>,</div><div class="line">        <span class="string">"modu"</span>: <span class="string">"LORA"</span>,</div><div class="line">        <span class="string">"datr"</span>: <span class="string">"SF12BW125"</span>,</div><div class="line">        <span class="string">"codr"</span>: <span class="string">"4/5"</span>,</div><div class="line">        <span class="string">"ipol"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"size"</span>: <span class="number">17</span>,</div><div class="line">        <span class="string">"data"</span>: <span class="string">"IPqAKXQ7LS/CmYVCDy8K3k4"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>data base64 decode:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">\x20 \xfa \x80 \x29 \x74 \x3b \x2d \x2f </div><div class="line">\xc2 \x99 \x85 \x42 \x0f \x2f \x0a \xde </div><div class="line">\x4e</div></pre></td></tr></table></figure></p>
+<p>根据LoRaWAN specification 可知，join_accept message的格式如下:</p>
+<table>
+<thead>
+<tr>
+<th>MHDR</th>
+<th>AppNonce</th>
+<th>NetID</th>
+<th>DevAddr</th>
+<th>DLSettings</th>
+<th>RxDelay</th>
+<th>CFList(pad16)</th>
+<th>MIC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1字节</td>
+<td>3字节</td>
+<td>3字节</td>
+<td>4字节</td>
+<td>4字节</td>
+<td>1字节</td>
+<td>0/16字节</td>
+<td>4字节</td>
+</tr>
+</tbody>
+</table>
+<p>但是这个数据是加密的，需要使用AppKey进行解密</p>
+<p>所以，我们需要先使用AppKey解密join_accept message</p>
+<p>payload为join_accept message，此处为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">\x20 \xfa \x80 \x29 \x74 \x3b \x2d \x2f </div><div class="line">\xc2 \x99 \x85 \x42 \x0f \x2f \x0a \xde </div><div class="line">\x4e</div></pre></td></tr></table></figure></p>
+<p>解密之后的数据存放在<strong>LoRaMacRxPayload数组中</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">uint8_t</span> LoRaMacAppKey[] = &#123;<span class="number">0x2B</span>, <span class="number">0x7E</span>, <span class="number">0x15</span>, <span class="number">0x16</span>, <span class="number">0x28</span>, <span class="number">0xAE</span>, <span class="number">0xD2</span>, <span class="number">0xA6</span>, <span class="number">0xAB</span>, <span class="number">0xF7</span>, <span class="number">0x15</span>, <span class="number">0x88</span>, <span class="number">0x09</span>, <span class="number">0xCF</span>, <span class="number">0x4F</span>, <span class="number">0x3C</span>&#125;;</div><div class="line"></div><div class="line">LoRaMacJoinDecrypt( payload + <span class="number">1</span>, size - <span class="number">1</span>, LoRaMacAppKey, LoRaMacRxPayload + <span class="number">1</span> );</div><div class="line"></div><div class="line">LoRaMacRxPayload[<span class="number">0</span>] = payload[<span class="number">0</span>];</div></pre></td></tr></table></figure>
+<p>可以得到解析之后的数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">0x20 0x43 0x75 0xcb 0x24 0x0  0x0  0x2 </div><div class="line">0x0  0x0  0x48 0x3  0x0  0x82 0xc9 0xd0 </div><div class="line">0xf9</div></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>解密前</th>
+<th>解密后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MHDR</td>
+<td>\x20</td>
+<td>\x20</td>
+</tr>
+<tr>
+<td>AppNonce</td>
+<td>\xfa \x80 \x29</td>
+<td>\x43 \x75 \xcb</td>
+</tr>
+<tr>
+<td>NetID</td>
+<td>\x74 \x3b \x2d</td>
+<td>\x24 \x0  \x0</td>
+</tr>
+<tr>
+<td>DevAddr</td>
+<td>\x2f \xc2 \x99 \x85</td>
+<td>\x2  \x0  \x0 \x48</td>
+</tr>
+<tr>
+<td>DLSettings</td>
+<td>\x42</td>
+<td>\x3</td>
+</tr>
+<tr>
+<td>RxDelay</td>
+<td>\x0f</td>
+<td>\x0</td>
+</tr>
+<tr>
+<td>CFList(pad16)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MIC</td>
+<td>\x2f \x0a \xde \x4e</td>
+<td>\x82 \xc9 \xd0 \xf9</td>
+</tr>
+</tbody>
+</table>
+<p>根据协议，我们可以得到:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">AppNonce:\x43 \x75 \xcb</div><div class="line">NetID:\x24 \x0  \x0</div><div class="line">DevNonce:0x7b54</div><div class="line">pad16:没有</div></pre></td></tr></table></figure>
+<p>至此，我们就具备生成密钥的所有参数了</p>
+<h3 id="产生AppSKey-和-NwkSKey"><a href="#产生AppSKey-和-NwkSKey" class="headerlink" title="产生AppSKey 和 NwkSKey"></a>产生AppSKey 和 NwkSKey</h3><p>最后，我们再调用<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LoRaMacJoinComputeSKeys( LoRaMacAppKey, LoRaMacRxPayload + <span class="number">1</span>, LoRaMacDevNonce, LoRaMacNwkSKey, LoRaMacAppSKey );</div></pre></td></tr></table></figure></p>
+<p>就可以生成AppSKey和NwkSKey了。</p>
+<p>得到的NwkSKey为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">0xde 0x3 0x33 0x1a 0xeb 0x42 0x54 0xe9 </div><div class="line">0x72 0x7b 0x6f 0xaf 0xbf 0x13 0xdb 0x3d</div></pre></td></tr></table></figure></p>
+<p>得到的AppSKey为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">0xe0 0x46 0x9e 0x44 0x9c 0x57 0x47 0x8c </div><div class="line">0xbe 0xa7 0x25 0xda 0x84 0xf0 0x13 0x97</div></pre></td></tr></table></figure></p>
+<p>对比之间抓包的AS-&gt;NS的入网信息</p>
+<p>AS-&gt;NS 发送入网信息,可以知道，生成的密码是正确的了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"join"</span>: &#123;</div><div class="line">        <span class="string">"moteeui"</span>: <span class="string">"4a770020161016"</span>,</div><div class="line">        <span class="string">"complete"</span>: &#123;</div><div class="line">            <span class="string">"frame"</span>: <span class="string">"IPqAKXQ7LS/CmYVCDy8K3k4"</span>,</div><div class="line">            <span class="string">"networkkey"</span>: <span class="string">"de03331aeb4254e9727b6fafbf13db3d"</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当然最好是进行实际负载的验证，我也写了两个小程序进行了验证，证明了这两个Key确实是正确的。</p>
+<p>两个小程序的链接:</p>
+<ul>
+<li><a href="https://github.com/AnswerInTheWind/LoRaWAN/tree/master/decode_aes_base64" target="_blank" rel="external">decode_aes_base64</a></li>
+<li><a href="https://github.com/AnswerInTheWind/LoRaWAN/tree/master/generate_key" target="_blank" rel="external">generate_key</a></li>
+</ul>
+<p>至此，我所知的OTAA入网方面的协议就完了。</p>
+<p><strong>如果本文有什么错误，或者对LoRaWAN有什么不理解的，欢迎联系我，邮箱(454626653@qq.com),在左边也有链接，谢谢大家。
+</strong></p>
+
       
     </div>
 
@@ -558,7 +745,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详解"><span class="nav-number">2.</span> <span class="nav-text">详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#提取DevNonce"><span class="nav-number">2.1.</span> <span class="nav-text">提取DevNonce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提取AppNonce、NetID、CFList"><span class="nav-number">2.2.</span> <span class="nav-text">提取AppNonce、NetID、CFList</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#产生AppSKey-和-NwkSKey"><span class="nav-number">2.3.</span> <span class="nav-text">产生AppSKey 和 NwkSKey</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
