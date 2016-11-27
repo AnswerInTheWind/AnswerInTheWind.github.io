@@ -85,18 +85,18 @@
 
 
 <meta name="description" content="前言OTAA(Over-The-Air Activation)，是LoRaWAN的一种空中入网方式。当node在上电的时候处于非入网状态时，需要先入网才能和服务器进行通信。其操作就是node发送join_request message，请求入网，然后服务器同意入网，并且返回Join-accept message，node再对信息进行解析，获取通信参数，这样就可以和服务器通信了。
-OTAA方式入网步">
+顺便分享几个工具网">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LoRaWAN协议(五)__OTAA入网方式详述">
 <meta property="og:url" content="http://yoursite.com/2016/11/27/LoRaWAN协议(五)__OTAA入网方式详述/index.html">
 <meta property="og:site_name" content="陈均奎">
 <meta property="og:description" content="前言OTAA(Over-The-Air Activation)，是LoRaWAN的一种空中入网方式。当node在上电的时候处于非入网状态时，需要先入网才能和服务器进行通信。其操作就是node发送join_request message，请求入网，然后服务器同意入网，并且返回Join-accept message，node再对信息进行解析，获取通信参数，这样就可以和服务器通信了。
-OTAA方式入网步">
-<meta property="og:updated_time" content="2016-11-27T07:17:13.868Z">
+顺便分享几个工具网">
+<meta property="og:updated_time" content="2016-11-27T07:23:08.837Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LoRaWAN协议(五)__OTAA入网方式详述">
 <meta name="twitter:description" content="前言OTAA(Over-The-Air Activation)，是LoRaWAN的一种空中入网方式。当node在上电的时候处于非入网状态时，需要先入网才能和服务器进行通信。其操作就是node发送join_request message，请求入网，然后服务器同意入网，并且返回Join-accept message，node再对信息进行解析，获取通信参数，这样就可以和服务器通信了。
-OTAA方式入网步">
+顺便分享几个工具网">
 
 
 
@@ -368,6 +368,12 @@ OTAA方式入网步">
 
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>OTAA(Over-The-Air Activation)，是LoRaWAN的一种空中入网方式。当node在上电的时候处于非入网状态时，需要先入网才能和服务器进行通信。其操作就是node发送join_request message，请求入网，然后服务器同意入网，并且返回Join-accept message，node再对信息进行解析，获取通信参数，这样就可以和服务器通信了。</p>
+<p>顺便分享几个工具网站给大家:</p>
+<ol>
+<li><a href="http://tool.lu/hexstr/" target="_blank" rel="external">HEX/字符串转换</a></li>
+<li><a href="http://www.bejson.com/" target="_blank" rel="external">JSON校验</a></li>
+<li><a href="http://www1.tc711.com/tool/BASE64.htm" target="_blank" rel="external">BASE64编码/解码</a></li>
+</ol>
 <h2 id="OTAA方式入网步骤"><a href="#OTAA方式入网步骤" class="headerlink" title="OTAA方式入网步骤"></a>OTAA方式入网步骤</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>node端在做OTAA入网之前，需要先具备三个参数：</p>
 <ul>
 <li>APPEUI    node自定义的8字节长地址</li>
