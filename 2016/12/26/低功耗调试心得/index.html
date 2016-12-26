@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LoRaWAN,数据结构," />
+  <meta name="keywords" content="MCU外设," />
 
 
 
@@ -84,22 +84,43 @@
 
 
 
-<meta name="description" content="近日在阅读semtech的Lora-net/LoRaMac-node。此代码是LoRaWAN MAC层的node段的代码。
-此代码中构建了一个定时器链表，此链表构建得非常的巧妙。通过对源码的阅读，明白了其底层的实现原理，现在讲解一下，和大家分享。
-此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整">
+<meta name="description" content="最近调试的设备都是用电池供电的，所以电池的消耗显得非常的重要。
+之前在调试低功耗的路上走过一些坑，现在分享一些最近的调试心得。
+心得
+休眠之前，不用于唤醒的引脚全部设置成 输入-高阻态
+
+高阻态可以近似的理解成 引脚断开与连接电路状态。
+
+休眠之前，如不需要RTC定时唤醒，则把RTC关闭
+
+休眠唤醒之后，设备会从休眠时的下一个语句开始执行，注意恢复引脚。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LoRaWAN源码阅读笔记————RTC闹钟链表的实现">
-<meta property="og:url" content="http://yoursite.com/2016/10/10/semtech_LoRaWAN_timer/index.html">
+<meta property="og:title" content="低功耗调试心得">
+<meta property="og:url" content="http://yoursite.com/2016/12/26/低功耗调试心得/index.html">
 <meta property="og:site_name" content="陈均奎">
-<meta property="og:description" content="近日在阅读semtech的Lora-net/LoRaMac-node。此代码是LoRaWAN MAC层的node段的代码。
-此代码中构建了一个定时器链表，此链表构建得非常的巧妙。通过对源码的阅读，明白了其底层的实现原理，现在讲解一下，和大家分享。
-此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整">
-<meta property="og:updated_time" content="2016-10-11T16:02:07.653Z">
+<meta property="og:description" content="最近调试的设备都是用电池供电的，所以电池的消耗显得非常的重要。
+之前在调试低功耗的路上走过一些坑，现在分享一些最近的调试心得。
+心得
+休眠之前，不用于唤醒的引脚全部设置成 输入-高阻态
+
+高阻态可以近似的理解成 引脚断开与连接电路状态。
+
+休眠之前，如不需要RTC定时唤醒，则把RTC关闭
+
+休眠唤醒之后，设备会从休眠时的下一个语句开始执行，注意恢复引脚。">
+<meta property="og:updated_time" content="2016-12-26T13:37:26.044Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LoRaWAN源码阅读笔记————RTC闹钟链表的实现">
-<meta name="twitter:description" content="近日在阅读semtech的Lora-net/LoRaMac-node。此代码是LoRaWAN MAC层的node段的代码。
-此代码中构建了一个定时器链表，此链表构建得非常的巧妙。通过对源码的阅读，明白了其底层的实现原理，现在讲解一下，和大家分享。
-此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整">
+<meta name="twitter:title" content="低功耗调试心得">
+<meta name="twitter:description" content="最近调试的设备都是用电池供电的，所以电池的消耗显得非常的重要。
+之前在调试低功耗的路上走过一些坑，现在分享一些最近的调试心得。
+心得
+休眠之前，不用于唤醒的引脚全部设置成 输入-高阻态
+
+高阻态可以近似的理解成 引脚断开与连接电路状态。
+
+休眠之前，如不需要RTC定时唤醒，则把RTC关闭
+
+休眠唤醒之后，设备会从休眠时的下一个语句开始执行，注意恢复引脚。">
 
 
 
@@ -120,9 +141,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/10/10/semtech_LoRaWAN_timer/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/12/26/低功耗调试心得/"/>
 
-  <title> LoRaWAN源码阅读笔记————RTC闹钟链表的实现 | 陈均奎 </title>
+  <title> 低功耗调试心得 | 陈均奎 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -295,7 +316,7 @@
             
             
               
-                LoRaWAN源码阅读笔记————RTC闹钟链表的实现
+                低功耗调试心得
               
             
           </h1>
@@ -307,8 +328,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-10T00:00:00+08:00" content="2016-10-10">
-              2016-10-10
+            <time itemprop="dateCreated" datetime="2016-12-26T21:37:25+08:00" content="2016-12-26">
+              2016-12-26
             </time>
           </span>
 
@@ -321,8 +342,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/LoRaWAN/" itemprop="url" rel="index">
-                    <span itemprop="name">LoRaWAN</span>
+                  <a href="/categories/MCU/" itemprop="url" rel="index">
+                    <span itemprop="name">MCU</span>
                   </a>
                 </span>
 
@@ -337,8 +358,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/10/10/semtech_LoRaWAN_timer/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/10/semtech_LoRaWAN_timer/" itemprop="commentsCount"></span>
+                <a href="/2016/12/26/低功耗调试心得/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/26/低功耗调试心得/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -348,7 +369,7 @@
 
           
           
-             <span id="/2016/10/10/semtech_LoRaWAN_timer/" class="leancloud_visitors" data-flag-title="LoRaWAN源码阅读笔记————RTC闹钟链表的实现">
+             <span id="/2016/12/26/低功耗调试心得/" class="leancloud_visitors" data-flag-title="低功耗调试心得">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -370,167 +391,17 @@
       
 
       
-        <p>近日在阅读semtech的<a href="https://github.com/Lora-net/LoRaMac-node" target="_blank" rel="external">Lora-net/LoRaMac-node</a>。此代码是LoRaWAN MAC层的node段的代码。</p>
-<p>此代码中构建了一个定时器链表，此链表构建得非常的巧妙。<br>通过对源码的阅读，明白了其底层的实现原理，现在讲解一下，和大家分享。</p>
-<p>此定时器链表底层使用的是RTC的闹钟(Alarm)机制(将日历时间转换成时间戳时间)，而非使用一个定时器产生一个固定的定时(比如1ms)，然后定时刷新整个链表。</p>
-<p>用rtc的方法相比较嘀嗒定时器定时的方法，工作效率会明显提升，并不会因为链表中定时器数目的增加使得花费在刷新定时器上的时间增加，因为不需要遍历整个链表。但代码的实现难度会较高</p>
-<p>假如程序刚开始执行，而且定时器链表为空，此时有４个定时事件需要放入链表，分别为　A 10ms B 30ms C 20ms D 40ms，</p>
-<p>RTC闹钟链表：<br>其存储的结果会是这样:</p>
-<table>
-<thead>
-<tr>
-<th>事件名称</th>
-<th>定时时间</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>10</td>
-</tr>
-<tr>
-<td>C</td>
-<td>10</td>
-</tr>
-<tr>
-<td>B</td>
-<td>10</td>
-</tr>
-<tr>
-<td>D</td>
-<td>10</td>
-</tr>
-</tbody>
-</table>
-<p>而嘀嗒定时链表：<br>其存储的结果会是这样:</p>
-<table>
-<thead>
-<tr>
-<th>事件名称</th>
-<th>定时时间</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>10</td>
-</tr>
-<tr>
-<td>B</td>
-<td>30</td>
-</tr>
-<tr>
-<td>C</td>
-<td>20</td>
-</tr>
-<tr>
-<td>D</td>
-<td>40</td>
-</tr>
-</tbody>
-</table>
-<p>当时间过了5ms，RTC闹钟链表中存储的数据并不会发生任何变化，因为它是以RTC的闹钟来作为刷新依据的，而嘀嗒定时链表中的数据就全发生了变化<br>嘀嗒定时链表 变化得到情况如下：</p>
-<table>
-<thead>
-<tr>
-<th>事件名称</th>
-<th>定时时间</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>5</td>
-</tr>
-<tr>
-<td>B</td>
-<td>25</td>
-</tr>
-<tr>
-<td>C</td>
-<td>15</td>
-</tr>
-<tr>
-<td>D</td>
-<td>35</td>
-</tr>
-</tbody>
-</table>
-<p>再过5ms，此时A事件的定时时间就到了，需要被执行，在RTC闹钟链表中的表现是RTC Alarm中断触发，在嘀嗒定时链表中的表现是A事件的定时时间逐渐减少至0。当A事件被执行之后两种定时器链表中的存储都发生了变化，都是原先的链表的头指针指向原先的第二个节点，而原先的头节点被释放。</p>
-<p>还是上述的例子，在定时器执行了7ms的时候，这时有个事件需要插入，为E 24ms，此时，两种链表对于此事件器的插入操作也会明显不同。</p>
-<p>RTC闹钟插入之后</p>
-<table>
-<thead>
-<tr>
-<th>事件名称</th>
-<th>定时时间</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>10</td>
-</tr>
-<tr>
-<td>C</td>
-<td>10</td>
-</tr>
-<tr>
-<td>B</td>
-<td>10</td>
-</tr>
-<tr>
-<td>E</td>
-<td>1</td>
-</tr>
-<tr>
-<td>D</td>
-<td>9</td>
-</tr>
-</tbody>
-</table>
-<p>而嘀嗒定时器在插入之后为</p>
-<table>
-<thead>
-<tr>
-<th>事件名称</th>
-<th>定时时间</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>3</td>
-</tr>
-<tr>
-<td>B</td>
-<td>13</td>
-</tr>
-<tr>
-<td>C</td>
-<td>23</td>
-</tr>
-<tr>
-<td>D</td>
-<td>33</td>
-</tr>
-<tr>
-<td>E</td>
-<td>24</td>
-</tr>
-</tbody>
-</table>
-<p>以下是RTC闹钟的部分插入代码，其中可以看到他的定时器插入的逻辑<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">elapsedTime = TimerGetValue( );<span class="comment">//获取距离上一次设置闹钟的时间</span></div><div class="line">remainingTime = TimerListHead-&gt;Timestamp - elapsedTime;<span class="comment">//remainingTime表示剩余的头节点中的事件剩余的定时事件，因为此链表是按顺序存储的，所以头节点中的定时时间一定是最少的</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">TimerInsertNewHeadTimer</span><span class="params">( TimerEvent_t *obj, <span class="keyword">uint32_t</span> remainingTime )</span></span></div><div class="line">&#123;</div><div class="line">    TimerEvent_t* cur = TimerListHead;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>( cur != <span class="literal">NULL</span> )<span class="comment">//表头不为空，将新的定时器插入之前，将原先表头的定时器时间减去新定时器的定时时间，确保原先的定时器任务定时正常</span></div><div class="line">    &#123;</div><div class="line">        cur-&gt;Timestamp = remainingTime - obj-&gt;Timestamp;</div><div class="line">        cur-&gt;IsRunning = <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    obj-&gt;Next = cur;</div><div class="line">    obj-&gt;IsRunning = <span class="literal">true</span>;</div><div class="line">    TimerListHead = obj;</div><div class="line">    TimerSetTimeout( TimerListHead );<span class="comment">//设置超时，等时间到的时候，会发生RTC报警</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>另外还有一点，此RTC中的1s并非物理时间的1s，在此具体的时间基准如下:<br>    此项目中，使用的RTC的时钟源为32.768Khz的LSE，通过AsynchPrediv和SynchPrediv分频得到2.048KHz的RTCtick，计算公式为32.768/(3+1)/(3+1) = 2.048;<br>相关的配置代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">RtcInit</span><span class="params">( <span class="keyword">void</span> )</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	RtcHandle.Init.AsynchPrediv = <span class="number">3</span>;</div><div class="line">    RtcHandle.Init.SynchPrediv = <span class="number">3</span>;	</div><div class="line">	...</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*!</span></div><div class="line"> * RTC Time base in ms</div><div class="line"> */</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RTC_ALARM_TICK_DURATION                     0.48828125      <span class="comment">// 1 tick every 488us</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RTC_ALARM_TICK_PER_MS                       2.048           <span class="comment">// 1/2.048 = tick duration in ms</span></span></div></pre></td></tr></table></figure></p>
-<p>由于原本每个tick相当于1s，而在这里，每个tick相当于0.48828125ms，小于1ms，所以在程序中能够实现ms级的定时任务。</p>
-<p>RTC定时器的用法主要分为三步：</p>
-<pre><code>1. 初始化，注册回调函数
-    void TimerInit( TimerEvent_t *obj, void ( *callback )( void ) )//设置回调函数
-2. 设置定时时间
-    void TimerSetValue( TimerEvent_t *obj, uint32_t value )
-3. 开启定时时间
-    void TimerStart( TimerEvent_t *obj )
-</code></pre>
+        <p>最近调试的设备都是用电池供电的，所以电池的消耗显得非常的重要。</p>
+<p>之前在调试低功耗的路上走过一些坑，现在分享一些最近的调试心得。</p>
+<h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><ol>
+<li>休眠之前，不用于唤醒的引脚全部设置成 <strong>输入-高阻态</strong></li>
+</ol>
+<p>高阻态可以近似的理解成 引脚断开与连接电路状态。</p>
+<ol>
+<li>休眠之前，如不需要RTC定时唤醒，则把RTC关闭</li>
+</ol>
+<p>休眠唤醒之后，设备会从休眠时的下一个语句开始执行，注意恢复引脚。</p>
+
       
     </div>
 
@@ -552,9 +423,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/LoRaWAN/" rel="tag">#LoRaWAN</a>
-          
-            <a href="/tags/数据结构/" rel="tag">#数据结构</a>
+            <a href="/tags/MCU外设/" rel="tag">#MCU外设</a>
           
         </div>
       
@@ -563,17 +432,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/29/LoRaWAN协议(二)--LoRaWAN MAC解析/" rel="next" title="LoRaWAN架构解析(二)--LoRaWAN MAC解析">
-                <i class="fa fa-chevron-left"></i> LoRaWAN架构解析(二)--LoRaWAN MAC解析
+              <a href="/2016/11/27/LoRaWAN协议(六)__OTAA KEY生成过程/" rel="next" title="LoRaWAN协议(六)__OTAA KEY生成过程">
+                <i class="fa fa-chevron-left"></i> LoRaWAN协议(六)__OTAA KEY生成过程
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/11/STM32时钟源配置/" rel="prev" title="STM32时钟配置--系统时钟、RTC时钟、IWDG时钟">
-                STM32时钟配置--系统时钟、RTC时钟、IWDG时钟 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -588,10 +453,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/10/10/semtech_LoRaWAN_timer/"
-     data-title="LoRaWAN源码阅读笔记————RTC闹钟链表的实现"
+        <div class="ds-share flat" data-thread-key="2016/12/26/低功耗调试心得/"
+     data-title="低功耗调试心得"
      data-content=""
-     data-url="http://yoursite.com/2016/10/10/semtech_LoRaWAN_timer/">
+     data-url="http://yoursite.com/2016/12/26/低功耗调试心得/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -618,8 +483,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/10/10/semtech_LoRaWAN_timer/"
-           data-title="LoRaWAN源码阅读笔记————RTC闹钟链表的实现" data-url="http://yoursite.com/2016/10/10/semtech_LoRaWAN_timer/">
+      <div class="ds-thread" data-thread-key="2016/12/26/低功耗调试心得/"
+           data-title="低功耗调试心得" data-url="http://yoursite.com/2016/12/26/低功耗调试心得/">
       </div>
     
   </div>
@@ -730,7 +595,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#心得"><span class="nav-number">1.</span> <span class="nav-text">心得</span></a></li></ol></div>
             
           </div>
         </section>

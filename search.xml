@@ -4,6 +4,22 @@
   
     
     <entry>
+      <title><![CDATA[低功耗调试心得]]></title>
+      <url>http://yoursite.com/2016/12/26/%E4%BD%8E%E5%8A%9F%E8%80%97%E8%B0%83%E8%AF%95%E5%BF%83%E5%BE%97/</url>
+      <content type="html"><![CDATA[<p>最近调试的设备都是用电池供电的，所以电池的消耗显得非常的重要。</p>
+<p>之前在调试低功耗的路上走过一些坑，现在分享一些最近的调试心得。</p>
+<h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><ol>
+<li>休眠之前，不用于唤醒的引脚全部设置成 <strong>输入-高阻态</strong></li>
+</ol>
+<p>高阻态可以近似的理解成 引脚断开与连接电路状态。</p>
+<ol>
+<li>休眠之前，如不需要RTC定时唤醒，则把RTC关闭</li>
+</ol>
+<p>休眠唤醒之后，设备会从休眠时的下一个语句开始执行，注意恢复引脚。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[LoRaWAN协议(六)__OTAA KEY生成过程]]></title>
       <url>http://yoursite.com/2016/11/27/LoRaWAN%E5%8D%8F%E8%AE%AE(%E5%85%AD)__OTAA%20KEY%E7%94%9F%E6%88%90%E8%BF%87%E7%A8%8B/</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通过OTAA方式入网的设备，通讯时使用的KEY需要通过服务器获得，在入网之间，设备无法通讯。</p>
